@@ -15,4 +15,20 @@
 		"key": "ctrl+j",
 		"command": "-workbench.action.togglePanel",
 	},
+	{
+		"key": "alt+k w",
+		"command": "workbench.action.closeEditorsInGroup",
+	},
+	{
+		"key": "ctrl+k w",
+		"command": "-workbench.action.closeEditorsInGroup",
+	},
+	{
+		"key": "alt+k alt+w",
+		"command": "workbench.action.closeAllEditors",
+	},
+	{
+		"key": "ctrl+k ctrl+w",
+		"command": "-workbench.action.closeAllEditors",
+	},
 ]
