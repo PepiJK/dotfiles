@@ -13,7 +13,7 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.lineNumbers": "relative",
 	"workbench.startupEditor": "none",
-	"cSpell.userWords": ["Pumpr", "tailwindcss", "Transloco", "trivago", "tulln", "Vinothek", "weingut"],
+	"cSpell.userWords": ["Pepi", "Pumpr", "tailwindcss", "Transloco", "trivago", "tulln", "Vinothek", "weingut"],
 	"editor.fontFamily": "JetBrainsMono Nerd Font",
 	"window.titleBarStyle": "custom",
 	"git.autofetch": true,
@@ -23,6 +23,7 @@
 	"breadcrumbs.enabled": false,
 	"workbench.activityBar.location": "hidden",
 	"workbench.colorTheme": "Dark+",
+	"claudeCode.preferredLocation": "panel",
 
 	// VIM Settings
 	"vim.easymotion": true,
