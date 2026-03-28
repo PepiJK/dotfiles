@@ -1,0 +1,533 @@
+{
+	"files.eol": "\n",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": "explicit",
+		"source.fixAll": "explicit",
+	},
+	"editor.linkedEditing": true,
+	"editor.stickyScroll.enabled": true,
+	"editor.guides.bracketPairs": true,
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
+	"js/ts.suggest.completeFunctionCalls": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.lineNumbers": "relative",
+	"workbench.startupEditor": "none",
+	"cSpell.userWords": ["Pumpr", "tailwindcss", "Transloco", "trivago", "tulln", "Vinothek", "weingut"],
+	"editor.fontFamily": "JetBrainsMono Nerd Font",
+	"window.titleBarStyle": "custom",
+	"git.autofetch": true,
+	"workbench.iconTheme": "material-icon-theme",
+	"window.zoomLevel": 1,
+	"editor.minimap.enabled": false,
+	"breadcrumbs.enabled": false,
+	"workbench.activityBar.location": "hidden",
+	"workbench.colorTheme": "Dark+",
+
+	// VIM Settings
+	"vim.easymotion": true,
+	"vim.incsearch": true,
+	"vim.useSystemClipboard": true,
+	"vim.useCtrlKeys": true,
+	"vim.hlsearch": true,
+	"vim.insertModeKeyBindings": [],
+	"vim.normalModeKeyBindingsNonRecursive": [
+		// switch buffers
+		{ "before": ["<S-h>"], "commands": [":bprevious"] },
+		{ "before": ["<S-l>"], "commands": [":bnext"] },
+		// splits
+		{ "before": ["leader", "v"], "commands": [":vsplit"] },
+		{ "before": ["leader", "s"], "commands": [":split"] },
+		{
+			"before": ["<C-h>"],
+			"after": ["<C-w>", "h"],
+		},
+		{
+			"before": ["<C-j>"],
+			"after": ["<C-w>", "j"],
+		},
+		{
+			"before": ["<C-k>"],
+			"after": ["<C-w>", "k"],
+		},
+		{
+			"before": ["<C-l>"],
+			"after": ["<C-w>", "l"],
+		},
+		// workbench actions
+		{
+			"before": ["leader", "w"],
+			"commands": ["workbench.action.files.save"],
+		},
+		{ "before": ["leader", "q"], "commands": [":q!"] },
+		{
+			"before": ["<Leader>", "p"],
+			"commands": ["workbench.action.showCommands"],
+		},
+		{
+			"before": ["<Leader>", "t"],
+			"commands": ["workbench.action.gotoSymbol"],
+		},
+		{
+			"before": ["<Leader>", "g"],
+			"commands": ["workbench.view.scm"],
+		},
+		{
+			"before": ["<Leader>", "f"],
+			"commands": ["workbench.view.explorer"],
+		},
+		// misc
+		{
+			"before": ["<C-n>"],
+			"commands": [":nohl"],
+		},
+		{
+			"before": ["K"],
+			"commands": ["editor.action.showHover"],
+		},
+		{
+			"before": ["g", "i"],
+			"commands": ["editor.action.goToImplementation"],
+		},
+	],
+	"vim.leader": "<space>",
+	"vim.handleKeys": {
+		"<C-a>": false,
+		"<C-f>": false,
+		"<C-p>": false,
+		"<C-t>": false,
+		"<C-b>": false,
+		"<C-.>": false,
+		"<C-i>": false,
+	},
+	"extensions.experimental.affinity": {
+		"vscodevim.vim": 1,
+	},
+
+	// Prettier defaults
+	"prettier.singleQuote": false,
+	"prettier.endOfLine": "lf",
+	"prettier.tabWidth": 4,
+	"prettier.useTabs": true,
+	"prettier.printWidth": 120,
+	"prettier.singleAttributePerLine": true,
+
+	// vscode angular html styling
+	"vscode-angular-html.angularAndAngularMaterialElementTags": "#D7BA7D",
+	"vscode-angular-html.angularAnimationTriggerPrefix": "#D16969",
+	"vscode-angular-html.angularAnimationTriggerVariableName": "#B5CEA8",
+	"vscode-angular-html.angularBindingAttributeDelimiter": "#D16969",
+	"vscode-angular-html.angularEventHandlerName": "#B5CEA8",
+	"vscode-angular-html.angularExpression": "#D16969",
+	"vscode-angular-html.angularExpressionOperatorsAndNavigatorsColor": "#C586C0",
+	"vscode-angular-html.angularOneWayBindingAnimationTriggerDecorator": "#D7BA7D",
+	"vscode-angular-html.angularOneWayBindingFirstLevelDepth": "#B5CEA8",
+	"vscode-angular-html.angularOneWayBindingSecondLevelDepth": "#C586C0",
+	"vscode-angular-html.angularOneWayBindingThirdLevelDepth": "#D7BA7D",
+	"vscode-angular-html.angularPrefixedAttributesLetPrefix": "#569CD6",
+	"vscode-angular-html.angularPrefixedAttributesRefPrefix": "#D16969",
+	"vscode-angular-html.angularPrefixedAttributesRxjsSuffix": "#D7BA7D",
+	"vscode-angular-html.angularPrefixedAttributesVariableName": "#4EC9B0",
+	"vscode-angular-html.angularSyntaxSugarAttributesName": "#B5CEA8",
+	"vscode-angular-html.angularSyntaxSugarAttributesPrefix": "#D16969",
+	"vscode-angular-html.angularTemplateVariableName": "#B5CEA8",
+	"vscode-angular-html.angularTemplateVariablePrefix": "#D16969",
+	"vscode-angular-html.colorCustomizations": true,
+	"vscode-angular-html.dtdDoctypeElement": "#D7BA7D",
+	"vscode-angular-html.dtdDoctypeExclamation": "#C586C0",
+	"vscode-angular-html.dtdDoctypeQualifier": "#569CD6",
+	"vscode-angular-html.dtdDoctypeQuantifier": "#D16969",
+	"vscode-angular-html.htmlAttributeValueSeparator": "#D7BA7D",
+	"vscode-angular-html.htmlCustomTags": "#569CD6",
+	"vscode-angular-html.htmlDoctypeAttributes": "#4EC9B0",
+	"vscode-angular-html.htmlDoctypeElement": "#D7BA7D",
+	"vscode-angular-html.htmlDoctypeExclamation": "#C586C0",
+	"vscode-angular-html.htmlEntitiesAmpersand": "#C586C0",
+	"vscode-angular-html.htmlEntitiesSemicolon": "#C586C0",
+	"vscode-angular-html.htmlEventsAttributes": "#4EC9B0",
+	"vscode-angular-html.htmlGenericAttributesFollowedByParameter": "#4EC9B0",
+	"vscode-angular-html.htmlScriptAttributesLanguageIdentifier": "#B5CEA8",
+	"vscode-angular-html.htmlLinkAttributesMimeType": "#B5CEA8",
+	"vscode-angular-html.htmlStyleAttributesLanguageIdentifier": "#B5CEA8",
+	"vscode-angular-html.htmlTags": "#569CD6",
+	"vscode-angular-html.ariaAttributePrefix": "#569CD6",
+	"vscode-angular-html.ariaAttributeSuffix": "#4EC9B0",
+	"vscode-angular-html.dataAttributePrefix": "#B5CEA8",
+	"vscode-angular-html.dataAttributeSuffix": "#4EC9B0",
+	"vscode-angular-html.primeNgElementTags": "#D7BA7D",
+	"vscode-angular-html.ngBootstrapElementTags": "#D7BA7D",
+	"vscode-angular-html.kendoUiElementTags": "#D7BA7D",
+	"vscode-angular-html.svgDAttributePathCommands": "#C586C0",
+	"vscode-angular-html.svgTags": "#569CD6",
+	"vscode-angular-html.xmlAttributeNamespaceDivider": "#D16969",
+	"vscode-angular-html.xmlAttributeNamespaceSuffix": "#C586C0",
+	"vscode-angular-html.xmlStylesheetAttributesLanguageIdentifier": "#B5CEA8",
+	"vscode-angular-html.xmlTagNamespaceDivider": "#D16969",
+	"vscode-angular-html.xmlTagNamespaceSuffix": "#C586C0",
+	"vscode-angular-html.controlFlowPrefix": "#D16969",
+	"vscode-angular-html.controlFlowKeyword": "#B5CEA8",
+	"editor.tokenColorCustomizations": {
+		"textMateRules": [
+			{
+				"scope": "html-template.tag.html",
+				"settings": {
+					"foreground": "#569CD6",
+				},
+			},
+			{
+				"scope": "html-template.tag.custom",
+				"settings": {
+					"foreground": "#569CD6",
+				},
+			},
+			{
+				"scope": "html-template.ng.attribute.doctype",
+				"settings": {
+					"foreground": "#4EC9B0",
+				},
+			},
+			{
+				"scope": "html-template.ng.exclamation.doctype",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.doctype",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.entities.ampersand",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.entities.semicolon",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.generic",
+				"settings": {
+					"foreground": "#4EC9B0",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.events",
+				"settings": {
+					"foreground": "#4EC9B0",
+				},
+			},
+			{
+				"scope": "punctuation.separator.key-value.html-template.ng",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.style.language.identifier",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.script.language.identifier",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.link.myme-type",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.aria-attribute.prefix",
+				"settings": {
+					"foreground": "#569CD6",
+				},
+			},
+			{
+				"scope": "html-template.ng.aria-attribute.suffix",
+				"settings": {
+					"foreground": "#4EC9B0",
+				},
+			},
+			{
+				"scope": "html-template.ng.data-attribute.prefix",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.data-attribute.suffix",
+				"settings": {
+					"foreground": "#4EC9B0",
+				},
+			},
+			{
+				"scope": "html-template.ng.interpolation.begin",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.interpolation.end",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.logical",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.compound",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.bitwise",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.comparison",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.relational",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.arithmetic",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.expression.operator.navigator",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "entity.name.tag.html.ng",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.animationtrigger.prefix",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.animationtrigger.variable",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "punctuation.definition.ng-binding-name.begin.html",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "punctuation.definition.ng-binding-name.end.html",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.event-handler",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.input-binding.animationTrigger.prefix",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.input-binding.first-level",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.input-binding.second-level",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.input-binding.third-level",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.prefix.let",
+				"settings": {
+					"foreground": "#569CD6",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.prefix.ref",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.suffix.name",
+				"settings": {
+					"foreground": "#4EC9B0",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.suffix.rxjs",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.prefix.sugar",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.suffix.sugar",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.template.prefix",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.template.variable",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.control-flow.prefix",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.control-flow.keyword",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "entity.name.tag.html.primeng",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "entity.name.tag.html.ng-bootstrap",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "entity.name.tag.html.kendo",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.tag.svg",
+				"settings": {
+					"foreground": "#569CD6",
+				},
+			},
+			{
+				"scope": "html-template.ng.svg.path.commands",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.tag.colon",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.tag.suffix",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.colon",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+			{
+				"scope": "html-template.ng.attributes.suffix",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.xmlStylesheet.language.identifier",
+				"settings": {
+					"foreground": "#B5CEA8",
+				},
+			},
+			{
+				"scope": "html-template.ng.exclamation.dtd",
+				"settings": {
+					"foreground": "#C586C0",
+				},
+			},
+			{
+				"scope": "html-template.ng.dtd",
+				"settings": {
+					"foreground": "#D7BA7D",
+				},
+			},
+			{
+				"scope": "html-template.ng.qualifier.dtd",
+				"settings": {
+					"foreground": "#569CD6",
+				},
+			},
+			{
+				"scope": "html-template.ng.occurrence.dtd",
+				"settings": {
+					"foreground": "#D16969",
+				},
+			},
+		],
+	},
+}
