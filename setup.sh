@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+echo "Setting up symlinks..."
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+link() {
+    local src="$DOTFILES/$1"
+    local dst="$2"
+
+    mkdir -p "$(dirname "$dst")"
+    ln -sf "$src" "$dst"
+    echo "LINK  $dst -> $src"
+}
+
+# Bash
+link "bash/.bashrc" "$HOME/.bashrc"
+
+# Ghostty
+link "ghostty/config" "$HOME/.config/ghostty/config"
+
+# Oh My Posh
+link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.omp.json"
+link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
+
+# VS Code (Linux path)
+VSCODE_DIR="$HOME/.config/Code/User"
+link "vscode/settings.json" "$VSCODE_DIR/settings.json"
+link "vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
+
+echo "Done."
