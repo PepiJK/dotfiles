@@ -23,7 +23,7 @@
 	"breadcrumbs.enabled": false,
 	"workbench.activityBar.location": "hidden",
 	"workbench.colorTheme": "Dark+",
-	"claudeCode.preferredLocation": "panel",
+	"claudeCode.preferredLocation": "sidebar",
 
 	// VIM Settings
 	"vim.easymotion": true,

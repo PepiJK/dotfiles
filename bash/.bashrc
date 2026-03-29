@@ -19,7 +19,7 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # angular cli completions
-source <(ng completion script)
+source <(ng completion script 2>/dev/null)
 
 # oh my posh
 eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/star-ghostty.omp.json)"
