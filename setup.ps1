@@ -33,7 +33,7 @@ Link "oh-my-posh\star-ghostty.omp.json" "$env:USERPROFILE\.config\oh-my-posh\sta
 Link "oh-my-posh\star-win-term.omp.json" "$env:USERPROFILE\.config\oh-my-posh\star-win-term.omp.json"
 
 # Windows Terminal
-$WtDir = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+$WtDir = "$env:LOCALAPPDATA\Microsoft\Windows Terminal"
 Link "windows-terminal\settings.json" "$WtDir\settings.json"
 
 # VS Code
