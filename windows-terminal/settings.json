@@ -1,0 +1,83 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [],
+    "copyOnSelect": true,
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "keybindings": [],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "colorScheme": "Dark+ (modified)",
+            "font": 
+            {
+                "face": "JetBrainsMono Nerd Font",
+                "size": 16
+            },
+            "startingDirectory": "%USERPROFILE%"
+        },
+        "list": 
+        [
+            {
+                "commandline": "pwsh.exe",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell 7"
+            },
+            {
+                "commandline": "pwsh.exe",
+                "elevate": true,
+                "guid": "{a3a2e83a-884a-5379-baa8-16f193a13b21}",
+                "hidden": false,
+                "name": "PowerShell 7 (Admin)"
+            },
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": true,
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            }
+        ]
+    },
+    "schemes": 
+    [
+        {
+            "background": "#1E1E1E",
+            "black": "#000000",
+            "blue": "#2472C8",
+            "brightBlack": "#666666",
+            "brightBlue": "#3B8EEA",
+            "brightCyan": "#29B8DB",
+            "brightGreen": "#23D18B",
+            "brightPurple": "#D670D6",
+            "brightRed": "#F14C4C",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#F5F543",
+            "cursorColor": "#D4D4D4",
+            "cyan": "#11A8CD",
+            "foreground": "#D4D4D4",
+            "green": "#0DBC79",
+            "name": "Dark+ (modified)",
+            "purple": "#BC3FBC",
+            "red": "#CD3131",
+            "selectionBackground": "#264F78",
+            "white": "#E5E5E5",
+            "yellow": "#E5E510"
+        }
+    ],
+    "tabSwitcherMode": "mru",
+    "theme": "dark",
+    "themes": [],
+    "warning.confirmCloseAllTabs": true
+}
