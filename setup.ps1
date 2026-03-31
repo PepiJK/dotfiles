@@ -17,8 +17,7 @@ if (-not (Test-Path $UserHome)) {
 $UserLocalAppData = "$UserHome\AppData\Local"
 $UserAppData = "$UserHome\AppData\Roaming"
 
-$PsDir = if ($PSVersionTable.PSEdition -eq 'Core') { 'PowerShell' } else { 'WindowsPowerShell' }
-$UserProfilePath = "$UserHome\Documents\$PsDir\Microsoft.PowerShell_profile.ps1"
+$UserProfilePath = "$UserHome\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
 function Link {
     param (
