@@ -1,8 +1,24 @@
 #Requires -RunAsAdministrator
 
+param(
+    [Parameter(Mandatory)]
+    [string]$UserName
+)
+
 Write-Host "Setting up symlinks..."
 
 $Dotfiles = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+$UserHome = "C:\Users\$UserName"
+if (-not (Test-Path $UserHome)) {
+    Write-Error "User profile directory not found: $UserHome"
+    exit 1
+}
+$UserLocalAppData = "$UserHome\AppData\Local"
+$UserAppData = "$UserHome\AppData\Roaming"
+
+$PsDir = if ($PSVersionTable.PSEdition -eq 'Core') { 'PowerShell' } else { 'WindowsPowerShell' }
+$UserProfilePath = "$UserHome\Documents\$PsDir\Microsoft.PowerShell_profile.ps1"
 
 function Link {
     param (
@@ -26,18 +42,21 @@ function Link {
 }
 
 # PowerShell profile
-Link "powershell\Microsoft.PowerShell_profile.ps1" $PROFILE
+Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 
 # Oh My Posh
-Link "oh-my-posh\star-ghostty.omp.json" "$env:USERPROFILE\.config\oh-my-posh\star-ghostty.omp.json"
-Link "oh-my-posh\star-win-term.omp.json" "$env:USERPROFILE\.config\oh-my-posh\star-win-term.omp.json"
+Link "oh-my-posh\star-ghostty.omp.json" "$UserHome\.config\oh-my-posh\star-ghostty.omp.json"
+Link "oh-my-posh\star-win-term.omp.json" "$UserHome\.config\oh-my-posh\star-win-term.omp.json"
 
 # Windows Terminal
-$WtDir = "$env:LOCALAPPDATA\Microsoft\Windows Terminal"
+$WtDir = "$UserLocalAppData\Microsoft\Windows Terminal"
 Link "windows-terminal\settings.json" "$WtDir\settings.json"
 
+# Neovim
+Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
+
 # VS Code
-$VscodeDir = "$env:APPDATA\Code\User"
+$VscodeDir = "$UserAppData\Code\User"
 Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
