@@ -40,6 +40,27 @@ function Link {
     Write-Host "LINK  $Dst -> $FullSrc"
 }
 
+function LinkJunction {
+    param (
+        [string]$Src,
+        [string]$Dst
+    )
+
+    $FullSrc = Join-Path $Dotfiles $Src
+
+    $Parent = Split-Path -Parent $Dst
+    if (-not (Test-Path $Parent)) {
+        New-Item -ItemType Directory -Path $Parent -Force | Out-Null
+    }
+
+    if (Test-Path $Dst) {
+        Remove-Item $Dst -Force -Recurse
+    }
+
+    New-Item -ItemType Junction -Path $Dst -Target $FullSrc | Out-Null
+    Write-Host "JUNCTION  $Dst -> $FullSrc"
+}
+
 # PowerShell profile
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 
@@ -50,6 +71,13 @@ Link "oh-my-posh\star-win-term.omp.json" "$UserHome\.config\oh-my-posh\star-win-
 # Windows Terminal
 $WtDir = "$UserLocalAppData\Microsoft\Windows Terminal"
 Link "windows-terminal\settings.json" "$WtDir\settings.json"
+
+# Scoop-persisted Windows Terminal
+if ($env:SCOOP) {
+    LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
+} else {
+    Write-Warning "SCOOP environment variable not set, skipping Windows Terminal Scoop junction."
+}
 
 # Neovim
 Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
