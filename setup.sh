@@ -23,6 +23,9 @@ link "ghostty/config" "$HOME/.config/ghostty/config"
 link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.omp.json"
 link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
 
+# Pi
+link "pi/settings.json" "$HOME/.pi/agent/themes/settings.json"
+
 # Neovim
 link "nvim/init.lua" "$HOME/.config/nvim/init.lua"
 

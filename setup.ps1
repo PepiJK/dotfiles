@@ -79,6 +79,9 @@ if ($env:SCOOP) {
     Write-Warning "SCOOP environment variable not set, skipping Windows Terminal Scoop junction."
 }
 
+# Pi
+Link "pi\settings.json" "$UserHome\.pi\agent\themes\settings.json"
+
 # Neovim
 Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
 
