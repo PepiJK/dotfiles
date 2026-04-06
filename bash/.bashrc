@@ -13,13 +13,16 @@ alias grep='grep --color=auto'
 alias lg='lazygit'
 alias cc='claude'
 alias nv='nvim'
+alias pin-node='node -v | cut -c2- > .nvmrc && echo "Pinned $(cat .nvmrc)"'
 
-# volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+# env variables
+export EDITOR="nvim"
 
 # angular cli completions
 source <(ng completion script 2>/dev/null)
+
+# fnv
+eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell bash)"
 
 # oh my posh
 eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/star-ghostty.omp.json)"
