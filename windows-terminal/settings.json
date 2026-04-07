@@ -38,6 +38,7 @@
                 "face": "JetBrainsMono Nerd Font",
                 "size": 14
             },
+            "padding": 25,
             "startingDirectory": "%USERPROFILE%"
         },
         "list": 

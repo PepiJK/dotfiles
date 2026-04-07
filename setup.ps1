@@ -80,7 +80,9 @@ if ($env:SCOOP) {
 }
 
 # Pi
-Link "pi\settings.json" "$UserHome\.pi\agent\themes\settings.json"
+Link "pi\settings.json" "$UserHome\.pi\agent\settings.json"
+Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
+Link "pi\themes" "$UserHome\.pi\agent\themes"
 
 # Neovim
 Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"

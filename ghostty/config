@@ -51,3 +51,5 @@
 font-family = JetBrainsMono Nerd Font
 theme = Dark Modern
 font-size = 14
+window-padding-x = 25
+window-padding-y = 25

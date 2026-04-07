@@ -9,7 +9,8 @@ link() {
     local dst="$2"
 
     mkdir -p "$(dirname "$dst")"
-    ln -sf "$src" "$dst"
+    rm -rf "$dst"
+    ln -s "$src" "$dst"
     echo "LINK  $dst -> $src"
 }
 
@@ -24,7 +25,9 @@ link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.o
 link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
 
 # Pi
-link "pi/settings.json" "$HOME/.pi/agent/themes/settings.json"
+link "pi/settings.json" "$HOME/.pi/agent/settings.json"
+link "pi/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
+link "pi/themes" "$HOME/.pi/agent/themes"
 
 # Neovim
 link "nvim/init.lua" "$HOME/.config/nvim/init.lua"
