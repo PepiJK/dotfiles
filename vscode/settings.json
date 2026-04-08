@@ -1,9 +1,10 @@
 {
 	"files.eol": "\n",
+	"security.workspace.trust.untrustedFiles": "open",
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.organizeImports": "explicit",
-		"source.fixAll": "explicit",
+		"source.fixAll": "explicit"
 	},
 	"editor.linkedEditing": true,
 	"editor.stickyScroll.enabled": true,
@@ -26,7 +27,7 @@
 		"viewchild",
 		"viewchilds",
 		"Vinothek",
-		"weingut",
+		"weingut"
 	],
 	"editor.fontFamily": "JetBrainsMono Nerd Font",
 	"window.titleBarStyle": "custom",
@@ -47,7 +48,7 @@
 		"https://raw.githubusercontent.com/devcontainers/spec/": true,
 		"https://raw.githubusercontent.com/microsoft/vscode/": true,
 		"https://schemastore.azurewebsites.net/": true,
-		"https://www.schemastore.org/": true,
+		"https://www.schemastore.org/": true
 	},
 
 	// VIM Settings
@@ -66,55 +67,55 @@
 		{ "before": ["leader", "s"], "commands": [":split"] },
 		{
 			"before": ["<C-h>"],
-			"after": ["<C-w>", "h"],
+			"after": ["<C-w>", "h"]
 		},
 		{
 			"before": ["<C-j>"],
-			"after": ["<C-w>", "j"],
+			"after": ["<C-w>", "j"]
 		},
 		{
 			"before": ["<C-k>"],
-			"after": ["<C-w>", "k"],
+			"after": ["<C-w>", "k"]
 		},
 		{
 			"before": ["<C-l>"],
-			"after": ["<C-w>", "l"],
+			"after": ["<C-w>", "l"]
 		},
 		// workbench actions
 		{
 			"before": ["leader", "w"],
-			"commands": ["workbench.action.files.save"],
+			"commands": ["workbench.action.files.save"]
 		},
 		{ "before": ["leader", "q"], "commands": [":q!"] },
 		{
 			"before": ["<Leader>", "p"],
-			"commands": ["workbench.action.showCommands"],
+			"commands": ["workbench.action.showCommands"]
 		},
 		{
 			"before": ["<Leader>", "t"],
-			"commands": ["workbench.action.gotoSymbol"],
+			"commands": ["workbench.action.gotoSymbol"]
 		},
 		{
 			"before": ["<Leader>", "g"],
-			"commands": ["workbench.view.scm"],
+			"commands": ["workbench.view.scm"]
 		},
 		{
 			"before": ["<Leader>", "f"],
-			"commands": ["workbench.view.explorer"],
+			"commands": ["workbench.view.explorer"]
 		},
 		// misc
 		{
 			"before": ["<C-n>"],
-			"commands": [":nohl"],
+			"commands": [":nohl"]
 		},
 		{
 			"before": ["K"],
-			"commands": ["editor.action.showHover"],
+			"commands": ["editor.action.showHover"]
 		},
 		{
 			"before": ["g", "i"],
-			"commands": ["editor.action.goToImplementation"],
-		},
+			"commands": ["editor.action.goToImplementation"]
+		}
 	],
 	"vim.leader": "<space>",
 	"vim.handleKeys": {
@@ -124,10 +125,10 @@
 		"<C-t>": false,
 		"<C-b>": false,
 		"<C-.>": false,
-		"<C-i>": false,
+		"<C-i>": false
 	},
 	"extensions.experimental.affinity": {
-		"vscodevim.vim": 1,
+		"vscodevim.vim": 1
 	},
 
 	// Prettier defaults
@@ -197,363 +198,363 @@
 			{
 				"scope": "html-template.tag.html",
 				"settings": {
-					"foreground": "#569CD6",
-				},
+					"foreground": "#569CD6"
+				}
 			},
 			{
 				"scope": "html-template.tag.custom",
 				"settings": {
-					"foreground": "#569CD6",
-				},
+					"foreground": "#569CD6"
+				}
 			},
 			{
 				"scope": "html-template.ng.attribute.doctype",
 				"settings": {
-					"foreground": "#4EC9B0",
-				},
+					"foreground": "#4EC9B0"
+				}
 			},
 			{
 				"scope": "html-template.ng.exclamation.doctype",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.doctype",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.entities.ampersand",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.entities.semicolon",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.generic",
 				"settings": {
-					"foreground": "#4EC9B0",
-				},
+					"foreground": "#4EC9B0"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.events",
 				"settings": {
-					"foreground": "#4EC9B0",
-				},
+					"foreground": "#4EC9B0"
+				}
 			},
 			{
 				"scope": "punctuation.separator.key-value.html-template.ng",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.style.language.identifier",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.script.language.identifier",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.link.myme-type",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.aria-attribute.prefix",
 				"settings": {
-					"foreground": "#569CD6",
-				},
+					"foreground": "#569CD6"
+				}
 			},
 			{
 				"scope": "html-template.ng.aria-attribute.suffix",
 				"settings": {
-					"foreground": "#4EC9B0",
-				},
+					"foreground": "#4EC9B0"
+				}
 			},
 			{
 				"scope": "html-template.ng.data-attribute.prefix",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.data-attribute.suffix",
 				"settings": {
-					"foreground": "#4EC9B0",
-				},
+					"foreground": "#4EC9B0"
+				}
 			},
 			{
 				"scope": "html-template.ng.interpolation.begin",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.interpolation.end",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.logical",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.compound",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.bitwise",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.comparison",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.relational",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.arithmetic",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.expression.operator.navigator",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "entity.name.tag.html.ng",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.animationtrigger.prefix",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.animationtrigger.variable",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "punctuation.definition.ng-binding-name.begin.html",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "punctuation.definition.ng-binding-name.end.html",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.event-handler",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.input-binding.animationTrigger.prefix",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.input-binding.first-level",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.input-binding.second-level",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.input-binding.third-level",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.prefix.let",
 				"settings": {
-					"foreground": "#569CD6",
-				},
+					"foreground": "#569CD6"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.prefix.ref",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.suffix.name",
 				"settings": {
-					"foreground": "#4EC9B0",
-				},
+					"foreground": "#4EC9B0"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.suffix.rxjs",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.prefix.sugar",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.suffix.sugar",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.template.prefix",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.template.variable",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.control-flow.prefix",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.control-flow.keyword",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "entity.name.tag.html.primeng",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "entity.name.tag.html.ng-bootstrap",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "entity.name.tag.html.kendo",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.tag.svg",
 				"settings": {
-					"foreground": "#569CD6",
-				},
+					"foreground": "#569CD6"
+				}
 			},
 			{
 				"scope": "html-template.ng.svg.path.commands",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.tag.colon",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.tag.suffix",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.colon",
 				"settings": {
-					"foreground": "#D16969",
-				},
+					"foreground": "#D16969"
+				}
 			},
 			{
 				"scope": "html-template.ng.attributes.suffix",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.xmlStylesheet.language.identifier",
 				"settings": {
-					"foreground": "#B5CEA8",
-				},
+					"foreground": "#B5CEA8"
+				}
 			},
 			{
 				"scope": "html-template.ng.exclamation.dtd",
 				"settings": {
-					"foreground": "#C586C0",
-				},
+					"foreground": "#C586C0"
+				}
 			},
 			{
 				"scope": "html-template.ng.dtd",
 				"settings": {
-					"foreground": "#D7BA7D",
-				},
+					"foreground": "#D7BA7D"
+				}
 			},
 			{
 				"scope": "html-template.ng.qualifier.dtd",
 				"settings": {
-					"foreground": "#569CD6",
-				},
+					"foreground": "#569CD6"
+				}
 			},
 			{
 				"scope": "html-template.ng.occurrence.dtd",
 				"settings": {
-					"foreground": "#D16969",
-				},
-			},
-		],
-	},
+					"foreground": "#D16969"
+				}
+			}
+		]
+	}
 }

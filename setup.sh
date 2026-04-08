@@ -29,6 +29,9 @@ link "pi/settings.json" "$HOME/.pi/agent/settings.json"
 link "pi/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
 link "pi/themes" "$HOME/.pi/agent/themes"
 
+# Lazygit
+link "lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+
 # Neovim
 link "nvim/init.lua" "$HOME/.config/nvim/init.lua"
 

@@ -1,0 +1,5 @@
+os:
+  edit: 'code --wait {{filename}}'
+  editAtLine: 'code --wait --goto {{filename}}:{{line}}'
+  editAtLineAndWait: 'code --wait --goto {{filename}}:{{line}}'
+  open: 'code {{filename}}'

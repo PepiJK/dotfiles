@@ -84,6 +84,9 @@ Link "pi\settings.json" "$UserHome\.pi\agent\settings.json"
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 Link "pi\themes" "$UserHome\.pi\agent\themes"
 
+# Lazygit
+Link "lazygit\config.yml" "$UserAppData\lazygit\config.yml"
+
 # Neovim
 Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
 
