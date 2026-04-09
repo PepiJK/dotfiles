@@ -14,6 +14,15 @@ link() {
     echo "LINK  $dst -> $src"
 }
 
+link_vscode_settings() {
+    local dst="$1"
+
+    link "vscode/settings.json" "$dst"
+    updated=$(jq '.["files.eol"] = "\n" | .["prettier.endOfLine"] = "lf"' "$dst")
+    printf '%s' "$updated" > "$dst"
+    echo "UPDATE  $dst files.eol=lf prettier.endOfLine=lf"
+}
+
 # Bash
 link "bash/.bashrc" "$HOME/.bashrc"
 
@@ -37,7 +46,7 @@ link "nvim/init.lua" "$HOME/.config/nvim/init.lua"
 
 # VS Code (Linux path)
 VSCODE_DIR="$HOME/.config/Code/User"
-link "vscode/settings.json" "$VSCODE_DIR/settings.json"
+link_vscode_settings "$VSCODE_DIR/settings.json"
 link "vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 
 echo "Done."

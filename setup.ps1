@@ -61,6 +61,19 @@ function LinkJunction {
     Write-Host "JUNCTION  $Dst -> $FullSrc"
 }
 
+function LinkVscodeSettings {
+    param (
+        [string]$Dst
+    )
+
+    Link "vscode\settings.json" $Dst
+    $Settings = Get-Content -Raw -Path $Dst | ConvertFrom-Json
+    $Settings.'files.eol' = "`r`n"
+    $Settings.'prettier.endOfLine' = "crlf"
+    $Settings | ConvertTo-Json -Depth 20 | Set-Content -Path $Dst
+    Write-Host "UPDATE $Dst files.eol=crlf prettier.endOfLine=crlf"
+}
+
 # PowerShell profile
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 
@@ -91,8 +104,8 @@ Link "lazygit\config.yml" "$UserAppData\lazygit\config.yml"
 Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
 
 # VS Code
-$VscodeDir = "$UserAppData\Code\User"
-Link "vscode\settings.json" "$VscodeDir\settings.json"
+$VscodeDir = "C:\DeveloperArea\Tools\apps\vscode\current\data\user-data\User"
+LinkVscodeSettings "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
 Write-Host "Done."
