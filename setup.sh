@@ -14,15 +14,6 @@ link() {
     echo "LINK  $dst -> $src"
 }
 
-link_vscode_settings() {
-    local dst="$1"
-
-    link "vscode/settings.json" "$dst"
-    updated=$(jq '.["files.eol"] = "\n" | .["prettier.endOfLine"] = "lf"' "$dst")
-    printf '%s' "$updated" > "$dst"
-    echo "UPDATE  $dst files.eol=lf prettier.endOfLine=lf"
-}
-
 # Bash
 link "bash/.bashrc" "$HOME/.bashrc"
 
@@ -34,7 +25,6 @@ link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.o
 link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
 
 # Pi
-link "pi/settings.json" "$HOME/.pi/agent/settings.json"
 link "pi/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
 link "pi/themes" "$HOME/.pi/agent/themes"
 
@@ -46,7 +36,7 @@ link "nvim/init.lua" "$HOME/.config/nvim/init.lua"
 
 # VS Code (Linux path)
 VSCODE_DIR="$HOME/.config/Code/User"
-link_vscode_settings "$VSCODE_DIR/settings.json"
+link "vscode/settings.json" "$VSCODE_DIR/settings.json"
 link "vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 
 echo "Done."

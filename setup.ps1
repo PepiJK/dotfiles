@@ -61,19 +61,6 @@ function LinkJunction {
     Write-Host "JUNCTION  $Dst -> $FullSrc"
 }
 
-function LinkVscodeSettings {
-    param (
-        [string]$Dst
-    )
-
-    Link "vscode\settings.json" $Dst
-    $Settings = Get-Content -Raw -Path $Dst | ConvertFrom-Json
-    $Settings.'files.eol' = "`r`n"
-    $Settings.'prettier.endOfLine' = "crlf"
-    $Settings | ConvertTo-Json -Depth 20 | Set-Content -Path $Dst
-    Write-Host "UPDATE $Dst files.eol=crlf prettier.endOfLine=crlf"
-}
-
 # PowerShell profile
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 
@@ -93,7 +80,6 @@ if ($env:SCOOP) {
 }
 
 # Pi
-Link "pi\settings.json" "$UserHome\.pi\agent\settings.json"
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 Link "pi\themes" "$UserHome\.pi\agent\themes"
 
@@ -105,7 +91,7 @@ Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
 
 # VS Code
 $VscodeDir = "C:\DeveloperArea\Tools\apps\vscode\current\data\user-data\User"
-LinkVscodeSettings "$VscodeDir\settings.json"
+Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
 Write-Host "Done."
