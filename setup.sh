@@ -5,13 +5,13 @@ echo "Setting up symlinks..."
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 link() {
-    local src="$DOTFILES/$1"
-    local dst="$2"
+	local src="$DOTFILES/$1"
+	local dst="$2"
 
-    mkdir -p "$(dirname "$dst")"
-    rm -rf "$dst"
-    ln -s "$src" "$dst"
-    echo "LINK  $dst -> $src"
+	mkdir -p "$(dirname "$dst")"
+	rm -rf "$dst"
+	ln -s "$src" "$dst"
+	echo "LINK  $dst -> $src"
 }
 
 # Bash

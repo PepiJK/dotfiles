@@ -1,8 +1,8 @@
 # PSReadLine
 Set-PSReadLineOption -EditMode Windows `
-                     -PredictionSource History `
-                     -PredictionViewStyle ListView `
-                     -Colors @{ "Error" = "#FF5555" }
+					 -PredictionSource History `
+					 -PredictionViewStyle ListView `
+					 -Colors @{ "Error" = "#FF5555" }
 
 # aliases
 Set-Alias -Name lg -Value lazygit

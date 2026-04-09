@@ -1,8 +1,8 @@
 #Requires -RunAsAdministrator
 
 param(
-    [Parameter(Mandatory)]
-    [string]$UserName
+	[Parameter(Mandatory)]
+	[string]$UserName
 )
 
 Write-Host "Setting up symlinks..."
@@ -11,8 +11,8 @@ $Dotfiles = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $UserHome = "C:\Users\$UserName"
 if (-not (Test-Path $UserHome)) {
-    Write-Error "User profile directory not found: $UserHome"
-    exit 1
+	Write-Error "User profile directory not found: $UserHome"
+	exit 1
 }
 $UserLocalAppData = "$UserHome\AppData\Local"
 $UserAppData = "$UserHome\AppData\Roaming"
@@ -20,45 +20,45 @@ $UserAppData = "$UserHome\AppData\Roaming"
 $UserProfilePath = "$UserHome\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
 function Link {
-    param (
-        [string]$Src,
-        [string]$Dst
-    )
+	param (
+		[string]$Src,
+		[string]$Dst
+	)
 
-    $FullSrc = Join-Path $Dotfiles $Src
+	$FullSrc = Join-Path $Dotfiles $Src
 
-    $Parent = Split-Path -Parent $Dst
-    if (-not (Test-Path $Parent)) {
-        New-Item -ItemType Directory -Path $Parent -Force | Out-Null
-    }
+	$Parent = Split-Path -Parent $Dst
+	if (-not (Test-Path $Parent)) {
+		New-Item -ItemType Directory -Path $Parent -Force | Out-Null
+	}
 
-    if (Test-Path $Dst) {
-        Remove-Item $Dst -Force
-    }
+	if (Test-Path $Dst) {
+		Remove-Item $Dst -Force
+	}
 
-    New-Item -ItemType SymbolicLink -Path $Dst -Target $FullSrc | Out-Null
-    Write-Host "LINK  $Dst -> $FullSrc"
+	New-Item -ItemType SymbolicLink -Path $Dst -Target $FullSrc | Out-Null
+	Write-Host "LINK  $Dst -> $FullSrc"
 }
 
 function LinkJunction {
-    param (
-        [string]$Src,
-        [string]$Dst
-    )
+	param (
+		[string]$Src,
+		[string]$Dst
+	)
 
-    $FullSrc = Join-Path $Dotfiles $Src
+	$FullSrc = Join-Path $Dotfiles $Src
 
-    $Parent = Split-Path -Parent $Dst
-    if (-not (Test-Path $Parent)) {
-        New-Item -ItemType Directory -Path $Parent -Force | Out-Null
-    }
+	$Parent = Split-Path -Parent $Dst
+	if (-not (Test-Path $Parent)) {
+		New-Item -ItemType Directory -Path $Parent -Force | Out-Null
+	}
 
-    if (Test-Path $Dst) {
-        Remove-Item $Dst -Force -Recurse
-    }
+	if (Test-Path $Dst) {
+		Remove-Item $Dst -Force -Recurse
+	}
 
-    New-Item -ItemType Junction -Path $Dst -Target $FullSrc | Out-Null
-    Write-Host "JUNCTION  $Dst -> $FullSrc"
+	New-Item -ItemType Junction -Path $Dst -Target $FullSrc | Out-Null
+	Write-Host "JUNCTION  $Dst -> $FullSrc"
 }
 
 # PowerShell profile
@@ -74,9 +74,9 @@ Link "windows-terminal\settings.json" "$WtDir\settings.json"
 
 # Scoop-persisted Windows Terminal
 if ($env:SCOOP) {
-    LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
+	LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
 } else {
-    Write-Warning "SCOOP environment variable not set, skipping Windows Terminal Scoop junction."
+	Write-Warning "SCOOP environment variable not set, skipping Windows Terminal Scoop junction."
 }
 
 # Pi
