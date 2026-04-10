@@ -145,6 +145,8 @@
 	"prettier.useTabs": true,
 	"prettier.printWidth": 120,
 	"prettier.singleAttributePerLine": true,
+	"prettier.endOfLine": "auto",
+	"prettier.requiredConfig": true,
 
 	// angular html setting
 	"vscode-angular-html.angularAndAngularMaterialElementTags": "#D7BA7D",

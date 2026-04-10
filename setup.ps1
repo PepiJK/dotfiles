@@ -17,6 +17,10 @@ if (-not (Test-Path $UserHome)) {
 $UserLocalAppData = "$UserHome\AppData\Local"
 $UserAppData = "$UserHome\AppData\Roaming"
 
+if (-not $env:SCOOP) {
+	throw "SCOOP environment variable is not set. Please install Scoop first: https://scoop.sh"
+}
+
 $UserProfilePath = "$UserHome\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
 function Link {
@@ -69,15 +73,7 @@ Link "oh-my-posh\star-ghostty.omp.json" "$UserHome\.config\oh-my-posh\star-ghost
 Link "oh-my-posh\star-win-term.omp.json" "$UserHome\.config\oh-my-posh\star-win-term.omp.json"
 
 # Windows Terminal
-$WtDir = "$UserLocalAppData\Microsoft\Windows Terminal"
-Link "windows-terminal\settings.json" "$WtDir\settings.json"
-
-# Scoop-persisted Windows Terminal
-if ($env:SCOOP) {
-	LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
-} else {
-	Write-Warning "SCOOP environment variable not set, skipping Windows Terminal Scoop junction."
-}
+LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
 
 # Pi
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
@@ -90,7 +86,7 @@ Link "lazygit\config.yml" "$UserAppData\lazygit\config.yml"
 Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
 
 # VS Code
-$VscodeDir = "C:\DeveloperArea\Tools\apps\vscode\current\data\user-data\User"
+$VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
 Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
