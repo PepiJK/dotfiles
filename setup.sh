@@ -28,6 +28,9 @@ link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term
 link "pi/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
 link "pi/themes" "$HOME/.pi/agent/themes"
 
+# Tmux
+link "tmux/.tmux.conf" "$HOME/.tmux.conf"
+
 # Lazygit
 link "lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 

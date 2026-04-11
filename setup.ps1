@@ -79,6 +79,9 @@ LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 Link "pi\themes" "$UserHome\.pi\agent\themes"
 
+# Tmux
+Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"
+
 # Lazygit
 Link "lazygit\config.yml" "$UserAppData\lazygit\config.yml"
 
