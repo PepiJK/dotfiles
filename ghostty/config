@@ -54,4 +54,4 @@ font-size = 14
 maximize = true
 
 window-padding-x = 25
-window-padding-y = 25,25
+window-padding-y = 25,0
