@@ -21,6 +21,7 @@
 	"punctuation": "#D4D4D4",
 	"red": "#F44747",
 	"warning": "#CCA700",
+	"green": "#89D185",
 	"gray": "#858585"
 	},
 	"colors": {
@@ -28,7 +29,7 @@
 	"border": "border",
 	"borderAccent": "keyword",
 	"borderMuted": "borderSubtle",
-	"success": "type",
+	"success": "green",
 	"error": "red",
 	"warning": "warning",
 	"muted": "gray",
@@ -46,8 +47,8 @@
 	"toolErrorBg": "#2A1E1E",
 	"toolTitle": "keyword",
 	"toolOutput": "fg",
-	"mdHeading": "func",
-	"mdLink": "variable",
+	"mdHeading": "keyword",
+	"mdLink": "blue",
 	"mdLinkUrl": "comment",
 	"mdCode": "string",
 	"mdCodeBlock": "fg",
@@ -74,7 +75,7 @@
 	"thinkingMedium": "keyword",
 	"thinkingHigh": "variable",
 	"thinkingXhigh": "type",
-	"bashMode": "#569CD6"
+	"bashMode": "keyword"
 	},
 	"export": {
 	"pageBg": "#1E1E1E",
