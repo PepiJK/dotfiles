@@ -77,7 +77,6 @@ LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
 
 # Pi
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
-Link "pi\themes" "$UserHome\.pi\agent\themes"
 
 # Tmux
 Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"
