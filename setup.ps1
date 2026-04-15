@@ -92,4 +92,11 @@ $VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
 Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
+# Unblock tmux plugin scripts blocked by Zone.Identifier (downloaded via tmuxpanel)
+$PluginDir = "$UserHome\.config\psmux\plugins"
+if (Test-Path $PluginDir) {
+	Get-ChildItem $PluginDir -Recurse -Include "*.ps1" | Unblock-File
+	Write-Host "UNBLOCK  $PluginDir"
+}
+
 Write-Host "Done."

@@ -61,6 +61,10 @@
             {
                 "commandline": "pwsh.exe",
                 "elevate": true,
+                "font": 
+                {
+                    "face": "Consolas"
+                },
                 "guid": "{a3a2e83a-884a-5379-baa8-16f193a13b21}",
                 "hidden": false,
                 "name": "PowerShell 7 (Admin)"
