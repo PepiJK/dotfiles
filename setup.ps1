@@ -75,6 +75,9 @@ Link "oh-my-posh\star-win-term.omp.json" "$UserHome\.config\oh-my-posh\star-win-
 # Windows Terminal
 LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
 
+# Windows Terminal Canary (same settings as stable)
+LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal-canary\settings"
+
 # Pi
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 
