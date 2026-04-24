@@ -78,6 +78,9 @@ LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
 # Windows Terminal Canary (same settings as stable)
 LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal-canary\settings"
 
+# Scoop custom bucket manifests
+Link "scoop-bucket\bucket\windows-terminal-canary.json" "$env:SCOOP\buckets\my-apps\bucket\windows-terminal-canary.json"
+
 # Pi
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 
