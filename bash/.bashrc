@@ -1,3 +1,8 @@
+# source local overrides 
+if [ -f "$HOME/.bashrc.local" ]; then
+	source "$HOME/.bashrc.local"
+fi
+
 # skip if non-interactiv
 [[ $- != *i* ]] && return
 

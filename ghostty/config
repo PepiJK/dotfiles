@@ -53,9 +53,5 @@ theme = Dark Modern
 font-size = 14
 maximize = true
 
-window-padding-x = 25
-window-padding-y = 25,0
-
 # pi setup
 keybind = alt+backspace=text:\x1b\x7f
-keybind = shift+enter=text:\n

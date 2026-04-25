@@ -12,6 +12,7 @@ link() {
 	rm -rf "$dst"
 	ln -s "$src" "$dst"
 	echo "LINK  $dst -> $src"
+
 }
 
 # Bash
