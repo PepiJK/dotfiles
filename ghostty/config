@@ -49,11 +49,8 @@
 # resize-overlay-duration = 4s 200ms
 
 window-padding-color = background
-
+window-padding-balance = true
 font-family = JetBrainsMono Nerd Font
 theme = Dark Modern
 font-size = 14
 maximize = true
-
-# pi setup
-keybind = alt+backspace=text:\x1b\x7f
