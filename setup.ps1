@@ -98,6 +98,15 @@ $VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
 Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
+# Psmux
+$PsmuxTarget = "$UserHome\.config\psmux"
+$PsmuxLink = "$UserHome\.psmux"
+if (Test-Path $PsmuxLink) {
+	Remove-Item $PsmuxLink -Force -Recurse
+}
+New-Item -ItemType Junction -Path $PsmuxLink -Target $PsmuxTarget | Out-Null
+Write-Host "JUNCTION  $PsmuxLink -> $PsmuxTarget"
+
 # Unblock tmux plugin scripts blocked by Zone.Identifier (downloaded via tmuxpanel)
 $PluginDir = "$UserHome\.config\psmux\plugins"
 if (Test-Path $PluginDir) {
