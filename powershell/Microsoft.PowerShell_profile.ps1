@@ -1,8 +1,13 @@
 # PSReadLine
-Set-PSReadLineOption -EditMode Windows `
-					 -PredictionSource History `
-					 -PredictionViewStyle ListView `
-					 -Colors @{ "Error" = "#FF5555" }
+if ($PSVersionTable.PSVersion.Major -ge 7) {
+	Set-PSReadLineOption -EditMode Windows `
+						 -PredictionSource History `
+						 -PredictionViewStyle ListView `
+						 -Colors @{ "Error" = "#FF5555" }
+} else {
+	Set-PSReadLineOption -EditMode Windows `
+						 -Colors @{ "Error" = "#FF5555" }
+}
 
 # aliases
 Set-Alias -Name lg -Value lazygit

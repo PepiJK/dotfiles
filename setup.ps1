@@ -22,6 +22,7 @@ if (-not $env:SCOOP) {
 }
 
 $UserProfilePath = "$UserHome\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+$UserProfilePath51 = "$UserHome\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
 function Link {
 	param (
@@ -65,8 +66,10 @@ function LinkJunction {
 	Write-Host "JUNCTION  $Dst -> $FullSrc"
 }
 
-# PowerShell profile
+# PowerShell profile (PS 7)
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
+# PowerShell profile (PS 5.1)
+Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath51
 
 # Oh My Posh
 Link "oh-my-posh\star-ghostty.omp.json" "$UserHome\.config\oh-my-posh\star-ghostty.omp.json"
@@ -101,6 +104,9 @@ Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 # Psmux
 $PsmuxTarget = "$UserHome\.config\psmux"
 $PsmuxLink = "$UserHome\.psmux"
+if (-not (Test-Path $PsmuxTarget)) {
+	New-Item -ItemType Directory -Path $PsmuxTarget -Force | Out-Null
+}
 if (Test-Path $PsmuxLink) {
 	Remove-Item $PsmuxLink -Force -Recurse
 }

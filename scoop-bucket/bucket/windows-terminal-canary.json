@@ -9,8 +9,7 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://aka.ms/terminal-canary-zip-x64#/WindowsTerminalCanary.zip",
-            "hash": "2000006687010d0da6dfa79e846ea30f5a1f107aecae76cb823a7a51df82f58f"
+            "url": "https://aka.ms/terminal-canary-zip-x64#/WindowsTerminalCanary.zip"
         }
     },
     "installer": {
