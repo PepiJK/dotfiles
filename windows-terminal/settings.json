@@ -3,22 +3,18 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions":
     [
-        {
-            "command":
-            {
-                "action": "sendInput",
-                "input": "\u001b\r"
-            },
-            "id": "User.sendInput.8F63D3A9"
-        },
-        {
-            "command":
-            {
-                "action": "sendInput",
-                "input": "\u001b[13;2u"
-            },
-            "id": "User.sendInput.8882FD6D"
-        }
+		{
+		  "actions": [
+			{
+			  "command": { "action": "sendInput", "input": "\u001b[13;2u" },
+			  "keys": "shift+enter"
+			},
+			{
+			  "command": { "action": "sendInput", "input": "\u001b[13;3u" },
+			  "keys": "alt+enter"
+			}
+		  ]
+		}
     ],
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
