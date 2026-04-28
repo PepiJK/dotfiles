@@ -43,11 +43,11 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       -- Install parsers (no-op if already installed)
-      require("nvim-treesitter").install({
-        "lua", "vim", "vimdoc", "markdown", "markdown_inline",
-        "python", "javascript", "typescript", "bash",
-        "html", "css", "scss", "json",  -- Web dev support
-      })
+      -- require("nvim-treesitter").install({
+      --   "lua", "vim", "vimdoc", "markdown", "markdown_inline",
+      --   "python", "javascript", "typescript", "bash",
+      --   "html", "css", "scss", "json",  -- Web dev support
+      -- })
       -- Set Angular component HTML files to use html filetype
       vim.filetype.add({
         pattern = {
