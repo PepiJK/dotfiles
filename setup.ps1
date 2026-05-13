@@ -17,12 +17,19 @@ if (-not (Test-Path $UserHome)) {
 $UserLocalAppData = "$UserHome\AppData\Local"
 $UserAppData = "$UserHome\AppData\Roaming"
 
+# Resolve the actual Documents folder (may be redirected to OneDrive)
+$UserSID = (New-Object System.Security.Principal.NTAccount($UserName)).Translate([System.Security.Principal.SecurityIdentifier]).Value
+$UserDocuments = (Get-ItemProperty "Registry::HKEY_USERS\$UserSID\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" -ErrorAction SilentlyContinue).Personal
+if (-not $UserDocuments) {
+	$UserDocuments = "$UserHome\Documents"
+}
+
 if (-not $env:SCOOP) {
 	throw "SCOOP environment variable is not set. Please install Scoop first: https://scoop.sh"
 }
 
-$UserProfilePath = "$UserHome\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-$UserProfilePath51 = "$UserHome\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+$UserProfilePath = "$UserDocuments\PowerShell\Microsoft.PowerShell_profile.ps1"
+$UserProfilePath51 = "$UserDocuments\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
 function Link {
 	param (
@@ -75,10 +82,13 @@ Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath51
 Link "oh-my-posh\star-ghostty.omp.json" "$UserHome\.config\oh-my-posh\star-ghostty.omp.json"
 Link "oh-my-posh\star-win-term.omp.json" "$UserHome\.config\oh-my-posh\star-win-term.omp.json"
 
-# Windows Terminal
-LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal\settings"
+# Windows Terminal (MS Store)
+Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-# Windows Terminal Canary (same settings as stable)
+# Windows Terminal Preview (MS Store, same settings as stable)
+Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
+
+# Windows Terminal Canary (Scoop, same settings as stable)
 LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal-canary\settings"
 
 # Scoop custom bucket manifests
