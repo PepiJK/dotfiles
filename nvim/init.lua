@@ -1,6 +1,6 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -192,7 +192,7 @@ vim.keymap.set("v", "<leader>p", '"+p',  { desc = "Paste (visual)" })
 -- Save and quit
 vim.keymap.set("n", "<leader>w", ":w<CR>",  { desc = "Save" })
 vim.keymap.set("n", "<leader>q", ":q<CR>",  { desc = "Quit" })
-vim.keymap.set("n", "<leader>!q", ":q!<CR>",  { desc = "Quit witout save" })
+vim.keymap.set("n", "<leader>!q", ":q!<CR>",  { desc = "Quit without save" })
 vim.keymap.set("n", "<leader>wq", ":wq<CR>", { desc = "Save and quit" })
 
 -- Disable unused providers (removes checkhealth warnings)

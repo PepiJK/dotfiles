@@ -28,6 +28,12 @@ if (-not $env:SCOOP) {
 	throw "SCOOP environment variable is not set. Please install Scoop first: https://scoop.sh"
 }
 
+foreach ($xdgVar in @("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_CACHE_HOME")) {
+	if (-not (Get-Item "Env:$xdgVar" -ErrorAction SilentlyContinue)) {
+		throw "$xdgVar environment variable is not set. Please set it (e.g. C:\DeveloperArea\.config) before running setup."
+	}
+}
+
 $UserProfilePath = "$UserDocuments\PowerShell\Microsoft.PowerShell_profile.ps1"
 $UserProfilePath51 = "$UserDocuments\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
@@ -79,17 +85,14 @@ Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath51
 
 # Oh My Posh
-Link "oh-my-posh\star-ghostty.omp.json" "$UserHome\.config\oh-my-posh\star-ghostty.omp.json"
-Link "oh-my-posh\star-win-term.omp.json" "$UserHome\.config\oh-my-posh\star-win-term.omp.json"
+Link "oh-my-posh\star-ghostty.omp.json" "$env:XDG_CONFIG_HOME\oh-my-posh\star-ghostty.omp.json"
+Link "oh-my-posh\star-win-term.omp.json" "$env:XDG_CONFIG_HOME\oh-my-posh\star-win-term.omp.json"
 
 # Windows Terminal (MS Store)
 Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
 # Windows Terminal Preview (MS Store, same settings as stable)
 Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
-
-# Windows Terminal Canary (Scoop, same settings as stable)
-LinkJunction "windows-terminal" "$env:SCOOP\persist\windows-terminal-canary\settings"
 
 # Scoop custom bucket manifests
 Link "scoop-bucket\bucket\windows-terminal-canary.json" "$env:SCOOP\buckets\my-apps\bucket\windows-terminal-canary.json"
@@ -101,10 +104,10 @@ Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"
 
 # Lazygit
-Link "lazygit\config.yml" "$UserAppData\lazygit\config.yml"
+Link "lazygit\config.yml" "$env:XDG_CONFIG_HOME\lazygit\config.yml"
 
 # Neovim
-Link "nvim\init.lua" "$UserLocalAppData\nvim\init.lua"
+Link "nvim\init.lua" "$env:XDG_CONFIG_HOME\nvim\init.lua"
 
 # VS Code
 $VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
@@ -112,7 +115,7 @@ Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
 # Psmux
-$PsmuxTarget = "$UserHome\.config\psmux"
+$PsmuxTarget = "$env:XDG_CONFIG_HOME\psmux"
 $PsmuxLink = "$UserHome\.psmux"
 if (-not (Test-Path $PsmuxTarget)) {
 	New-Item -ItemType Directory -Path $PsmuxTarget -Force | Out-Null
@@ -122,12 +125,5 @@ if (Test-Path $PsmuxLink) {
 }
 New-Item -ItemType Junction -Path $PsmuxLink -Target $PsmuxTarget | Out-Null
 Write-Host "JUNCTION  $PsmuxLink -> $PsmuxTarget"
-
-# Unblock tmux plugin scripts blocked by Zone.Identifier (downloaded via tmuxpanel)
-$PluginDir = "$UserHome\.config\psmux\plugins"
-if (Test-Path $PluginDir) {
-	Get-ChildItem $PluginDir -Recurse -Include "*.ps1" | Unblock-File
-	Write-Host "UNBLOCK  $PluginDir"
-}
 
 Write-Host "Done."

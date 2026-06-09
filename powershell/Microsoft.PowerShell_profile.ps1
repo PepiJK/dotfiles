@@ -13,12 +13,6 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
 Set-Alias -Name lg -Value lazygit
 Set-Alias -Name co -Value copilot
 function vibe { copilot --yolo @args }
-function Update-Pwsh {
-	scoop update pwsh
-	Remove-Item "$env:SCOOP\apps\pwsh\current\profile.ps1", "$env:SCOOP\apps\pwsh\current\Microsoft.PowerShell_profile.ps1" -Force -ErrorAction SilentlyContinue
-}
-Set-Alias -Name uppwsh -Value Update-Pwsh
 
 # oh my posh
-# uses --print to omit group policy errors because oh-my-posh init is located in AppData
-(@(& oh-my-posh init pwsh --print --config "$env:USERPROFILE\.config\oh-my-posh\star-win-term.omp.json") -join "`n") | Invoke-Expression
+oh-my-posh init pwsh --config "$env:XDG_CONFIG_HOME\oh-my-posh\star-win-term.omp.json" --print | Out-String | Invoke-Expression

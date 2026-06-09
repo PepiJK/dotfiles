@@ -15,14 +15,14 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 |---|---|---|
 | `bash/` | `.bashrc` | `~/.bashrc` |
 | `ghostty/` | `config` | `~/.config/ghostty/config` |
-| `lazygit/` | `config.yml` | `~/.config/lazygit/config.yml` (Linux) / `%APPDATA%\lazygit\config.yml` (Windows) |
-| `nvim/` | `init.lua` | `~/.config/nvim/init.lua` (Linux) / `%LOCALAPPDATA%\nvim\init.lua` (Windows) |
-| `oh-my-posh/` | `*.omp.json` | `~/.config/oh-my-posh/` (Linux) / `%USERPROFILE%\.config\oh-my-posh\` (Windows) |
+| `lazygit/` | `config.yml` | `~/.config/lazygit/config.yml` (Linux) / `$XDG_CONFIG_HOME\lazygit\config.yml` (Windows) |
+| `nvim/` | `init.lua` | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows) |
+| `oh-my-posh/` | `*.omp.json` | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows) |
 | `pi/` | `AGENTS.md` | `~/.pi/agent/AGENTS.md` |
 | `powershell/` | `Microsoft.PowerShell_profile.ps1` | `~\Documents\PowerShell\` (Windows only) |
 | `tmux/` | `.tmux.conf` | `~/.tmux.conf` |
 | `vscode/` | `settings.json`, `keybindings.json` | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install) |
-| `windows-terminal/` | `settings.json` | Scoop persist dir (Windows only, junction) |
+| `windows-terminal/` | `settings.json` | `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal*\LocalState\` (Windows only, MS Store) |
 | `scoop-bucket/` | `bucket/*.json` | Custom Scoop bucket with app manifests (Windows only) |
 
 ## Platform notes
@@ -30,7 +30,7 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 - **tmux:** shared config, Windows-only settings guarded with `if-shell '[ "$OS" = "Windows_NT" ]'`. On Windows, psmux is used instead of native tmux.
 - **oh-my-posh:** two themes — `star-ghostty.omp.json` for Ghostty (Linux), `star-win-term.omp.json` for Windows Terminal.
 - **scoop-bucket:** a custom Scoop bucket hosted in this repo, currently providing a `windows-terminal-canary` manifest (nightly portable ZIP build, aliased as `wtc`).
-- **Windows setup** requires Scoop (`$env:SCOOP` must be set) and must run as Administrator to create symlinks.
+- **Windows setup** requires Scoop (`$env:SCOOP` must be set), `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_CACHE_HOME` to be set, and must run as Administrator to create symlinks.
 - **PowerShell profile** and **Windows Terminal** are Windows-only; no Linux equivalents in this repo.
 - **VS Code** is linked on both platforms, but to different paths: `~/.config/Code/User/` on Linux, `$SCOOP\persist\vscode\data\user-data\User\` on Windows (assumes Scoop-managed VS Code).
 
