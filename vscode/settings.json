@@ -12,6 +12,7 @@
 	"editor.autoClosingQuotes": "always",
 	"editor.inlayHints.enabled": "on",
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.unicodeHighlight.nonBasicASCII": false,
 	"[csharp]": {
 		"editor.defaultFormatter": "ms-dotnettools.csharp"
 	},
@@ -242,10 +243,4 @@
 			},
 		],
 	},
-	"editor.unicodeHighlight.nonBasicASCII": false,
-					"foreground": "#D16969"
-				}
-			}
-		]
-	}
 }
