@@ -44,5 +44,6 @@ link "vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 
 # Zed
 link "zed/settings.json" "$HOME/.config/zed/settings.json"
+link "zed/keymap.json" "$HOME/.config/zed/keymap.json"
 
 echo "Done."
