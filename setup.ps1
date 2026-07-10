@@ -94,9 +94,6 @@ Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.Wind
 # Windows Terminal Preview (MS Store, same settings as stable)
 Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
 
-# Scoop custom bucket manifests
-Link "scoop-bucket\bucket\windows-terminal-canary.json" "$env:SCOOP\buckets\my-apps\bucket\windows-terminal-canary.json"
-
 # Pi
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
 
