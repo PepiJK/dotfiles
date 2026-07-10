@@ -42,4 +42,7 @@ VSCODE_DIR="$HOME/.config/Code/User"
 link "vscode/settings.json" "$VSCODE_DIR/settings.json"
 link "vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 
+# Zed
+link "zed/settings.json" "$HOME/.config/zed/settings.json"
+
 echo "Done."

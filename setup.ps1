@@ -145,6 +145,9 @@ Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 # Zed and oh-my-posh AppData junctions
 EnsureScoopAppDataJunctions
 
+# Zed settings (symlink through the Zed AppData junction created above)
+Link "zed\settings.json" "$UserAppData\Zed\settings.json"
+
 # Psmux
 $PsmuxTarget = "$env:XDG_CONFIG_HOME\psmux"
 $PsmuxLink = "$UserHome\.psmux"

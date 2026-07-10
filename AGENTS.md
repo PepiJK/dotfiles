@@ -23,6 +23,7 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 | `tmux/` | `.tmux.conf` | `~/.tmux.conf` |
 | `vscode/` | `settings.json`, `keybindings.json` | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install) |
 | `windows-terminal/` | `settings.json` | `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal*\LocalState\` (Windows only, MS Store) |
+| `zed/` | `settings.json` | `~/.config/zed/settings.json` (Linux) / `$UserAppData\Zed\settings.json` (Windows) |
 
 ## Platform notes
 
@@ -31,6 +32,7 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 - **Windows setup** requires Scoop (`$env:SCOOP` must be set), `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_CACHE_HOME` to be set, and must run as Administrator to create symlinks.
 - **PowerShell profile** and **Windows Terminal** are Windows-only; no Linux equivalents in this repo.
 - **VS Code** is linked on both platforms, but to different paths: `~/.config/Code/User/` on Linux, `$SCOOP\persist\vscode\data\user-data\User\` on Windows (assumes Scoop-managed VS Code).
+- **Zed** on Windows: `%APPDATA%\Zed` is already a directory junction to a Scoop persist folder (created by `EnsureScoopAppDataJunctions`, alongside `themes/` and `AGENTS.md` unrelated to this repo). Since NTFS junctions only work on directories, `zed/settings.json` is linked with a plain symlink through that existing junction — `setup.ps1` symlinks it after `EnsureScoopAppDataJunctions` runs so the junction exists first.
 
 ## Conventions
 
