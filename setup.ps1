@@ -79,6 +79,37 @@ function LinkJunction {
 	Write-Host "JUNCTION  $Dst -> $FullSrc"
 }
 
+function EnsureScoopAppDataJunctions {
+	$mappings = @(
+		@{ Src = "$UserLocalAppData\Zed"; Dst = "$env:SCOOP\AppData\Local\Zed" },
+		@{ Src = "$UserAppData\Zed"; Dst = "$env:SCOOP\AppData\Roaming\Zed" },
+		@{ Src = "$UserLocalAppData\oh-my-posh"; Dst = "$env:SCOOP\AppData\Local\oh-my-posh" }
+	)
+
+	foreach ($mapping in $mappings) {
+		$srcParent = Split-Path -Parent $mapping.Src
+		if (-not (Test-Path $srcParent)) {
+			New-Item -ItemType Directory -Path $srcParent -Force | Out-Null
+		}
+
+		$dstParent = Split-Path -Parent $mapping.Dst
+		if (-not (Test-Path $dstParent)) {
+			New-Item -ItemType Directory -Path $dstParent -Force | Out-Null
+		}
+
+		if (-not (Test-Path $mapping.Dst)) {
+			New-Item -ItemType Directory -Path $mapping.Dst -Force | Out-Null
+		}
+
+		if (Test-Path $mapping.Src) {
+			Remove-Item $mapping.Src -Force -Recurse
+		}
+
+		New-Item -ItemType Junction -Path $mapping.Src -Target $mapping.Dst | Out-Null
+		Write-Host "JUNCTION  $($mapping.Src) -> $($mapping.Dst)"
+	}
+}
+
 # PowerShell profile (PS 7)
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 # PowerShell profile (PS 5.1)
@@ -93,9 +124,6 @@ Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.Wind
 
 # Windows Terminal Preview (MS Store, same settings as stable)
 Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
-
-# Scoop custom bucket manifests
-Link "scoop-bucket\bucket\windows-terminal-canary.json" "$env:SCOOP\buckets\my-apps\bucket\windows-terminal-canary.json"
 
 # Pi
 Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
@@ -113,6 +141,13 @@ Link "nvim\init.lua" "$env:XDG_CONFIG_HOME\nvim\init.lua"
 $VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
 Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
+
+# Zed and oh-my-posh AppData junctions
+EnsureScoopAppDataJunctions
+
+# Zed settings + keymap (symlinks through the Zed AppData junction created above)
+Link "zed\settings.json" "$UserAppData\Zed\settings.json"
+Link "zed\keymap.json" "$UserAppData\Zed\keymap.json"
 
 # Psmux
 $PsmuxTarget = "$env:XDG_CONFIG_HOME\psmux"
