@@ -26,8 +26,8 @@ export EDITOR="nvim"
 # angular cli completions
 source <(ng completion script 2>/dev/null)
 
-# fnv
-eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell bash)"
+# mise
+eval "$(mise activate bash)"
 
 # oh my posh
 eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/star-ghostty.omp.json)"
