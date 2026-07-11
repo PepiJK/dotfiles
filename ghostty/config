@@ -54,3 +54,13 @@ font-family = JetBrainsMono Nerd Font
 theme = Dark Modern
 font-size = 14
 maximize = true
+
+# Window splitting (matches Windows Terminal defaults)
+keybind = alt+shift+minus=new_split:down
+keybind = alt+shift+equal=new_split:right
+
+# Pane navigation (matches Windows Terminal defaults)
+keybind = alt+left=goto_split:left
+keybind = alt+right=goto_split:right
+keybind = alt+up=goto_split:up
+keybind = alt+down=goto_split:down
