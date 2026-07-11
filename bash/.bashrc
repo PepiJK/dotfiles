@@ -31,3 +31,6 @@ eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell bash)"
 
 # oh my posh
 eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/star-ghostty.omp.json)"
+
+# Added by Antigravity CLI installer
+export PATH="/home/josef/.local/bin:$PATH"
