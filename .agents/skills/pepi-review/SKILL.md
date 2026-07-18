@@ -1,5 +1,5 @@
 ---
-name: review
+name: pepi-review
 description: Review all current git changes (staged and unstaged) for logic errors, edge cases, and cleanliness.
 ---
 # Instructions

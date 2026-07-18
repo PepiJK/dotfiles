@@ -1,5 +1,5 @@
 ---
-name: verify
+name: pepi-verify
 description: Run all formatting, linting, test, and build tools in the current repo and give a summary.
 ---
 

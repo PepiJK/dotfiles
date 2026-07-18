@@ -1,5 +1,5 @@
 ---
-name: ask
+name: pepi-ask
 description: Think, answer question, use web search, do not change any files.
 ---
 

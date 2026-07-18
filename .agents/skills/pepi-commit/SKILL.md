@@ -1,5 +1,5 @@
 ---
-name: commit
+name: pepi-commit
 description: Analyze all changes made in git, then commit everything, but do not push.
 ---
 # Instructions

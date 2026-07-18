@@ -1,5 +1,5 @@
 ---
-name: update-docs
+name: pepi-update-docs
 description: Update all .md files in this repo, analyze code for missing info, and keep docs simple and readable by LLM agents.
 ---
 
