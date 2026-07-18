@@ -25,8 +25,15 @@ link "ghostty/config" "$HOME/.config/ghostty/config"
 link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.omp.json"
 link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
 
-# Pi
-link "pi/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
+# AI Agents (Google Antigravity & GitHub Copilot)
+link ".agents/AGENTS.md" "$HOME/.gemini/antigravity-cli/rules/AGENTS.md"
+link ".agents/AGENTS.md" "$HOME/.github/copilot-instructions.md"
+
+# AI Agent Skills (Google Antigravity & GitHub Copilot)
+for skill in ask verify update-docs review commit; do
+	link ".agents/skills/$skill/SKILL.md" "$HOME/.gemini/antigravity-cli/skills/$skill/SKILL.md"
+	link ".agents/skills/$skill/SKILL.md" "$HOME/.github/copilot-skills/$skill/SKILL.md"
+done
 
 # Tmux
 link "tmux/.tmux.conf" "$HOME/.tmux.conf"

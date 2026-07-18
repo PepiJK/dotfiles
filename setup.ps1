@@ -125,8 +125,16 @@ Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.Wind
 # Windows Terminal Preview (MS Store, same settings as stable)
 Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
 
-# Pi
-Link "pi\AGENTS.md" "$UserHome\.pi\agent\AGENTS.md"
+# AI Agents (Google Antigravity & GitHub Copilot)
+Link ".agents\AGENTS.md" "$UserHome\.gemini\antigravity-cli\rules\AGENTS.md"
+Link ".agents\AGENTS.md" "$UserHome\.github\copilot-instructions.md"
+
+# AI Agent Skills (Google Antigravity & GitHub Copilot)
+$AgentSkills = @("ask", "verify", "update-docs", "review", "commit")
+foreach ($skill in $AgentSkills) {
+	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
+	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.github\copilot-skills\$skill\SKILL.md"
+}
 
 # Tmux
 Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"

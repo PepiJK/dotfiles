@@ -18,7 +18,7 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 | `lazygit/`          | `config.yml`                        | `~/.config/lazygit/config.yml` (Linux) / `$XDG_CONFIG_HOME\lazygit\config.yml` (Windows)               |
 | `nvim/`             | `init.lua`                          | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                         |
 | `oh-my-posh/`       | `*.omp.json`                        | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows)                             |
-| `pi/`               | `AGENTS.md`                         | `~/.pi/agent/AGENTS.md`                                                                                |
+| `.agents/`          | `AGENTS.md`                         | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md` |
 | `powershell/`       | `Microsoft.PowerShell_profile.ps1`  | `~\Documents\PowerShell\` (Windows only)                                                               |
 | `tmux/`             | `.tmux.conf`                        | `~/.tmux.conf`                                                                                         |
 | `vscode/`           | `settings.json`, `keybindings.json` | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install) |
@@ -39,4 +39,4 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 - Never add platform-specific logic directly into shared configs — use guards (`if-shell`, `$IsWindows`, etc.) or separate files.
 - Keep setup scripts in sync: adding a new config means adding a `Link` call to both `setup.sh` and `setup.ps1`.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
-- **`pi/`** contains the `AGENTS.md` file loaded as context by the [pi](https://github.com/mariozechner/pi) AI coding agent. It is linked into `~/.pi/agent/` so edits here take effect immediately.
+- **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories.
