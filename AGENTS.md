@@ -19,6 +19,7 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 | `nvim/`             | `init.lua`                          | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                         |
 | `oh-my-posh/`       | `*.omp.json`                        | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows)                             |
 | `.agents/`          | `AGENTS.md`                         | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md` |
+| `.agents/skills/`   | `SKILL.md` (per skill)              | `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md`, `~/.agents/skills/<skill>/SKILL.md`               |
 | `powershell/`       | `Microsoft.PowerShell_profile.ps1`  | `~\Documents\PowerShell\` (Windows only)                                                               |
 | `tmux/`             | `.tmux.conf`                        | `~/.tmux.conf`                                                                                         |
 | `vscode/`           | `settings.json`, `keybindings.json` | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install) |
@@ -40,3 +41,4 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 - Keep setup scripts in sync: adding a new config means adding a `Link` call to both `setup.sh` and `setup.ps1`.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories.
+- **`.agents/skills/`** contains one `SKILL.md` per agent skill (e.g. `pepi-ask`, `pepi-verify`, `pepi-update-docs`, `pepi-review`, `pepi-commit`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).

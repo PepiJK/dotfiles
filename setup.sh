@@ -32,7 +32,7 @@ link ".agents/AGENTS.md" "$HOME/.github/copilot-instructions.md"
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
 for skill in pepi-ask pepi-verify pepi-update-docs pepi-review pepi-commit; do
 	link ".agents/skills/$skill/SKILL.md" "$HOME/.gemini/antigravity-cli/skills/$skill/SKILL.md"
-	link ".agents/skills/$skill/SKILL.md" "$HOME/.github/copilot-skills/$skill/SKILL.md"
+	link ".agents/skills/$skill/SKILL.md" "$HOME/.agents/skills/$skill/SKILL.md"
 done
 
 # Tmux

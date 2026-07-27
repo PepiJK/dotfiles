@@ -133,7 +133,7 @@ Link ".agents\AGENTS.md" "$UserHome\.github\copilot-instructions.md"
 $AgentSkills = @("pepi-ask", "pepi-verify", "pepi-update-docs", "pepi-review", "pepi-commit")
 foreach ($skill in $AgentSkills) {
 	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
-	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.github\copilot-skills\$skill\SKILL.md"
+	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.agents\skills\$skill\SKILL.md"
 }
 
 # Tmux
