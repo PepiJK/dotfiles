@@ -35,6 +35,7 @@
 		"nachv",
 		"Pepi",
 		"Pumpr",
+		"Signalr",
 		"tailwindcss",
 		"Transloco",
 		"trivago",
@@ -156,4 +157,5 @@
 		"typescript": true
 	},
 	"chat.viewSessions.orientation": "stacked",
+	"workbench.experimental.modernUI": false,
 }
