@@ -9,8 +9,9 @@ description: Review all current git changes (staged and unstaged) for logic erro
    - Accidental debug code (e.g., print statements, console logs).
    - Incomplete refactors (e.g., changing a variable name in one place but missing it elsewhere).
 3. Ensure no hardcoded credentials or missing error handling are in the new code.
-4. Run the `verify` skill (either by reading its instructions and executing them, or delegating if appropriate) to ensure tests and linters pass.
-5. Provide a structured summary of your findings:
+4. Also Check for possible bugs or logic errors, missed edge cases, clean code and DRY.
+5. Run the `verify` skill (either by reading its instructions and executing them, or delegating if appropriate) to ensure tests and linters pass.
+6. Provide a structured summary of your findings:
    - **Summary of Changes**: Brief overview.
    - **Potential Issues**: Bugs, edge cases, or dirty code.
    - **Verification Results**: Summary from running the `verify` checks.
