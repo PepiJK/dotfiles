@@ -1,20 +1,70 @@
 ---
 name: pepi-review
-description: Review all current git changes (staged and unstaged) for logic errors, edge cases, and cleanliness.
+description: Read-only review of all staged, unstaged, and untracked changes across any technology stack.
 ---
+
 # Instructions
-1. Run `git diff HEAD` to see all staged and unstaged changes.
-2. Analyze the diff focusing on:
-   - Unhandled edge cases or missing error handling.
-   - Accidental debug code (e.g., print statements, console logs).
-   - Incomplete refactors (e.g., changing a variable name in one place but missing it elsewhere).
-   - Possible Bugs
-   - Logic errors
-   - Clean code
-   - DRY, code duplicates
-   - Update to date documentation that aligns with the implementation
-3. Ensure no hardcoded credentials or missing error handling are in the new code.
-4. Provide a structured summary in a human readable format of your findings:
-   - **Summary of Changes**: Brief overview.
-   - **Potential Issues**: Bugs, edge cases, or dirty code.
-   - **Suggestions**: How to improve the current changes before committing.
+
+1. Determine the complete scope:
+   - Run `git status --short`.
+   - Run `git diff --name-status HEAD`.
+   - Run `git diff HEAD`.
+   - Run `git ls-files --others --exclude-standard`.
+   - Include untracked files; `git diff HEAD` does not show them.
+
+2. Discover repository requirements:
+   - Read applicable `AGENTS.md`, `CONTRIBUTING.md`, `README.md`, architecture documents, and feature documentation.
+   - Detect the languages, frameworks, project structure, and available validation commands.
+   - Never assume frontend, backend, framework, architecture, or naming conventions.
+
+3. Understand the complete change:
+   - Read complete changed files, not only diff hunks.
+   - Inspect direct callers, consumers, contracts, implementations, tests, configuration, and documentation.
+   - Compare with analogous repository implementations.
+   - Search for existing equivalents before accepting new helpers, types, constants, or abstractions.
+
+4. Review correctness:
+   - Logic errors and behavioral regressions.
+   - Missing boundary, empty, null, failure, cancellation, and concurrency handling.
+   - Incorrect state or resource lifecycle.
+   - Incomplete refactors and stale references.
+   - Contract, API, schema, serialization, or compatibility problems.
+   - Debug code, temporary workarounds, secrets, and unsafe data exposure.
+
+5. Review architecture and maintainability:
+   - Enforce the repository’s documented dependency direction and module responsibilities.
+   - Ensure code is placed at the narrowest appropriate shared scope.
+   - Identify misplaced business logic, pure logic, infrastructure logic, or state ownership.
+   - Find semantic duplication, including differently named equivalent implementations.
+   - Review unnecessary exports, abstractions, mutable APIs, dead code, and avoidable complexity.
+
+6. Review completeness:
+   - Check every implementation of changed contracts.
+   - Check mocks, fixtures, migrations, configuration, and generated boundaries where relevant.
+   - Ensure tests cover changed behavior and important regression scenarios.
+   - Ensure documentation matches the final behavior.
+
+7. Validate without modifying files:
+   - Run `git diff --check`.
+   - Discover targeted validation commands from the repository.
+   - Run appropriate non-fixing tests, linting, type checks, or builds when justified.
+   - Never use formatting writes or `--fix`.
+   - Avoid repo-wide release gates unless requested or required by repository instructions.
+
+8. Report findings first:
+   - Order by Blocker, High, Medium, and Low.
+   - Include `path:line`, impact, triggering scenario, and recommended correction.
+   - Report only evidence-based, actionable findings.
+   - Separate defects, optional improvements, pre-existing issues, and validation gaps.
+   - If no findings exist, state that explicitly.
+
+9. Review the current final state:
+   - Recalculate the scope from scratch after fixes.
+   - Do not assume that fixing earlier findings introduced no regressions.
+   - Do not declare commit readiness without reviewing the resulting diff and completing required validation.
+
+# Constraints
+
+- Do not create, edit, delete, stage, or commit files.
+- Do not impose personal style preferences unsupported by repository rules.
+- Do not claim a comprehensive security audit.
