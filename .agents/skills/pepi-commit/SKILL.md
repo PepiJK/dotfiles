@@ -9,9 +9,9 @@ description: Reviews and commits all current repository changes using a human-re
    - `git diff --cached --stat`
    - `git diff --cached --name-status`
    - `git diff --cached`
-   - `git diff --cached --check`
+   - `git -c core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol diff --cached --check`
 
-   The staged diff includes untracked files, unlike `git diff HEAD` run before staging. If the staged diff is empty or `git diff --cached --check` reports problems, report the result and stop.
+   The staged diff includes untracked files, unlike `git diff HEAD` run before staging. If the staged diff is empty or the CRLF-aware whitespace check reports problems, report the result and stop.
 4. Generate a human-readable commit message from the staged diff:
    - Subject: `<type>(<scope>): <imperative summary>`, with an optional scope and no period. Keep it specific and under roughly 72 characters.
    - Use Conventional Commit types such as `feat`, `fix`, `refactor`, `docs`, `test`, `build`, and `chore`.
