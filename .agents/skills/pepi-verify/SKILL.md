@@ -1,6 +1,6 @@
 ---
 name: pepi-verify
-description: Run all formatting, linting, test, and build tools in the current repo and give a summary.
+description: Runs the repository's formatting, linting, test, and build checks and summarizes the results. Use when asked to verify, validate, test, lint, format, or build the repository.
 ---
 
 # Instructions

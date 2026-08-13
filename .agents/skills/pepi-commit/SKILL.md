@@ -1,6 +1,6 @@
 ---
 name: pepi-commit
-description: Review all repository changes, create a human-readable Conventional Commit, and commit everything without pushing.
+description: Reviews and commits all current repository changes using a human-readable Conventional Commit, without pushing. Use only when explicitly asked to commit the current changes.
 ---
 # Instructions
 1. Run `git status --short --branch` to identify all modified, added, deleted, and untracked files. If there are no changes, report that there is nothing to commit and stop.

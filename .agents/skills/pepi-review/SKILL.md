@@ -1,6 +1,6 @@
 ---
 name: pepi-review
-description: Read-only review of all staged, unstaged, and untracked changes across any technology stack.
+description: Performs a read-only review of all staged, unstaged, and untracked repository changes. Use when asked to review, audit, inspect, or assess current changes without modifying files.
 ---
 
 # Instructions
