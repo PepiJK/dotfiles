@@ -16,7 +16,6 @@ description: Review all repository changes, create a human-readable Conventional
    - Subject: `<type>(<scope>): <imperative summary>`, with an optional scope and no period. Keep it specific and under roughly 72 characters.
    - Use Conventional Commit types such as `feat`, `fix`, `refactor`, `docs`, `test`, `build`, and `chore`.
    - Body: leave a blank line after the subject, then include 2–5 concise bullets explaining the meaningful changes and their purpose. Do not write a file-by-file dump.
-   - Add a `Validation:` section only for checks that were actually run.
 
    Example:
    ```text
@@ -25,9 +24,6 @@ description: Review all repository changes, create a human-readable Conventional
    - Remove stale references to the deleted skill from the global instructions.
    - Stop creating links for it in the Linux and Windows setup scripts.
    - Keep the remaining skill registrations unchanged.
-
-   Validation:
-   - Confirmed the staged diff and clean worktree.
    ```
 5. Commit the subject and body as a multiline message. Use `git commit -m "<subject>" -m "<body>"` or an appropriate message file when needed. Include this trailer:
    `Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>`
