@@ -3,6 +3,8 @@ name: pepi-commit
 description: Reviews and commits all current repository changes using a human-readable Conventional Commit, without pushing. Use only when explicitly asked to commit the current changes.
 ---
 # Instructions
+Commit only; do not run repo validation commands. 
+
 1. Run `git status --short --branch` to identify all modified, added, deleted, and untracked files. If there are no changes, report that there is nothing to commit and stop.
 2. Stage all changes with `git add -A`. This skill is invoked when the user wants all current repository changes committed.
 3. Inspect the exact staged snapshot that will be committed:
