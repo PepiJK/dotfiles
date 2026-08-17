@@ -42,7 +42,7 @@ The setup scripts are the source of truth for link targets and platform-specific
 - Keep cross-platform link definitions in sync between `setup.sh` and `setup.ps1`; platform-specific configs belong only in the applicable script.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories.
-- **`.agents/skills/`** contains one `SKILL.md` per agent skill (e.g. `pepi-verify`, `pepi-update-docs`, `pepi-review`, `pepi-agent-hygiene`, `pepi-commit`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).
+- **`.agents/skills/`** contains one `SKILL.md` per agent skill (e.g. `pepi-verify`, `pepi-update-docs`, `pepi-review`, `pepi-agent-hygiene`, `pepi-commit`, `pepi-pr-description`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).
 
 ## Validation
 

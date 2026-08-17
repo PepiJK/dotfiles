@@ -1,11 +1,11 @@
 ---
 name: pepi-agent-hygiene
-description: Reviews and improves repository agent instructions and their scope, keeping high-signal local knowledge while removing generic, duplicated, stale, or model-specific guidance.
+description: Audits and cleans up existing repository agent-instruction files for scope, duplication, staleness, and signal. Use only for instruction-hygiene reviews; do not use for ordinary skill creation or registration.
 ---
 
 # Instructions
 
-When invoked, review and, when requested, improve the repository's agent-instruction files and structure. Use the smallest set of high-signal information that reliably changes implementation outcomes; do not optimize for line count alone.
+When invoked, audit and, when requested, improve existing repository agent-instruction files for scope, duplication, staleness, and signal. Do not use this skill for ordinary skill creation or registration unless the user explicitly asks for a hygiene review.
 
 Respect the requested scope. For a repository-wide hygiene task, inspect the complete applicable instruction surface. For a bounded or read-only review, inspect only the requested files and supporting sources, and report any conclusions that could not be verified without expanding the scope.
 
@@ -102,4 +102,3 @@ Report:
 4. Validation performed, including representative-task evaluation when used, and any remaining human decisions.
 
 For a read-only review or a review that needs no edits, state that no files were changed and give the evidence-based findings or recommendations. Do not describe a shorter file as automatically better.
-
