@@ -1,6 +1,6 @@
 ---
 name: pepi-pr-description
-description: Creates a concise pull request description from the current changes against a selected base branch and copies it to the system clipboard.
+description: Creates a clear, human-readable pull request description that explains what changed and why, then copies it to the system clipboard.
 ---
 
 # Instructions
@@ -22,22 +22,44 @@ Use the selected local branch or remote-tracking ref consistently for all compar
 - Inspect staged and unstaged changes with `git diff --cached` and `git diff`.
 - Include untracked files from `git ls-files --others --exclude-standard`; read their contents before summarizing them.
 - Read applicable pull request templates under `.github/` and follow their required headings when present.
-- Review relevant tests, configuration, and documentation so the description explains behavior rather than just listing filenames.
+- Review relevant source, configuration, tests, and documentation so the description explains behavior and intent rather than just listing filenames.
 - Do not invent behavior, validation results, or completed work. Distinguish uncommitted work when it affects the description.
 
 ## Write the description
 
-Unless a repository pull request template requires another structure, produce only:
+Unless a repository pull request template requires another structure, produce a polished,
+ready-to-paste Markdown description with this adaptable structure:
 
 ```markdown
-## Summary
-- <two to four concise bullets describing the user-visible or architectural changes>
+## Overview
+<one or two sentences explaining the purpose of the change and why it was needed>
 
-## Testing
-- <checks that were actually run and their results>
+## Changes
+### <logical area>
+- <what changed and why>
+- <important behavior, configuration, documentation, or architectural detail>
+
+### <another logical area>
+- <what changed and why>
+
+## Impact
+- <user-visible, operational, security, compatibility, or rollout impact when relevant>
 ```
 
-Use `Not run (not requested).` when no validation was performed. Keep the text concise, specific, and ready to paste into a pull request. Do not wrap the final description in an additional code fence or include commentary outside the Markdown.
+- Use only the sections that add value. `## Overview` and `## Changes` are the normal minimum;
+  add `## Impact`, `## Follow-up`, or another focused section only when relevant.
+- Group changes by feature, concern, or outcome, not by commit or filename.
+- Explain both **what changed** and **why**. Prefer concrete statements such as “Replaced X with Y
+  so that Z” over vague phrases such as “updated several files”.
+- Describe the resulting behavior or intent in plain language, including important user-visible,
+  authorization, data, operational, or compatibility consequences.
+- Keep the body concise but detailed enough for a reviewer to understand the change without opening
+  every file. Use short paragraphs, bullets, and subheadings for easy scanning.
+- Do not add a `## Testing` or validation section by default. Include validation only when the user
+  explicitly requests it or a repository pull request template requires it.
+- Do not invent rationale, behavior, or completed work. Base the explanation on the diff and relevant
+  repository documentation; clearly distinguish committed changes from uncommitted work when needed.
+- Do not wrap the final description in an additional code fence or add commentary to the copied body.
 
 ## Copy to the clipboard
 
