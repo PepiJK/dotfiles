@@ -4,10 +4,11 @@ Cross-platform dotfiles for Arch Linux (bash) and Windows 11 (PowerShell 7).
 
 ## Setup
 
-**Linux:** `bash setup.sh` (no arguments; requires only standard tools: `ln`, `mkdir`)
-**Windows:** `.\setup.ps1 -UserName <username>` (run as Administrator; requires [Scoop](https://scoop.sh) with `$env:SCOOP` set)
+**Linux:** `bash setup.sh` (no arguments)
+**Windows:** `.\setup.ps1 -UserName <username>` (run as Administrator)
 
 Both scripts create symlinks (or junctions on Windows) from the target locations into this repo, so edits here are live immediately.
+The setup scripts are the source of truth for link targets and platform-specific setup behavior.
 
 ## Structure
 
@@ -33,12 +34,17 @@ Both scripts create symlinks (or junctions on Windows) from the target locations
 - **Windows setup** requires Scoop (`$env:SCOOP` must be set), `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_CACHE_HOME` to be set, and must run as Administrator to create symlinks.
 - **PowerShell profile** and **Windows Terminal** are Windows-only; no Linux equivalents in this repo.
 - **VS Code** is linked on both platforms, but to different paths: `~/.config/Code/User/` on Linux, `$SCOOP\persist\vscode\data\user-data\User\` on Windows (assumes Scoop-managed VS Code).
-- **Zed** on Windows: `%APPDATA%\Zed` is already a directory junction to a Scoop persist folder (created by `EnsureScoopAppDataJunctions`, alongside `themes/` and `AGENTS.md` unrelated to this repo). Since NTFS junctions only work on directories, `zed/settings.json` and `zed/keymap.json` are each linked with a plain symlink through that existing junction — `setup.ps1` symlinks them after `EnsureScoopAppDataJunctions` runs so the junction exists first.
+- **Zed** on Windows: `EnsureScoopAppDataJunctions` creates the `%APPDATA%\Zed` directory junction before `setup.ps1` links `zed/settings.json` and `zed/keymap.json`; preserve this ordering.
 
 ## Conventions
 
 - Never add platform-specific logic directly into shared configs — use guards (`if-shell`, `$IsWindows`, etc.) or separate files.
-- Keep setup scripts in sync: adding a new config means adding a `Link` call to both `setup.sh` and `setup.ps1`.
+- Keep cross-platform link definitions in sync between `setup.sh` and `setup.ps1`; platform-specific configs belong only in the applicable script.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories.
 - **`.agents/skills/`** contains one `SKILL.md` per agent skill (e.g. `pepi-verify`, `pepi-update-docs`, `pepi-review`, `pepi-agent-hygiene`, `pepi-commit`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).
+
+## Validation
+
+- This repository has no build, test, or lint configuration.
+- For setup or instruction changes, run `bash -n setup.sh`, a syntax-only PowerShell parse of `setup.ps1`, and `git diff --check`. Do not execute the setup scripts as validation because they replace destination paths.
