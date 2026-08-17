@@ -130,7 +130,7 @@ Link ".agents\AGENTS.md" "$UserHome\.gemini\antigravity-cli\rules\AGENTS.md"
 Link ".agents\AGENTS.md" "$UserHome\.github\copilot-instructions.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
-$AgentSkills = @("pepi-verify", "pepi-update-docs", "pepi-review", "pepi-commit")
+$AgentSkills = @("pepi-verify", "pepi-update-docs", "pepi-review", "pepi-agent-hygiene", "pepi-commit")
 foreach ($skill in $AgentSkills) {
 	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
 	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.agents\skills\$skill\SKILL.md"
