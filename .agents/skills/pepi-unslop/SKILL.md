@@ -1,6 +1,6 @@
 ---
 name: pepi-unslop
-description: Cut AI tells from any writing. Must always apply.
+description: Edit drafted prose to remove AI-like patterns while preserving meaning, voice, code, configuration, quoted text, and required technical structure.
 ---
 
 # Pepi unslop
