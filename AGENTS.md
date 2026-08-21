@@ -19,7 +19,7 @@ The setup scripts are the source of truth for link targets and platform-specific
 | `lazygit/`          | `config.yml`                        | `~/.config/lazygit/config.yml` (Linux) / `$XDG_CONFIG_HOME\lazygit\config.yml` (Windows)               |
 | `nvim/`             | `init.lua`                          | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                         |
 | `oh-my-posh/`       | `*.omp.json`                        | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows)                             |
-| `.agents/`              | `AGENTS.md`                         | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md`, `~/.copilot/copilot-instructions.md` (Windows) |
+| `.agents/`              | `AGENTS.md`                         | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md`, `~/.agents/AGENTS.md` (Linux) / `$UserHome\.gemini\antigravity-cli\rules\AGENTS.md`, `$UserHome\.github\copilot-instructions.md`, `$UserHome\.copilot\copilot-instructions.md`, `$UserHome\.agents\AGENTS.md` (Windows) |
 | `.agents/skills/`   | `SKILL.md` (per skill)              | `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md`, `~/.agents/skills/<skill>/SKILL.md`               |
 | `powershell/`       | `Microsoft.PowerShell_profile.ps1`  | `~\Documents\PowerShell\` (Windows only)                                                               |
 | `tmux/`             | `.tmux.conf`                        | `~/.tmux.conf`                                                                                         |

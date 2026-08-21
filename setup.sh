@@ -28,6 +28,7 @@ link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term
 # AI Agents (Google Antigravity & GitHub Copilot)
 link ".agents/AGENTS.md" "$HOME/.gemini/antigravity-cli/rules/AGENTS.md"
 link ".agents/AGENTS.md" "$HOME/.github/copilot-instructions.md"
+link ".agents/AGENTS.md" "$HOME/.agents/AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
 for skill in pepi-verify pepi-update-docs pepi-commit pepi-pr-description pepi-unslop pepi-worktree; do
