@@ -1,4 +1,4 @@
-# source local overrides 
+# source local overrides
 if [ -f "$HOME/.bashrc.local" ]; then
 	source "$HOME/.bashrc.local"
 fi
@@ -18,7 +18,6 @@ alias grep='grep --color=auto'
 alias lg='lazygit'
 alias cc='claude'
 alias nv='nvim'
-alias pin-node='node -v | cut -c2- > .nvmrc && echo "Pinned $(cat .nvmrc)"'
 
 # env variables
 export EDITOR="nvim"
@@ -26,8 +25,8 @@ export EDITOR="nvim"
 # angular cli completions
 source <(ng completion script 2>/dev/null)
 
-# mise
-eval "$(mise activate bash)"
+# fnm setup
+eval "$(fnm env --use-on-cd --shell bash)"
 
 # oh my posh
 eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/star-ghostty.omp.json)"
