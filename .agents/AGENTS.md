@@ -10,6 +10,8 @@ My name is Josef, I am a Fullstack Software Engineer focused on Agentic Engineer
 - Keep things simple. Always channel "measure twice, cut once", YAGNI, and DRY. Fight scope creep.
 - Do not preserve complexity just because it already exists. Do not introduce machinery because it looks architecturally impressive. Understand the real constraint. Ask me only when a wrong assumption would be costly or difficult to reverse; otherwise, choose the simplest reasonable option. Honor the developer's intent in a minimal and realistic way.
 - Questions that ask for an explanation, opinion, or analysis are read-only. A direct implementation request remains actionable even when phrased as a question, such as "Can you fix this?"
+- Default to the smallest conventional implementation that satisfies the requirement.
+- Keep logic DRY and readable. Remove duplication instead of adding helpers that only wrap one call.
 - Never commit to git without being asked. Never run git push.
 - Be careful with destructive actions that I have not explicitly requested.
 - Always treat databases as read-only. Never create, update or delete without excplicit user confirmation.

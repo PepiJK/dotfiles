@@ -27,6 +27,7 @@ git rev-parse --git-dir
 git rev-parse --git-common-dir
 git branch --show-current
 git rev-parse --show-superproject-working-tree
+git status --short
 ```
 
 Resolve `--git-dir` and `--git-common-dir` to normalized absolute paths before
@@ -59,12 +60,35 @@ Step 1. Otherwise ask for consent before creating anything:
 If the user declines, work in the current checkout and skip to Step 2.
 
 Do not stash, reset, or delete existing changes. If the current checkout is dirty,
-make clear that a new worktree starts from committed `HEAD` and does not include
-uncommitted changes from the current checkout.
+make clear that a new worktree starts from the selected base ref's committed state
+and never includes uncommitted changes from the current checkout.
 
 ## Step 1: Create the isolated workspace
 
 There are two mechanisms. Try them in this order.
+
+### Choose the base ref
+
+This applies when creating a new branch. If an existing local branch is
+explicitly requested, skip base selection because that branch already determines
+the worktree's starting point.
+
+Always ask before creating a new branch, even when the current checkout is clean
+or a base ref was already mentioned. Treat an explicitly requested base ref as
+the preselected option, not as a reason to skip the question:
+
+> "Which base should the new branch use? Uncommitted changes will not be included."
+
+Offer the existing local `main` and/or `master` branches, the current branch at
+its committed `HEAD` (or committed `HEAD` when detached), and a custom local
+branch or ref. If both `main` and `master` exist, offer both rather than guessing.
+For a selected custom ref, validate it before changing the filesystem:
+
+```text
+git rev-parse --verify "<base-ref>^{commit}"
+```
+
+Stop and report the validation error if the ref does not resolve to a commit.
 
 ### 1a. Native worktree tools (preferred)
 
@@ -72,9 +96,12 @@ After the user has consented, check whether the current harness provides a nativ
 worktree operation. It may be exposed as a tool or command such as `EnterWorktree`,
 `WorktreeCreate`, `/worktree`, or a `--worktree` flag.
 
-If a native operation exists, use it and skip to Step 2. Native tools own
-directory placement, branch creation, and cleanup. Do not also run
-`git worktree add`, because that creates state the harness cannot manage.
+If a native operation exists, pass the selected base ref when it supports one and
+use it, then skip to Step 2. Native tools own directory placement, branch
+creation, and cleanup. If the operation cannot honor an explicitly requested
+base ref, report that limitation and ask whether to use the Git fallback; never
+silently use a different base. Do not also run `git worktree add` when the native
+operation is used, because that creates state the harness cannot manage.
 
 If no native operation exists, continue to Step 1b.
 
@@ -143,8 +170,8 @@ then run the appropriate form of:
 # Existing local branch
 git worktree add <path> <branch-name>
 
-# New branch from the current committed HEAD
-git worktree add -b <branch-name> <path>
+# New branch from the selected base ref
+git worktree add -b <branch-name> <path> <base-ref>
 ```
 
 Verify both the registration and the branch:
@@ -152,11 +179,14 @@ Verify both the registration and the branch:
 ```text
 git worktree list --porcelain
 git -C <path> branch --show-current
+git -C <path> rev-parse HEAD
+git rev-parse "<base-ref>^{commit}"
 ```
 
 Confirm that the registered path is the intended absolute path and that the
-branch is the requested branch. Surface command errors directly and do not claim
-success without both verification checks.
+branch is the requested branch. For a new branch, confirm that the two commit IDs
+match so the selected base was used. Surface command errors directly and do not
+claim success without all verification checks.
 
 If `git worktree add` fails because the sandbox denies the operation, report that
 the sandbox blocked worktree creation and continue in the current checkout
@@ -207,6 +237,34 @@ Baseline checks passing: <commands and results>
 Ready to implement <feature-name>
 ```
 
+## Step 4: Hand off to the created workspace
+
+Run this step only when a new worktree was created and verified successfully
+and every applicable setup, build, and test check passed. Do not run it when
+already in a worktree, when working in place, when creation was blocked or
+failed, or when any check failed.
+
+Prepare the command:
+
+```text
+/cwd <absolute-path>
+```
+
+Tell the user to execute it to switch this Copilot CLI session to the created
+worktree. Quote the path if it contains spaces. Also copy the exact command to
+the clipboard using the first available platform-native method:
+
+| Platform | Clipboard command |
+| --- | --- |
+| Windows PowerShell | `Set-Clipboard -Value '/cwd <absolute-path>'` |
+| macOS | `printf '%s' '/cwd <absolute-path>' \| pbcopy` |
+| Linux Wayland | `printf '%s' '/cwd <absolute-path>' \| wl-copy` |
+| Linux X11 | `printf '%s' '/cwd <absolute-path>' \| xclip -selection clipboard` |
+
+If no supported clipboard utility is available, report that the command could
+not be copied and leave it visible for manual execution. Clipboard failure
+must not change the successful worktree or check result.
+
 ## Quick reference
 
 | Situation | Action |
@@ -220,10 +278,13 @@ Ready to implement <feature-name>
 | Both directories exist | Use `.worktrees` |
 | Neither directory exists | Default to `.worktrees` and verify or add its ignore rule |
 | Directory is not ignored | Add its ignore rule, leave it uncommitted, and never auto-commit |
+| Creating a new branch | Always ask for the base ref; never include uncommitted changes |
+| Custom base ref does not resolve | Report the validation error and do not create the worktree |
 | Path is registered for another branch | Report the conflict and leave it unchanged |
 | Path exists but is unregistered | Report the conflict and leave it unchanged |
 | Permission error during creation | Report the sandbox denial and work in place |
 | Baseline tests fail | Report failures and ask whether to proceed |
+| Worktree and all applicable checks pass | Show and copy `/cwd <absolute-path>` for session handoff |
 | .NET project is present | Run both `dotnet build` and `dotnet test` |
 | No recognized project files | Skip dependency installation and project checks |
 
@@ -235,6 +296,7 @@ Ready to implement <feature-name>
 | "`git worktree add` is quicker than checking for native tooling." | Native tooling owns placement, branching, and cleanup. Bypassing it creates unmanaged state. |
 | "The worktree directory is surely ignored already." | Run `git check-ignore` before creating project-local worktrees. |
 | "Any branch name will do." | Use an explicit, validated branch name; ask instead of guessing. |
+| "The current branch is automatically the right base." | Always ask for the base ref; worktrees start from a committed ref and never copy uncommitted changes. |
 | "The workspace is fresh, so baseline tests can wait." | A failing baseline makes later failures ambiguous. Run the checks first. |
 | "A successful build means the .NET baseline is clean." | Run both `dotnet build` and `dotnet test`. |
 | "I can commit the ignore rule while I'm here." | This skill never stages or commits automatically. |
