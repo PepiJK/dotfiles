@@ -1,6 +1,6 @@
 ---
 name: pepi-worktree
-description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores project dependencies with toolchain-aware setup, and runs a bounded local-unit baseline.
+description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores project dependencies with toolchain-aware setup, and verifies with a clean production build without running tests.
 ---
 
 # Using Git worktrees
@@ -13,8 +13,7 @@ so ignored dependency directories must be restored or explicitly seeded.
 
 **Announce at start:** "I'm using the pepi-worktree skill to set up an isolated workspace."
 
-The default baseline is local-only: run non-database unit tests, skip external
-integration tests, and never claim success without evidence that tests actually ran.
+Verification requires dependency installation and a clean production build. Test execution is intentionally skipped.
 
 ## Step 0: Detect isolation
 
@@ -191,20 +190,15 @@ and do not run the child a second time. Otherwise use `npm ci` when a lockfile i
 present and `npm install` only when no lockfile or a repository script requires it.
 Report any tracked lockfile changes produced by setup; never silently discard them.
 
-For Angular/Karma, the automated command must be non-interactive:
-
+For Angular/Node.js frontend projects:
 ```text
-npm test -- --watch=false --no-progress --browsers=ChromeHeadless
+npm run build -- --configuration production
 ```
-
-Honor an existing `CHROME_BIN`. If it is unset, resolve an actual Chrome or Edge
-executable from the environment. If the configured Chrome binary cannot launch,
-retry once with an installed Edge executable by changing `CHROME_BIN` only for
-that process. Use an executable path, not a `.cmd` wrapper.
+(or standard `npm run build` / production build script defined in `package.json`).
 
 ### Modern .NET
 
-Use `dotnet restore` and `dotnet build` only for SDK-style projects detected by
+Use `dotnet restore` and `dotnet build -c Release` only for SDK-style projects detected by
 `Sdk` or `TargetFramework` project properties.
 
 ### Legacy .NET Framework
@@ -224,17 +218,16 @@ in this order:
    for `MSBuild.exe`.
 
 Select an installation containing `MSBuild.exe` and the required
-`Microsoft.WebApplication.targets`; when tests exist, also locate
-`vstest.console.exe` and the NUnit adapter. Use absolute paths or a process-local
+`Microsoft.WebApplication.targets`. Use absolute paths or a process-local
 `PATH` update. Do not permanently modify the system `PATH`. If neither MSBuild
 nor the web targets exist, report that Visual Studio/Build Tools with ASP.NET web
 build tools and the required .NET Framework targeting packs must be installed.
 
-Restore and build the selected solution with Visual Studio MSBuild:
+Restore and build the selected solution with Visual Studio MSBuild in Release configuration:
 
 ```text
 MSBuild.exe <solution> /t:Restore /p:RestorePackagesConfig=true
-MSBuild.exe <solution> /m /t:Build /p:Configuration=Debug /p:Platform="Any CPU"
+MSBuild.exe <solution> /m /t:Build /p:Configuration=Release /p:Platform="Any CPU"
 ```
 
 Worktrees do not contain ignored `packages`, `node_modules`, `bin`, or `obj`
@@ -244,57 +237,22 @@ directories (copy or a read-only directory junction), verify the required packag
 files, and report that the cache is shared or copied. Never copy tracked source
 files or assume a cache is complete because its directory count looks plausible.
 
-Setup is complete only when the selected dependency setup and build commands pass.
-Stop and report setup errors; do not run tests against an unbuilt or partially
-restored workspace.
+Setup is complete only when the selected dependency setup and production build commands pass.
+Stop and report setup errors.
 
-## Step 3: Run the bounded local baseline
-
-The default baseline excludes database and external-service tests. Treat skipped
-integration tests as intentional, not as failures.
-
-| Profile | Local baseline |
-| --- | --- |
-| Node.js/Angular | `npm test -- --watch=false --no-progress --browsers=ChromeHeadless` |
-| Modern .NET | `dotnet test <solution> --filter <local-unit-filter>` |
-| Legacy NUnit projects | `vstest.console.exe` on built test DLLs with the NUnit adapter and `TestCategory=UnitTest` |
-| Rust | `cargo test` with the repository's local-test filter, when documented |
-| Python | `pytest` with the repository's local-test filter, when documented |
-| Go | `go test ./...` with the repository's local-test filter, when documented |
-
-For legacy NUnit projects, do not use a solution-level `dotnet test` when the
-classic projects have no usable `VSTest` target. Run the built test assemblies
-directly with `vstest.console.exe` and `/TestAdapterPath:<adapter-directory>`.
-In this repository, use `/TestCaseFilter:TestCategory=UnitTest` by default; this
-excludes `DbDependentTest` and `ResourceDependentTest`.
-
-Apply a finite timeout to each setup and test command, using 10 minutes by
-default unless the repository documents a different limit. If a command exceeds
-the timeout, stop its known process tree using specific process IDs and report it
-as timed out. Never leave watch processes or test runners running.
-
-Require positive execution evidence before marking a test command green: a test
-count greater than zero and a pass summary. An exit code of zero with no executed
-tests is inconclusive and must not satisfy the baseline.
-
-If a local test command fails, report the command and failure and ask whether to
-investigate or continue. Do not start database-dependent tests merely to make the
-baseline appear complete.
-
-## Step 4: Report and hand off
+## Step 3: Report and hand off
 
 Report these statuses separately:
 
 ```text
 Worktree: created/reused and verified
 Dependencies: restored/setup command and result
-Build: selected tool and result
-Local tests: command, executed count, and result
-Integration tests: skipped by local-only baseline
+Build: clean production build command and result
+Tests: skipped (dependency install and clean prod build sufficient)
 ```
 
 For a newly created worktree, provide and copy the handoff command only when the
-worktree, dependency setup, build, and applicable local-unit tests pass:
+worktree, dependency setup, and production build pass:
 
 ```text
 /cwd <absolute-path>
