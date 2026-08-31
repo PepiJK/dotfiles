@@ -18,20 +18,26 @@ integration tests, and never claim success without evidence that tests actually 
 
 ## Step 0: Detect isolation
 
-Before creating anything, run:
+Record the process working directory as `<command-cwd>` before running Git
+discovery. Then run:
 
 ```text
 git rev-parse --show-toplevel
-git rev-parse --git-dir
-git rev-parse --git-common-dir
+git rev-parse --path-format=absolute --git-dir
+git rev-parse --path-format=absolute --git-common-dir
 git branch --show-current
 git rev-parse --show-superproject-working-tree
 git status --short
 ```
 
-Normalize `--git-dir` and `--git-common-dir` to absolute paths before comparing
-them. Anchor repository-root operations with `git -C <repo-root>`; the current
-directory may be several levels below the project root.
+Use the absolute paths emitted by `--path-format=absolute` for the isolation
+comparison. If that option is unavailable, resolve a relative `--git-dir` or
+`--git-common-dir` against `<command-cwd>`, the directory from which that Git
+command was run. Never resolve those paths against `<repo-root>` unless the
+command itself was run with `git -C <repo-root>`. Canonicalize path separators
+and compare case-insensitively on Windows. Anchor later repository-root
+operations with `git -C <repo-root>`; the current directory may be several
+levels below the project root.
 
 If `--show-superproject-working-tree` returns a path, treat the checkout as a
 normal repository even when Git directories differ. Otherwise, when normalized
