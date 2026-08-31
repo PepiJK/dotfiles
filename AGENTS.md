@@ -31,7 +31,7 @@ The setup scripts are the source of truth for link targets and platform-specific
 ## Platform notes
 
 - **tmux:** shared config, Windows-only settings guarded with `if-shell '[ "$OS" = "Windows_NT" ]'`. On Windows, psmux is used instead of native tmux.
-- **Herdr:** platform-specific shell defaults with shared One Dark settings and tmux-aligned `Ctrl+A` prefix, pane splits, and `h/j/k/l` navigation. Linux uses Bash; Windows uses PowerShell 7 (`pwsh.exe`) with native ConPTY, linked under `$XDG_CONFIG_HOME\herdr\`.
+- **Herdr:** platform-specific shell defaults with shared One Dark settings and tmux-aligned `Ctrl+A` prefix, pane splits, and `h/j/k/l` navigation. Linux uses Bash; Windows uses PowerShell 7 (`pwsh.exe`) with native ConPTY, linked under `$XDG_CONFIG_HOME\herdr\`. The Windows PowerShell profile invokes Scoop's real Herdr binary so daemon auto-start works with WMI.
 - **oh-my-posh:** two themes — `star-ghostty.omp.json` for Ghostty (Linux), `star-win-term.omp.json` for Windows Terminal.
 - **Windows setup** requires Scoop (`$env:SCOOP` must be set), `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_CACHE_HOME` to be set, and must run as Administrator to create symlinks.
 - **PowerShell profile** and **Windows Terminal** are Windows-only; no Linux equivalents in this repo.

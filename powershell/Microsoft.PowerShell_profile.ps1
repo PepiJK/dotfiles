@@ -14,6 +14,16 @@ Set-Alias -Name lg -Value lazygit
 Set-Alias -Name co -Value copilot
 function vibe { copilot --yolo @args }
 
+# Herdr's server detachment requires the real Scoop binary, not its shim.
+$HerdrExecutable = if ($env:SCOOP) {
+	Join-Path $env:SCOOP "apps\herdr\current\herdr.exe"
+}
+if ($HerdrExecutable -and (Test-Path -LiteralPath $HerdrExecutable)) {
+	function herdr {
+		& $HerdrExecutable @args
+	}
+}
+
 # fnm
 fnm env --use-on-cd | Out-String | Invoke-Expression
 
