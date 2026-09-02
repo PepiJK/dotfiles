@@ -1,6 +1,6 @@
 ---
 name: pepi-worktree
-description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores project dependencies with toolchain-aware setup, and verifies with a clean production build without running tests.
+description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores dependencies with npm ci and dotnet restore, and runs Debug builds without tests.
 ---
 
 # Using Git worktrees
@@ -13,7 +13,9 @@ so ignored dependency directories must be restored or explicitly seeded.
 
 **Announce at start:** "I'm using the pepi-worktree skill to set up an isolated workspace."
 
-Verification requires dependency installation and a clean production build. Test execution is intentionally skipped.
+Setup requires dependency restoration with `npm ci` and `dotnet restore`, followed by
+Debug builds only. Independent worktrees and package roots should be set up in parallel
+agents or command sessions where possible. Tests are skipped for this workflow.
 
 ## Step 0: Detect isolation
 
@@ -26,7 +28,6 @@ git rev-parse --path-format=absolute --git-dir
 git rev-parse --path-format=absolute --git-common-dir
 git branch --show-current
 git rev-parse --show-superproject-working-tree
-git status --short
 ```
 
 Use the absolute paths emitted by `--path-format=absolute` for the isolation
@@ -59,8 +60,9 @@ Step 1. Otherwise ask for consent before creating anything:
 
 If the user declines, work in the current checkout and continue with Step 2.
 
-Report dirty files. Never stash, reset, or delete existing changes. A new worktree
-starts from committed history and excludes uncommitted files.
+Never stash, reset, or delete existing changes. A new worktree starts from committed
+history and excludes uncommitted files. Git checks in this step are for isolation and
+worktree safety only; do not perform a post-setup Git cleanliness or diff validation.
 
 ## Step 1: Create the isolated workspace
 
@@ -171,13 +173,19 @@ Confirm that the registered path is the intended absolute path, the branch is
 the requested branch, and a new branch starts at the selected base commit.
 Surface command errors directly and do not claim success without these checks.
 
+Do not run `git status`, `git diff`, or `git update-index` after setup as a handoff
+gate. Backend builds may rewrite generated OpenAPI or NSwag artifacts; do not treat
+their filesystem status alone as a setup failure.
+
 If `git worktree add` fails because the sandbox denies the operation, report that
 the sandbox blocked worktree creation and continue in the current checkout
 instead. Do not silently fall back for other errors.
 
 ## Step 2: Detect the project profile and set it up
 
-Inspect manifests before running expensive commands. If several solutions or
+Inspect manifests before running expensive commands. Run independent dependency
+restores and builds in parallel agents or command sessions where possible; do not
+serialize independent worktrees. If several solutions or
 package roots exist, select the root solution/package that matches the repository
 name. If no unique primary solution exists, report the candidates and ask before
 building an expensive or unrelated solution.
@@ -189,16 +197,18 @@ a wrapper whose install script delegates to a child package, run the wrapper onc
 and do not run the child a second time. Otherwise use `npm ci` when a lockfile is
 present and `npm install` only when no lockfile or a repository script requires it.
 Report any tracked lockfile changes produced by setup; never silently discard them.
+Run independent `npm ci` commands in parallel where possible.
 
 For Angular/Node.js frontend projects:
 ```text
-npm run build -- --configuration production
+npm run build -- --configuration development
 ```
-(or standard `npm run build` / production build script defined in `package.json`).
+(or the standard Debug/development build script defined in `package.json`). Do not run
+production builds in this workflow.
 
 ### Modern .NET
 
-Use `dotnet restore` and `dotnet build -c Release` only for SDK-style projects detected by
+Use `dotnet restore` and `dotnet build -c Debug` only for SDK-style projects detected by
 `Sdk` or `TargetFramework` project properties.
 
 ### Legacy .NET Framework
@@ -223,11 +233,11 @@ Select an installation containing `MSBuild.exe` and the required
 nor the web targets exist, report that Visual Studio/Build Tools with ASP.NET web
 build tools and the required .NET Framework targeting packs must be installed.
 
-Restore and build the selected solution with Visual Studio MSBuild in Release configuration:
+Restore and build the selected solution with Visual Studio MSBuild in Debug configuration:
 
 ```text
 MSBuild.exe <solution> /t:Restore /p:RestorePackagesConfig=true
-MSBuild.exe <solution> /m /t:Build /p:Configuration=Release /p:Platform="Any CPU"
+MSBuild.exe <solution> /m /t:Build /p:Configuration=Debug /p:Platform="Any CPU"
 ```
 
 Worktrees do not contain ignored `packages`, `node_modules`, `bin`, or `obj`
@@ -237,8 +247,8 @@ directories (copy or a read-only directory junction), verify the required packag
 files, and report that the cache is shared or copied. Never copy tracked source
 files or assume a cache is complete because its directory count looks plausible.
 
-Setup is complete only when the selected dependency setup and production build commands pass.
-Stop and report setup errors.
+Setup is complete only when the selected `npm ci`, `dotnet restore`, and Debug build
+commands pass. Do not run Release or production builds. Stop and report setup errors.
 
 ## Step 3: Report and hand off
 
@@ -247,12 +257,12 @@ Report these statuses separately:
 ```text
 Worktree: created/reused and verified
 Dependencies: restored/setup command and result
-Build: clean production build command and result
-Tests: skipped (dependency install and clean prod build sufficient)
+Build: Debug build command and result
+Tests: skipped (per this workflow)
 ```
 
 For a newly created worktree, provide and copy the handoff command only when the
-worktree, dependency setup, and production build pass:
+worktree structure, dependency setup, and Debug build pass:
 
 ```text
 /cwd <absolute-path>
@@ -264,6 +274,6 @@ On Windows PowerShell, copy it with:
 Set-Clipboard -Value '/cwd <absolute-path>'
 ```
 
-If clipboard copying fails, leave the command visible. If any required local
-check is blocked or inconclusive, report the worktree path and the exact blocker
-but do not claim it is ready.
+If clipboard copying fails, leave the command visible. If any required setup or
+build check is blocked or inconclusive, report the worktree path and the exact
+blocker but do not claim it is ready.
