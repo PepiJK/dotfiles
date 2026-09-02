@@ -12,9 +12,9 @@ focus_pane_up = "prefix+k"
 focus_pane_right = "prefix+l"
 
 [ui]
-agent_panel_sort = "priority"
+agent_panel_sort = "spaces"
 
 show_agent_labels_on_pane_borders = true
 [theme]
-name = "one-dark"
+name = "catppuccin"
 auto_switch = false
