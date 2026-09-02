@@ -1,6 +1,6 @@
 ---
 name: pepi-worktree
-description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores dependencies for every package root with npm ci and dotnet restore, and runs Debug builds without tests.
+description: Use when starting work that should be isolated in a Git worktree; creates or reuses a worktree and prepares it for development.
 ---
 
 # Using Git worktrees
@@ -8,15 +8,8 @@ description: Use when starting isolated feature work or before implementation pl
 ## Purpose
 
 Use an isolated workspace for feature work. Prefer a native worktree operation when
-the harness provides one; otherwise use Git. A worktree contains tracked files only,
-so ignored dependency directories must be restored or explicitly seeded.
-
-**Announce at start:** "I'm using the pepi-worktree skill to set up an isolated workspace."
-
-Setup requires dependency restoration with `npm ci` for every applicable package root
-and `dotnet restore`, followed by Debug builds only. Independent worktrees and package
-roots should be set up in parallel agents or command sessions where possible. Tests are
-skipped for this workflow.
+the harness provides one; otherwise use Git. Prepare the new workspace using the
+repository's own instructions, manifests, lockfiles, and scripts.
 
 ## Step 0: Detect isolation
 
@@ -71,9 +64,9 @@ There are two mechanisms. Try them in this order.
 
 ### Select base and branch
 
-For a new branch, always ask for the base even when a base was suggested. Offer
+For a new branch, use an explicitly supplied base. Otherwise ask for one, offering
 local `main`, local `master`, the current branch at committed `HEAD`, and a custom
-local ref. Validate a custom base before changing the filesystem:
+local ref. Validate the base before changing the filesystem:
 
 ```text
 git rev-parse --verify "<base-ref>^{commit}"
@@ -89,8 +82,7 @@ git check-ref-format --branch <branch-name>
 ### 1a. Native worktree tools (preferred)
 
 After the user has consented, check whether the current harness provides a native
-worktree operation. It may be exposed as a tool or command such as `EnterWorktree`,
-`WorktreeCreate`, `/worktree`, or a `--worktree` flag.
+worktree operation.
 
 If a native operation exists, pass the selected base when supported and skip to
 Step 2. Native tools own directory placement, branch creation, and cleanup. Do not
@@ -174,93 +166,30 @@ Confirm that the registered path is the intended absolute path, the branch is
 the requested branch, and a new branch starts at the selected base commit.
 Surface command errors directly and do not claim success without these checks.
 
-Do not run `git status`, `git diff`, or `git update-index` after setup as a handoff
-gate. Backend builds may rewrite generated OpenAPI or NSwag artifacts; do not treat
-their filesystem status alone as a setup failure.
+Do not use filesystem cleanliness as a handoff gate. Setup commands may update
+generated files without making the workspace unusable.
 
 If `git worktree add` fails because the sandbox denies the operation, report that
 the sandbox blocked worktree creation and continue in the current checkout
 instead. Do not silently fall back for other errors.
 
-## Step 2: Detect the project profile and set it up
+## Step 2: Prepare the workspace
 
-Inspect manifests before running expensive commands. Run independent dependency
-restores and builds in parallel agents or command sessions where possible; do not
-serialize independent worktrees. If several solutions or
-package roots exist, select the root solution/package that matches the repository
-name. If no unique primary solution exists, report the candidates and ask before
-building an expensive or unrelated solution.
+Read repository instructions and inspect manifests, lockfiles, workspace definitions,
+and existing setup scripts. Prefer repository-defined bootstrap commands over inferred
+ecosystem commands.
 
-### Node.js and Angular
+Restore dependencies for every project root required by the repository or intended
+work. Use the package manager selected by its lockfile or configuration. Treat
+workspace members covered by a root command as already restored.
 
-Recursively detect every package root in the worktree: each directory containing a
-`package.json`, including nested frontend, tooling, example, and workspace packages.
-Exclude `node_modules`, `.git`, and generated output directories from discovery. Do not
-stop after finding a top-level or primary package; every discovered package root must
-be evaluated.
+Run the repository's standard development build, compile, or equivalent readiness
+command when one exists. Prefer the least expensive command that proves the workspace
+is usable; skip tests unless repository setup explicitly includes them.
 
-For each package root, inspect the lockfile and install script in that same directory.
-Use `npm ci` when `package-lock.json` or `npm-shrinkwrap.json` is present, and use
-`npm install` only when no npm lockfile exists or the repository explicitly requires
-it. If a package is a wrapper whose install script delegates to a child package, run
-the wrapper once and do not run the child a second time. If a workspace root installs
-its workspaces, treat those workspaces as covered by that root and do not install them
-again unless they have their own independent lockfile or install requirements.
-Report any tracked lockfile changes produced by setup; never silently discard them.
-Run independent package-root installs in parallel where possible, and report every
-package root and command separately.
-
-For Angular/Node.js frontend projects:
-```text
-npm run build -- --configuration development
-```
-(or the standard Debug/development build script defined in `package.json`). Do not run
-production builds in this workflow.
-
-### Modern .NET
-
-Use `dotnet restore` and `dotnet build -c Debug` only for SDK-style projects detected by
-`Sdk` or `TargetFramework` project properties.
-
-### Legacy .NET Framework
-
-Detect `packages.config`, `TargetFrameworkVersion`, classic project XML, or
-`Microsoft.WebApplication.targets` imports. These projects require Visual Studio
-MSBuild, not the .NET SDK's MSBuild.
-
-Resolve Visual Studio without requiring `vswhere.exe` or a permanent `PATH` change,
-in this order:
-
-1. An explicit `VS_MSBUILD` or `VSINSTALLDIR` environment variable.
-2. `vswhere.exe` from `PATH`.
-3. The Visual Studio Installer `vswhere.exe` in standard installer locations.
-4. A bounded search of `Microsoft Visual Studio` roots under both Program Files
-   locations, plus known custom roots such as `C:\Program Files\EigeneProgramme\VS`,
-   for `MSBuild.exe`.
-
-Select an installation containing `MSBuild.exe` and the required
-`Microsoft.WebApplication.targets`. Use absolute paths or a process-local
-`PATH` update. Do not permanently modify the system `PATH`. If neither MSBuild
-nor the web targets exist, report that Visual Studio/Build Tools with ASP.NET web
-build tools and the required .NET Framework targeting packs must be installed.
-
-Restore and build the selected solution with Visual Studio MSBuild in Debug configuration:
-
-```text
-MSBuild.exe <solution> /t:Restore /p:RestorePackagesConfig=true
-MSBuild.exe <solution> /m /t:Build /p:Configuration=Debug /p:Platform="Any CPU"
-```
-
-Worktrees do not contain ignored `packages`, `node_modules`, `bin`, or `obj`
-directories. Restore them in the new worktree. If package restore cannot run but a
-trusted sibling checkout has a cache, explicitly seed only ignored dependency
-directories (copy or a read-only directory junction), verify the required package
-files, and report that the cache is shared or copied. Never copy tracked source
-files or assume a cache is complete because its directory count looks plausible.
-
-Setup is complete only when every applicable package-root install, `dotnet restore`,
-and Debug build commands pass. Do not run Release or production builds. Stop and report
-setup errors.
+Run independent setup commands in parallel. Surface changed lockfiles and command
+failures without discarding them. If several unrelated project roots are plausible
+and setup would be expensive, present the candidates before proceeding.
 
 ## Step 3: Report and hand off
 
@@ -268,13 +197,12 @@ Report these statuses separately:
 
 ```text
 Worktree: created/reused and verified
-Dependencies: restored/setup command and result
-Build: Debug build command and result
-Tests: skipped (per this workflow)
+Dependencies: setup commands and results
+Readiness: development command and result, or not applicable
 ```
 
 For a newly created worktree, provide and copy the handoff command only when the
-worktree structure, dependency setup, and Debug build pass:
+worktree is verified and every required setup and readiness command passes:
 
 ```text
 /cwd <absolute-path>
