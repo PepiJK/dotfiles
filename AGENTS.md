@@ -10,12 +10,18 @@ Cross-platform dotfiles for Arch Linux (bash) and Windows 11 (PowerShell 7).
 Both scripts create symlinks (or junctions on Windows) from the target locations into this repo, so edits here are live immediately.
 The setup scripts are the source of truth for link targets and platform-specific setup behavior.
 
+## Agent guidance
+
+Read `.agents/AGENTS.md` before editing; it defines the global coding, scope, testing, and Git rules for work in this repository.
+Whenever a configuration entry is added or edited, update the `Structure` table with its source and link targets.
+
 ## Structure
 
 | Folder              | Config                              | Linked to                                                                                              |
 | ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `bash/`             | `.bashrc`                           | `~/.bashrc`                                                                                            |
 | `ghostty/`          | `config`                            | `~/.config/ghostty/config`                                                                             |
+| `hunk/`             | `config.toml`                        | `~/.config/hunk/config.toml` (Linux) / `$XDG_CONFIG_HOME\hunk\config.toml` (Windows)                 |
 | `herdr/`            | `config.toml`, `config.windows.toml` | `~/.config/herdr/config.toml` (Linux) / `$XDG_CONFIG_HOME\herdr\config.toml` (Windows)                |
 | `lazygit/`          | `config.yml`                        | `~/.config/lazygit/config.yml` (Linux) / `$XDG_CONFIG_HOME\lazygit\config.yml` (Windows)               |
 | `nvim/`             | `init.lua`                          | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                         |
