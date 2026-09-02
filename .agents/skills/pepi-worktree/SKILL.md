@@ -1,6 +1,6 @@
 ---
 name: pepi-worktree
-description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores dependencies with npm ci and dotnet restore, and runs Debug builds without tests.
+description: Use when starting isolated feature work or before implementation plans; creates and verifies a Git worktree, restores dependencies for every package root with npm ci and dotnet restore, and runs Debug builds without tests.
 ---
 
 # Using Git worktrees
@@ -13,9 +13,10 @@ so ignored dependency directories must be restored or explicitly seeded.
 
 **Announce at start:** "I'm using the pepi-worktree skill to set up an isolated workspace."
 
-Setup requires dependency restoration with `npm ci` and `dotnet restore`, followed by
-Debug builds only. Independent worktrees and package roots should be set up in parallel
-agents or command sessions where possible. Tests are skipped for this workflow.
+Setup requires dependency restoration with `npm ci` for every applicable package root
+and `dotnet restore`, followed by Debug builds only. Independent worktrees and package
+roots should be set up in parallel agents or command sessions where possible. Tests are
+skipped for this workflow.
 
 ## Step 0: Detect isolation
 
@@ -192,12 +193,22 @@ building an expensive or unrelated solution.
 
 ### Node.js and Angular
 
-Detect every `package.json`, its lockfile, and its install script. If a package is
-a wrapper whose install script delegates to a child package, run the wrapper once
-and do not run the child a second time. Otherwise use `npm ci` when a lockfile is
-present and `npm install` only when no lockfile or a repository script requires it.
+Recursively detect every package root in the worktree: each directory containing a
+`package.json`, including nested frontend, tooling, example, and workspace packages.
+Exclude `node_modules`, `.git`, and generated output directories from discovery. Do not
+stop after finding a top-level or primary package; every discovered package root must
+be evaluated.
+
+For each package root, inspect the lockfile and install script in that same directory.
+Use `npm ci` when `package-lock.json` or `npm-shrinkwrap.json` is present, and use
+`npm install` only when no npm lockfile exists or the repository explicitly requires
+it. If a package is a wrapper whose install script delegates to a child package, run
+the wrapper once and do not run the child a second time. If a workspace root installs
+its workspaces, treat those workspaces as covered by that root and do not install them
+again unless they have their own independent lockfile or install requirements.
 Report any tracked lockfile changes produced by setup; never silently discard them.
-Run independent `npm ci` commands in parallel where possible.
+Run independent package-root installs in parallel where possible, and report every
+package root and command separately.
 
 For Angular/Node.js frontend projects:
 ```text
@@ -247,8 +258,9 @@ directories (copy or a read-only directory junction), verify the required packag
 files, and report that the cache is shared or copied. Never copy tracked source
 files or assume a cache is complete because its directory count looks plausible.
 
-Setup is complete only when the selected `npm ci`, `dotnet restore`, and Debug build
-commands pass. Do not run Release or production builds. Stop and report setup errors.
+Setup is complete only when every applicable package-root install, `dotnet restore`,
+and Debug build commands pass. Do not run Release or production builds. Stop and report
+setup errors.
 
 ## Step 3: Report and hand off
 
