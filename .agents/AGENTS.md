@@ -19,3 +19,4 @@ My name is Josef, I am a Fullstack Software Engineer focused on Agentic Engineer
 - Be careful with destructive actions that I have not explicitly requested.
 - Tests are good. Avoid endless smoke tests and regression tests for deleted features. Tests should be focused, not slop.
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
+- For web frontend changes that affect UI or user flows, use Playwright MCP to exercise the affected behaviour in a running application. Validate the visible result and relevant interactions, not just that the page loads. 
