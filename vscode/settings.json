@@ -159,4 +159,5 @@
 	},
 	"chat.viewSessions.orientation": "stacked",
 	"workbench.experimental.modernUI": false,
+	"git.openRepositoryInParentFolders": "always",
 }
