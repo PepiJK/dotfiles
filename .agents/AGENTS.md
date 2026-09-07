@@ -9,6 +9,7 @@ My name is Josef, I am a Fullstack Software Engineer focused on Agentic Engineer
 - When mentioning Github Copilot, or just copilot, i always mean the locally installed coding agent @github/copilot cli.
 - Keep things simple. Always channel "measure twice, cut once", YAGNI, and DRY. Fight scope creep.
 - Do not preserve complexity just because it already exists. Do not introduce machinery because it looks architecturally impressive. Understand the real constraint. Ask me only when a wrong assumption would be costly or difficult to reverse; otherwise, choose the simplest reasonable option. Honor the developer's intent in a minimal and realistic way.
+- Prefer simple, readable implementations over exhaustive edge-case hardening. Avoid custom exception taxonomies, verbose catches, and complex session coordination unless the actual requirements make them necessary.
 - Questions that ask for an explanation, opinion, or analysis are read-only. A direct implementation request remains actionable even when phrased as a question, such as "Can you fix this?"
 - Default to the smallest conventional implementation that satisfies the requirement.
 - Keep logic DRY and readable. Remove duplication instead of adding helpers that only wrap one call.
