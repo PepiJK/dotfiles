@@ -22,3 +22,4 @@ My name is Josef, I am a Fullstack Software Engineer focused on Agentic Engineer
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
 - For web frontend changes that affect UI or user flows, use Playwright MCP to exercise the affected behaviour in a running application. Validate the visible result and relevant interactions, not just that the page loads. 
 - When using plan mode, always save the finalized plan to `.scratch/plans/<feature-slug>.md` relative to the repository root, creating the directory if needed; if a session-folder copy is requested, save both, with `.scratch/plans/` remaining canonical.
+- Always print the path of the saved plan when you created a plan.
