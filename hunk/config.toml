@@ -1,5 +1,5 @@
 theme = "dark-plus"
-mode = "auto"
+mode = "stack"
 line_numbers = true
 wrap_lines = false
 hunk_headers = false
