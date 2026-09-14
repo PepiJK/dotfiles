@@ -1,121 +1,99 @@
 ---
 name: pepi-worktree
-description: Use when starting feature work that needs isolation from the current workspace or before executing implementation plans; ensures an isolated workspace via native tools or a Git worktree fallback.
+description: Use when wanting to create a git worktree; creates or reuses a worktree and prepares it for development.
 ---
 
 # Using Git worktrees
 
-## Overview
+## Purpose
 
-Ensure work happens in an isolated workspace. Prefer the platform's native worktree
-tools. Fall back to a manual Git worktree only when no native tool is available.
+Use an isolated workspace for feature work. Prefer a native worktree operation when
+the harness provides one; otherwise use Git. Prepare the new workspace using the
+repository's own instructions, manifests, lockfiles, and scripts.
 
-**Core principle:** Detect existing isolation first. Then use native tools. Then
-fall back to Git. Never fight the harness.
+## Step 0: Detect isolation
 
-**Announce at start:** "I'm using the pepi-worktree skill to set up an isolated workspace."
-
-## Step 0: Detect existing isolation
-
-**Before creating anything, check whether you are already in an isolated workspace.**
-
-Run:
+Record the process working directory as `<command-cwd>` before running Git
+discovery. Then run:
 
 ```text
 git rev-parse --show-toplevel
-git rev-parse --git-dir
-git rev-parse --git-common-dir
+git rev-parse --path-format=absolute --git-dir
+git rev-parse --path-format=absolute --git-common-dir
 git branch --show-current
 git rev-parse --show-superproject-working-tree
-git status --short
 ```
 
-Resolve `--git-dir` and `--git-common-dir` to normalized absolute paths before
-comparing them. The `--show-superproject-working-tree` command returns a path
-when the current repository is a Git submodule.
+Use the absolute paths emitted by `--path-format=absolute` for the isolation
+comparison. If that option is unavailable, resolve a relative `--git-dir` or
+`--git-common-dir` against `<command-cwd>`, the directory from which that Git
+command was run. Never resolve those paths against `<repo-root>` unless the
+command itself was run with `git -C <repo-root>`. Canonicalize path separators
+and compare case-insensitively on Windows. Anchor later repository-root
+operations with `git -C <repo-root>`; the current directory may be several
+levels below the project root.
 
-**Submodule guard:** A different `GIT_DIR` and `GIT_COMMON_DIR` can also occur
-inside a submodule. If `git rev-parse --show-superproject-working-tree` returns a
-path, treat the checkout as a normal repository, not as an already-isolated
-worktree.
+If `--show-superproject-working-tree` returns a path, treat the checkout as a
+normal repository even when Git directories differ. Otherwise, when normalized
+`GIT_DIR != GIT_COMMON_DIR`, report:
 
-**If `GIT_DIR != GIT_COMMON_DIR` and the checkout is not a submodule:** You are
-already in a linked worktree. Skip to Step 2. Do not create another worktree.
+```text
+Already in isolated workspace at <path> on branch <name>.
+```
 
-Report the branch state:
+For detached HEAD, report that it is externally managed. Do not create another
+worktree; continue with Step 2.
 
-- On a branch: "Already in isolated workspace at `<path>` on branch `<name>`."
-- Detached HEAD: "Already in isolated workspace at `<path>` (detached HEAD,
-  externally managed)."
+When `GIT_DIR == GIT_COMMON_DIR`, the checkout is normal.
 
-**If `GIT_DIR == GIT_COMMON_DIR` or you are in a submodule:** You are in a normal
-repository checkout.
-
-If the user or current instructions already require an isolated worktree, treat
+If the user invoked this skill or explicitly requested an isolated worktree, treat
 that as consent. If they explicitly require working in place, honor it and skip
 Step 1. Otherwise ask for consent before creating anything:
 
 > "Would you like me to set up an isolated worktree? It protects your current branch from changes."
 
-If the user declines, work in the current checkout and skip to Step 2.
+If the user declines, work in the current checkout and continue with Step 2.
 
-Do not stash, reset, or delete existing changes. If the current checkout is dirty,
-make clear that a new worktree starts from the selected base ref's committed state
-and never includes uncommitted changes from the current checkout.
+Never stash, reset, or delete existing changes. A new worktree starts from committed
+history and excludes uncommitted files. Git checks in this step are for isolation and
+worktree safety only; do not perform a post-setup Git cleanliness or diff validation.
 
 ## Step 1: Create the isolated workspace
 
 There are two mechanisms. Try them in this order.
 
-### Choose the base ref
+### Select base and branch
 
-This applies when creating a new branch. If an existing local branch is
-explicitly requested, skip base selection because that branch already determines
-the worktree's starting point.
-
-Always ask before creating a new branch, even when the current checkout is clean
-or a base ref was already mentioned. Treat an explicitly requested base ref as
-the preselected option, not as a reason to skip the question:
-
-> "Which base should the new branch use? Uncommitted changes will not be included."
-
-Offer the existing local `main` and/or `master` branches, the current branch at
-its committed `HEAD` (or committed `HEAD` when detached), and a custom local
-branch or ref. If both `main` and `master` exist, offer both rather than guessing.
-For a selected custom ref, validate it before changing the filesystem:
+For a new branch, use an explicitly supplied base. Otherwise ask for one, offering
+local `main`, local `master`, the current branch at committed `HEAD`, and a custom
+local ref. Validate the base before changing the filesystem:
 
 ```text
 git rev-parse --verify "<base-ref>^{commit}"
 ```
 
-Stop and report the validation error if the ref does not resolve to a commit.
-
-### 1a. Native worktree tools (preferred)
-
-After the user has consented, check whether the current harness provides a native
-worktree operation. It may be exposed as a tool or command such as `EnterWorktree`,
-`WorktreeCreate`, `/worktree`, or a `--worktree` flag.
-
-If a native operation exists, pass the selected base ref when it supports one and
-use it, then skip to Step 2. Native tools own directory placement, branch
-creation, and cleanup. If the operation cannot honor an explicitly requested
-base ref, report that limitation and ask whether to use the Git fallback; never
-silently use a different base. Do not also run `git worktree add` when the native
-operation is used, because that creates state the harness cannot manage.
-
-If no native operation exists, continue to Step 1b.
-
-### 1b. Git worktree fallback
-
-#### Choose the branch name
-
-Use an explicit branch name from the user's request or current instructions.
-If none is available, ask for the full branch name instead of inventing one.
-Validate it before creating anything:
+Use an explicitly requested existing branch without asking for a new base. If no
+new branch name was supplied, ask for the full name; never invent one. Validate it:
 
 ```text
 git check-ref-format --branch <branch-name>
 ```
+
+### 1a. Native worktree tools (preferred)
+
+After the user has consented, check whether the current harness provides a native
+worktree operation.
+
+If a native operation exists, pass the selected base when supported and skip to
+Step 2. Native tools own directory placement, branch creation, and cleanup. Do not
+also run `git worktree add`, because that creates state the harness cannot manage.
+
+If a native operation cannot honor an explicit base, report that limitation and
+ask before using the Git fallback.
+
+If no native operation exists, continue to Step 1b.
+
+### 1b. Git worktree fallback
 
 #### Choose the directory
 
@@ -128,28 +106,29 @@ Follow this priority order. An explicit user preference always wins.
 4. If neither exists, use `.worktrees` at the project root.
 
 If both `.worktrees` and `worktrees` exist, use `.worktrees`. Preserve the slash
-in the branch name when forming the path, so
-`feat/123-add-login` becomes `<location>/feat/123-add-login`.
+in the branch name when forming the path. For example,
+`feature/141602-manual-entries` becomes
+`<repo-root>\.worktrees\feature\141602-manual-entries`.
 
 #### Verify safety and existing state
 
-For a project-local location, verify that the chosen directory is ignored before
-creating the worktree:
+For a project-local location, verify that a child path under the selected location
+is ignored before creating the worktree:
 
 ```text
-git check-ignore -q -- .worktrees
+git -C <repo-root> check-ignore -q -- <location>\__probe__
 ```
 
-Use the selected directory instead of `.worktrees` when applicable. If it is not
-ignored, add the directory pattern to `.gitignore` before proceeding. Leave that
-change visible and uncommitted; never stage or commit it automatically. If
-repository policy does not allow this change, stop rather than creating an
-unignored worktree.
+This works with both `.worktrees/` and `.worktrees` ignore patterns. If a local
+worktree directory is not ignored, prefer adding the selected relative directory
+pattern to Git's local `info/exclude`; this avoids dirtying the user's tracked
+`.gitignore`. Only change `.gitignore` when repository policy explicitly requires
+a shared ignore rule, and leave that tracked change visible and uncommitted.
 
 Before changing the filesystem, inspect both Git and the filesystem:
 
 ```text
-git worktree list --porcelain
+git -C <repo-root> worktree list --porcelain
 ```
 
 - If the exact path is already registered for the requested branch, report it as
@@ -168,83 +147,62 @@ then run the appropriate form of:
 
 ```text
 # Existing local branch
-git worktree add <path> <branch-name>
+git -C <repo-root> worktree add <path> <branch-name>
 
-# New branch from the selected base ref
-git worktree add -b <branch-name> <path> <base-ref>
+# New branch
+git -C <repo-root> worktree add -b <branch-name> <path> <base-ref>
 ```
 
-Verify both the registration and the branch:
+Verify the registration, path, branch, and base commit:
 
 ```text
-git worktree list --porcelain
+git -C <repo-root> worktree list --porcelain
 git -C <path> branch --show-current
 git -C <path> rev-parse HEAD
-git rev-parse "<base-ref>^{commit}"
+git -C <repo-root> rev-parse "<base-ref>^{commit}"
 ```
 
-Confirm that the registered path is the intended absolute path and that the
-branch is the requested branch. For a new branch, confirm that the two commit IDs
-match so the selected base was used. Surface command errors directly and do not
-claim success without all verification checks.
+Confirm that the registered path is the intended absolute path, the branch is
+the requested branch, and a new branch starts at the selected base commit.
+Surface command errors directly and do not claim success without these checks.
+
+Do not use filesystem cleanliness as a handoff gate. Setup commands may update
+generated files without making the workspace unusable.
 
 If `git worktree add` fails because the sandbox denies the operation, report that
 the sandbox blocked worktree creation and continue in the current checkout
 instead. Do not silently fall back for other errors.
 
-## Step 2: Project setup
+## Step 2: Prepare the workspace
 
-From the isolated workspace (or the current checkout when isolation was declined
-or blocked), run only the setup commands that match the repository. Use the
-platform-native equivalent for file detection and command syntax.
+Read repository instructions and inspect manifests, lockfiles, workspace definitions,
+and existing setup scripts. Prefer repository-defined bootstrap commands over inferred
+ecosystem commands.
 
-| Project | Detect | Setup |
-| --- | --- | --- |
-| Node.js | `package.json` | `npm install` |
-| Rust | `Cargo.toml` | `cargo build` |
-| Python | `requirements.txt` | `pip install -r requirements.txt` |
-| Python | `pyproject.toml` | `poetry install` |
-| Go | `go.mod` | `go mod download` |
-| .NET | `.sln`, `.slnx`, or `.csproj` | `dotnet build` |
+Restore dependencies for every project root required by the repository or intended
+work. Use the package manager selected by its lockfile or configuration. Treat
+workspace members covered by a root command as already restored.
 
-For .NET repositories with a solution, build the solution rather than each
-project separately. `dotnet build` may restore dependencies as part of the
-build. Stop on setup errors, report the command output, and do not claim the
-workspace is ready.
+Run the repository's standard development build, compile, or equivalent readiness
+command when one exists. Prefer the least expensive command that proves the workspace
+is usable; skip tests unless repository setup explicitly includes them.
 
-## Step 3: Verify a clean baseline
+Run independent setup commands in parallel. Surface changed lockfiles and command
+failures without discarding them. If several unrelated project roots are plausible
+and setup would be expensive, present the candidates before proceeding.
 
-Run the applicable test commands from the isolated workspace:
+## Step 3: Report and hand off
 
-| Project | Test command |
-| --- | --- |
-| Node.js | `npm test` |
-| Rust | `cargo test` |
-| Python | `pytest` |
-| Go | `go test ./...` |
-| .NET | `dotnet test` |
-
-Use the repository's documented test command when one exists. Run `dotnet test`
-against the solution when one is present. Do not invent test counts; report the
-actual commands and results.
-
-If tests fail, report the failures and ask whether to investigate them or
-continue. If all applicable checks pass, report:
+Report these statuses separately:
 
 ```text
-Worktree ready at <absolute-path>
-Baseline checks passing: <commands and results>
-Ready to implement <feature-name>
+Worktree: created/reused and verified
+Dependencies: setup commands and results
+Readiness: development command and result, or not applicable
 ```
 
-## Step 4: Hand off to the created workspace
-
-Run this step only when a new worktree was created and verified successfully
-and every applicable setup, build, and test check passed. Do not run it when
-already in a worktree, when working in place, when creation was blocked or
-failed, or when any check failed.
-
-Prepare the command:
+For a newly created worktree, provide and copy the handoff command only when the
+worktree is verified and every required setup and readiness command passes:
 
 ```text
 /cwd <absolute-path>
@@ -263,40 +221,6 @@ the clipboard using the first available platform-native method:
 
 If no supported clipboard utility is available, report that the command could
 not be copied and leave it visible for manual execution. Clipboard failure
-must not change the successful worktree or check result.
-
-## Quick reference
-
-| Situation | Action |
-| --- | --- |
-| Already in a linked worktree | Skip creation and continue with project setup |
-| In a submodule | Treat it as a normal repository checkout |
-| Native worktree tool available | Use it and let the harness manage the worktree |
-| No native tool | Use the Git worktree fallback |
-| `.worktrees` exists | Use it after verifying it is ignored |
-| `worktrees` exists | Use it after verifying it is ignored |
-| Both directories exist | Use `.worktrees` |
-| Neither directory exists | Default to `.worktrees` and verify or add its ignore rule |
-| Directory is not ignored | Add its ignore rule, leave it uncommitted, and never auto-commit |
-| Creating a new branch | Always ask for the base ref; never include uncommitted changes |
-| Custom base ref does not resolve | Report the validation error and do not create the worktree |
-| Path is registered for another branch | Report the conflict and leave it unchanged |
-| Path exists but is unregistered | Report the conflict and leave it unchanged |
-| Permission error during creation | Report the sandbox denial and work in place |
-| Baseline tests fail | Report failures and ask whether to proceed |
-| Worktree and all applicable checks pass | Show and copy `/cwd <absolute-path>` for session handoff |
-| .NET project is present | Run both `dotnet build` and `dotnet test` |
-| No recognized project files | Skip dependency installation and project checks |
-
-## Common rationalizations
-
-| Excuse | Reality |
-| --- | --- |
-| "I'm obviously not in a worktree." | Run Step 0. Harness-created isolation and submodules can fool visual inspection. |
-| "`git worktree add` is quicker than checking for native tooling." | Native tooling owns placement, branching, and cleanup. Bypassing it creates unmanaged state. |
-| "The worktree directory is surely ignored already." | Run `git check-ignore` before creating project-local worktrees. |
-| "Any branch name will do." | Use an explicit, validated branch name; ask instead of guessing. |
-| "The current branch is automatically the right base." | Always ask for the base ref; worktrees start from a committed ref and never copy uncommitted changes. |
-| "The workspace is fresh, so baseline tests can wait." | A failing baseline makes later failures ambiguous. Run the checks first. |
-| "A successful build means the .NET baseline is clean." | Run both `dotnet build` and `dotnet test`. |
-| "I can commit the ignore rule while I'm here." | This skill never stages or commits automatically. |
+must not change the successful worktree or readiness result. If any required setup
+or build check is blocked or inconclusive, report the worktree path and the exact
+blocker but do not claim it is ready.

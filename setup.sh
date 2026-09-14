@@ -5,8 +5,12 @@ echo "Setting up symlinks..."
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 link() {
-	local src="$DOTFILES/$1"
+	local src="$1"
 	local dst="$2"
+
+	if [[ "$src" != /* ]]; then
+		src="$DOTFILES/$src"
+	fi
 
 	mkdir -p "$(dirname "$dst")"
 	rm -rf "$dst"
@@ -21,6 +25,9 @@ link "bash/.bashrc" "$HOME/.bashrc"
 # Ghostty
 link "ghostty/config" "$HOME/.config/ghostty/config"
 
+# Hunk
+link "hunk/config.toml" "$HOME/.config/hunk/config.toml"
+
 # Oh My Posh
 link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.omp.json"
 link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
@@ -31,13 +38,32 @@ link ".agents/AGENTS.md" "$HOME/.github/copilot-instructions.md"
 link ".agents/AGENTS.md" "$HOME/.agents/AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
-for skill in pepi-verify pepi-update-docs pepi-commit pepi-pr-description pepi-unslop pepi-worktree; do
-	link ".agents/skills/$skill/SKILL.md" "$HOME/.gemini/antigravity-cli/skills/$skill/SKILL.md"
-	link ".agents/skills/$skill/SKILL.md" "$HOME/.agents/skills/$skill/SKILL.md"
+for skill in pepi-verify pepi-unslop pepi-worktree pepi-hunk pepi-setup-project-templates; do
+	if [[ -d "$DOTFILES/.agents/skills/$skill/references" ]]; then
+		link ".agents/skills/$skill" "$HOME/.gemini/antigravity-cli/skills/$skill"
+		link ".agents/skills/$skill" "$HOME/.agents/skills/$skill"
+	else
+		link ".agents/skills/$skill/SKILL.md" "$HOME/.gemini/antigravity-cli/skills/$skill/SKILL.md"
+		link ".agents/skills/$skill/SKILL.md" "$HOME/.agents/skills/$skill/SKILL.md"
+	fi
 done
+
+if ! HUNK_SKILL_PATH="$(hunk skill path)"; then
+	echo "Unable to resolve the Hunk skill with 'hunk skill path'." >&2
+	exit 1
+fi
+if [[ ! -f "$HUNK_SKILL_PATH" ]]; then
+	echo "Hunk skill path does not point to a file: $HUNK_SKILL_PATH" >&2
+	exit 1
+fi
+link "$HUNK_SKILL_PATH" "$HOME/.gemini/antigravity-cli/skills/hunk-review/SKILL.md"
+link "$HUNK_SKILL_PATH" "$HOME/.agents/skills/hunk-review/SKILL.md"
 
 # Tmux
 link "tmux/.tmux.conf" "$HOME/.tmux.conf"
+
+# Herdr
+link "herdr/config.toml" "$HOME/.config/herdr/config.toml"
 
 # Lazygit
 link "lazygit/config.yml" "$HOME/.config/lazygit/config.yml"

@@ -10,26 +10,41 @@ Cross-platform dotfiles for Arch Linux (bash) and Windows 11 (PowerShell 7).
 Both scripts create symlinks (or junctions on Windows) from the target locations into this repo, so edits here are live immediately.
 The setup scripts are the source of truth for link targets and platform-specific setup behavior.
 
+## Agent guidance
+
+Read `.agents/AGENTS.md` before editing; it defines the global coding, scope, testing, and Git rules for work in this repository.
+Whenever a configuration entry is added or edited, update the `Structure` table with its source and link targets.
+
+## Workflow templates
+
+- Before creating a branch, read `docs/agents/branch-template.md`.
+- Before creating a commit, read `docs/agents/commit-template.md`.
+- Before creating an issue or work item, read `docs/agents/issue-template-guidance.md`.
+- Before creating or updating a pull request, read `docs/agents/pull-request-template.md`.
+
 ## Structure
 
-| Folder              | Config                              | Linked to                                                                                              |
-| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `bash/`             | `.bashrc`                           | `~/.bashrc`                                                                                            |
-| `ghostty/`          | `config`                            | `~/.config/ghostty/config`                                                                             |
-| `lazygit/`          | `config.yml`                        | `~/.config/lazygit/config.yml` (Linux) / `$XDG_CONFIG_HOME\lazygit\config.yml` (Windows)               |
-| `nvim/`             | `init.lua`                          | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                         |
-| `oh-my-posh/`       | `*.omp.json`                        | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows)                             |
-| `.agents/`              | `AGENTS.md`                         | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md`, `~/.agents/AGENTS.md` (Linux) / `$UserHome\.gemini\antigravity-cli\rules\AGENTS.md`, `$UserHome\.github\copilot-instructions.md`, `$UserHome\.copilot\copilot-instructions.md`, `$UserHome\.agents\AGENTS.md` (Windows) |
-| `.agents/skills/`   | `SKILL.md` (per skill)              | `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md`, `~/.agents/skills/<skill>/SKILL.md`               |
-| `powershell/`       | `Microsoft.PowerShell_profile.ps1`  | `~\Documents\PowerShell\` (Windows only)                                                               |
-| `tmux/`             | `.tmux.conf`                        | `~/.tmux.conf`                                                                                         |
-| `vscode/`           | `settings.json`, `keybindings.json` | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install) |
-| `windows-terminal/` | `settings.json`                     | `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal*\LocalState\` (Windows only, MS Store)              |
-| `zed/`              | `settings.json`, `keymap.json`      | `~/.config/zed/` (Linux) / `$UserAppData\Zed\` (Windows)                                               |
+| Folder              | Config                                 | Linked to                                                                                                                                                                                                                                                                                                 |
+| ------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bash/`             | `.bashrc`                              | `~/.bashrc`                                                                                                                                                                                                                                                                                               |
+| `ghostty/`          | `config`                               | `~/.config/ghostty/config`                                                                                                                                                                                                                                                                                |
+| `hunk/`             | `config.toml`                          | `~/.config/hunk/config.toml` (Linux) / `$XDG_CONFIG_HOME\hunk\config.toml` (Windows)                                                                                                                                                                                                                      |
+| `herdr/`            | `config.toml`, `config.windows.toml`   | `~/.config/herdr/config.toml` (Linux) / `$XDG_CONFIG_HOME\herdr\config.toml` (Windows)                                                                                                                                                                                                                    |
+| `lazygit/`          | `config.yml`                           | `~/.config/lazygit/config.yml` (Linux) / `$XDG_CONFIG_HOME\lazygit\config.yml` (Windows)                                                                                                                                                                                                                  |
+| `nvim/`             | `init.lua`                             | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                                                                                                                                                                                                                            |
+| `oh-my-posh/`       | `*.omp.json`                           | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows)                                                                                                                                                                                                                                |
+| `.agents/`          | `AGENTS.md` (global instructions)      | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md`, `~/.agents/AGENTS.md` (Linux) / `$UserHome\.gemini\antigravity-cli\rules\AGENTS.md`, `$UserHome\.github\copilot-instructions.md`, `$UserHome\.copilot\copilot-instructions.md`, `$UserHome\.agents\AGENTS.md` (Windows) |
+| `.agents/skills/`   | `SKILL.md` (repository-managed skills) | `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md`, `~/.agents/skills/<skill>/SKILL.md`                                                                                                                                                                                                                  |
+| `powershell/`       | `Microsoft.PowerShell_profile.ps1`     | `~\Documents\PowerShell\` (Windows only)                                                                                                                                                                                                                                                                  |
+| `tmux/`             | `.tmux.conf`                           | `~/.tmux.conf`                                                                                                                                                                                                                                                                                            |
+| `vscode/`           | `settings.json`, `keybindings.json`    | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install)                                                                                                                                                                                                    |
+| `windows-terminal/` | `settings.json`                        | `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal*\LocalState\` (Windows only, MS Store)                                                                                                                                                                                                                 |
+| `zed/`              | `settings.json`, `keymap.json`         | `~/.config/zed/` (Linux) / `$UserAppData\Zed\` (Windows)                                                                                                                                                                                                                                                  |
 
 ## Platform notes
 
 - **tmux:** shared config, Windows-only settings guarded with `if-shell '[ "$OS" = "Windows_NT" ]'`. On Windows, psmux is used instead of native tmux.
+- **Herdr:** platform-specific shell defaults with shared One Dark settings and tmux-aligned `Ctrl+A` prefix, pane splits, and `h/j/k/l` navigation. Linux uses Bash; Windows uses PowerShell 7 (`pwsh.exe`) with native ConPTY, linked under `$XDG_CONFIG_HOME\herdr\`. The Windows PowerShell profile invokes Scoop's real Herdr binary so daemon auto-start works with WMI.
 - **oh-my-posh:** two themes — `star-ghostty.omp.json` for Ghostty (Linux), `star-win-term.omp.json` for Windows Terminal.
 - **Windows setup** requires Scoop (`$env:SCOOP` must be set), `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_CACHE_HOME` to be set, and must run as Administrator to create symlinks.
 - **PowerShell profile** and **Windows Terminal** are Windows-only; no Linux equivalents in this repo.
@@ -42,7 +57,7 @@ The setup scripts are the source of truth for link targets and platform-specific
 - Keep cross-platform link definitions in sync between `setup.sh` and `setup.ps1`; platform-specific configs belong only in the applicable script.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories, including GitHub Copilot CLI on Windows.
-- **`.agents/skills/`** contains one `SKILL.md` per agent skill (e.g. `pepi-verify`, `pepi-update-docs`, `pepi-commit`, `pepi-pr-description`, `pepi-unslop`, `pepi-worktree`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).
+- **`.agents/skills/`** contains one `SKILL.md` per repository-managed skill (e.g. `pepi-verify`, `pepi-unslop`, `pepi-worktree`, `pepi-hunk`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).
 
 ## Validation
 

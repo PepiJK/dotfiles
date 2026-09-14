@@ -34,6 +34,7 @@
         "defaults":
         {
             "colorScheme": "Dark+",
+            "cursorShape": "bar",
             "font":
             {
                 "face": "JetBrainsMono Nerd Font",

@@ -43,7 +43,10 @@ function Link {
 		[string]$Dst
 	)
 
-	$FullSrc = Join-Path $Dotfiles $Src
+	$FullSrc = $Src
+	if (-not [System.IO.Path]::IsPathRooted($Src)) {
+		$FullSrc = Join-Path $Dotfiles $Src
+	}
 
 	$Parent = Split-Path -Parent $Dst
 	if (-not (Test-Path $Parent)) {
@@ -115,6 +118,9 @@ Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 # PowerShell profile (PS 5.1)
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath51
 
+# Hunk
+Link "hunk\config.toml" "$env:XDG_CONFIG_HOME\hunk\config.toml"
+
 # Oh My Posh
 Link "oh-my-posh\star-ghostty.omp.json" "$env:XDG_CONFIG_HOME\oh-my-posh\star-ghostty.omp.json"
 Link "oh-my-posh\star-win-term.omp.json" "$env:XDG_CONFIG_HOME\oh-my-posh\star-win-term.omp.json"
@@ -132,14 +138,30 @@ Link ".agents\AGENTS.md" "$UserHome\.copilot\copilot-instructions.md"
 Link ".agents\AGENTS.md" "$UserHome\.agents\AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
-$AgentSkills = @("pepi-verify", "pepi-update-docs", "pepi-commit", "pepi-pr-description", "pepi-unslop", "pepi-worktree")
+$AgentSkills = @("pepi-verify", "pepi-unslop", "pepi-worktree", "pepi-hunk", "pepi-setup-project-templates")
 foreach ($skill in $AgentSkills) {
-	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
-	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.agents\skills\$skill\SKILL.md"
+	$skillDir = ".agents\skills\$skill"
+	if (Test-Path "$Dotfiles\$skillDir\references") {
+		LinkJunction $skillDir "$UserHome\.gemini\antigravity-cli\skills\$skill"
+		LinkJunction $skillDir "$UserHome\.agents\skills\$skill"
+	} else {
+		Link "$skillDir\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
+		Link "$skillDir\SKILL.md" "$UserHome\.agents\skills\$skill\SKILL.md"
+	}
 }
+
+$HunkSkillPath = (& hunk skill path).Trim()
+if (-not $HunkSkillPath -or -not (Test-Path -LiteralPath $HunkSkillPath -PathType Leaf)) {
+	throw "Unable to resolve the Hunk skill with 'hunk skill path'."
+}
+Link $HunkSkillPath "$UserHome\.gemini\antigravity-cli\skills\hunk-review\SKILL.md"
+Link $HunkSkillPath "$UserHome\.agents\skills\hunk-review\SKILL.md"
 
 # Tmux
 Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"
+
+# Herdr
+Link "herdr\config.windows.toml" "$env:XDG_CONFIG_HOME\herdr\config.toml"
 
 # Lazygit
 Link "lazygit\config.yml" "$env:XDG_CONFIG_HOME\lazygit\config.yml"
