@@ -18,8 +18,7 @@ Executable templates live in platform-standard directories; do not move or dupli
 - **Feature / User Story**: for a proposed capability or user-facing outcome.
 - **Task**: for engineering or implementation work with concrete acceptance criteria.
 
-Read the selected template before creating the issue and preserve its headings. Use the commands
-and conventions in `docs/agent/issue-tracker.md`.
+Read the selected template before creating the issue and preserve its headings.
 
 ## Populate the issue or work item
 

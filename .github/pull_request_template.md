@@ -1,7 +1,7 @@
 <!--
 PR Title format: #<issue-number> - <issue-title> (e.g. #118 - Fix login timeout)
 Write a concise, factual description of the change.
-Read docs/agent/pull-request-template.md before creating or updating this PR.
+Read docs/agents/pull-request-template.md before creating or updating this PR.
 -->
 
 ## Summary

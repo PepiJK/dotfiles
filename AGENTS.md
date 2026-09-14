@@ -17,11 +17,10 @@ Whenever a configuration entry is added or edited, update the `Structure` table 
 
 ## Workflow templates
 
-- Before creating a branch, read `docs/agent/branch-template.md`.
-- Before creating a commit, read `docs/agent/commit-template.md`.
-- Before creating an issue or work item, read `docs/agent/issue-template-guidance.md`.
-- Before creating or updating a pull request, read `docs/agent/pull-request-template.md`.
-- Issue tracker conventions: read `docs/agent/issue-tracker.md`.
+- Before creating a branch, read `docs/agents/branch-template.md`.
+- Before creating a commit, read `docs/agents/commit-template.md`.
+- Before creating an issue or work item, read `docs/agents/issue-template-guidance.md`.
+- Before creating or updating a pull request, read `docs/agents/pull-request-template.md`.
 
 ## Structure
 
