@@ -23,17 +23,22 @@ and issue tracker interactions, working across Git, GitHub, and Azure DevOps.
    - If the remote URL contains `dev.azure.com` or `visualstudio.com` → **Azure DevOps**
    - If ambiguous or no remote exists, check for an existing `.github` or `.azuredevops` folder, or ask the user.
 
-### Step 2: Determine the documentation directory
+### Step 2: Choose the documentation directory
 
-Look for an existing documentation directory in order of preference:
-1. `Docs/agents`
-2. `docs/agents`
-3. `docs/agent`
-4. If neither exists, default to `Docs/agents` (create directory if missing).
+Ask the user: "Which repository-relative documentation directory should I use? Choose a detected
+candidate or provide another path." Present detected candidates and accept a custom path. Include
+these common choices:
+
+- `docs/agent`
+- `Docs/agent`
+- another path supplied by the user
+
+Use the selected path exactly, including its casing. Create it when it does not exist; do not
+silently choose a default.
 
 ### Step 3: Copy core guidance templates
 
-Copy the following files from the skill's `references/docs/agents/` into the selected `<doc-dir>/`:
+Copy the following files from the skill's `references/docs/agent/` into the selected `<doc-dir>/`:
 
 - `branch-template.md`: Rules for issue-backed and non-issue branch naming.
 - `commit-template.md`: Conventional commit structure, PowerShell syntax, and work-item linking.

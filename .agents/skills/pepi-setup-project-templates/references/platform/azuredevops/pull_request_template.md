@@ -1,7 +1,7 @@
 <!--
 PR Title format: <work-item-id> - <work-item-title> (e.g. 198120 - Fix session timeout)
 Write a concise, factual description of the change.
-Read Docs/agents/pull-request-template.md before creating or updating this PR.
+Read docs/agent/pull-request-template.md before creating or updating this PR.
 -->
 
 ## Summary

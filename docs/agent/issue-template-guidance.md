@@ -19,7 +19,7 @@ Executable templates live in platform-standard directories; do not move or dupli
 - **Task**: for engineering or implementation work with concrete acceptance criteria.
 
 Read the selected template before creating the issue and preserve its headings. Use the commands
-and conventions in `Docs/agents/issue-tracker.md` (or `docs/agents/issue-tracker.md`).
+and conventions in `docs/agent/issue-tracker.md`.
 
 ## Populate the issue or work item
 
