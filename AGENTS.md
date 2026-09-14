@@ -51,7 +51,7 @@ Whenever a configuration entry is added or edited, update the `Structure` table 
 - Keep cross-platform link definitions in sync between `setup.sh` and `setup.ps1`; platform-specific configs belong only in the applicable script.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories, including GitHub Copilot CLI on Windows.
-- **`.agents/skills/`** contains one `SKILL.md` per repository-managed skill (e.g. `pepi-verify`, `pepi-update-docs`, `pepi-commit`, `pepi-pr-description`, `pepi-unslop`, `pepi-worktree`, `hunk`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot). The separate `hunk-review` skill is resolved from `hunk skill path` and linked from the installed Hunk package.
+- **`.agents/skills/`** contains one `SKILL.md` per repository-managed skill (e.g. `pepi-verify`, `pepi-unslop`, `pepi-worktree`, `pepi-hunk`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot). The separate `hunk-review` skill is resolved from `hunk skill path` and linked from the installed Hunk package.
 
 ## Validation
 

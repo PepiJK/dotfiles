@@ -1,6 +1,6 @@
 ---
 name: pepi-unslop
-description: Edit drafted prose to remove AI-like patterns while preserving meaning, voice, code, configuration, quoted text, and required technical structure.
+description: Use when generating end user facing texts for real people not agents, like emails. Edit drafted prose to remove AI-like patterns while preserving meaning, voice, code, configuration, quoted text, and required technical structure.
 ---
 
 # Pepi unslop

@@ -1,6 +1,6 @@
 ---
 name: pepi-worktree
-description: Use when starting work that should be isolated in a Git worktree; creates or reuses a worktree and prepares it for development.
+description: Use when wanting to create a git worktree; creates or reuses a worktree and prepares it for development.
 ---
 
 # Using Git worktrees
