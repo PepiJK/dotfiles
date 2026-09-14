@@ -138,10 +138,16 @@ Link ".agents\AGENTS.md" "$UserHome\.copilot\copilot-instructions.md"
 Link ".agents\AGENTS.md" "$UserHome\.agents\AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
-$AgentSkills = @("pepi-verify", "pepi-unslop", "pepi-worktree", "pepi-hunk")
+$AgentSkills = @("pepi-verify", "pepi-unslop", "pepi-worktree", "pepi-hunk", "pepi-setup-project-templates")
 foreach ($skill in $AgentSkills) {
-	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
-	Link ".agents\skills\$skill\SKILL.md" "$UserHome\.agents\skills\$skill\SKILL.md"
+	$skillDir = ".agents\skills\$skill"
+	if (Test-Path "$Dotfiles\$skillDir\references") {
+		LinkJunction $skillDir "$UserHome\.gemini\antigravity-cli\skills\$skill"
+		LinkJunction $skillDir "$UserHome\.agents\skills\$skill"
+	} else {
+		Link "$skillDir\SKILL.md" "$UserHome\.gemini\antigravity-cli\skills\$skill\SKILL.md"
+		Link "$skillDir\SKILL.md" "$UserHome\.agents\skills\$skill\SKILL.md"
+	}
 }
 
 $HunkSkillPath = (& hunk skill path).Trim()

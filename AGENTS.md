@@ -15,6 +15,14 @@ The setup scripts are the source of truth for link targets and platform-specific
 Read `.agents/AGENTS.md` before editing; it defines the global coding, scope, testing, and Git rules for work in this repository.
 Whenever a configuration entry is added or edited, update the `Structure` table with its source and link targets.
 
+## Workflow templates
+
+- Before creating a branch, read `Docs/agents/branch-template.md`.
+- Before creating a commit, read `Docs/agents/commit-template.md`.
+- Before creating an issue or work item, read `Docs/agents/issue-template-guidance.md`.
+- Before creating or updating a pull request, read `Docs/agents/pull-request-template.md`.
+- Issue tracker conventions: read `Docs/agents/issue-tracker.md`.
+
 ## Structure
 
 | Folder              | Config                              | Linked to                                                                                              |
