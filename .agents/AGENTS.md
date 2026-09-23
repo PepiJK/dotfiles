@@ -20,5 +20,9 @@ My name is Josef, I am a Fullstack Software Engineer focused on Agentic Engineer
 - Always treat databases as read-only. Never create, update or delete without excplicit user confirmation.
 - Tests are good. Avoid endless smoke tests and regression tests for deleted features. Tests should be focused, not slop.
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
-- For web frontend changes that affect UI or user flows, use Playwright MCP to exercise the affected behavior in a running application. Validate the visible result and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
+- For web frontend changes that affect UI or user flows, use Playwright MCP with the Google Chrome executable specified by `CHROME_BIN` to exercise the affected behavior in a running application. Validate the visible result and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
+
+## Planning
+
+- When a planning prompt offers who should carry out the plan, include a "Do it myself" option and preselect it by default.
 - Always print the path of the saved plan when you created a plan and save it into user clipboard for easy use later.
