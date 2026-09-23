@@ -1,0 +1,15 @@
+---
+name: pepi-preplanning
+description: Research a repository and interview me about a topic to create a handoff for a later planning session.
+disable-model-invocation: true
+---
+
+# Preplanning
+
+Turn a topic into a repository-grounded handoff for a fresh session in the agent's planning mode. The outcome is a report, not an implementation plan or code changes.
+
+1. **Research first.** Establish the topic and target repository. Read its agent instructions and relevant documentation before asking questions; follow useful references, then inspect relevant code, configuration, and tests. Answer factual questions from the repository yourself. Cite file and line locations for findings, and surface conflicts between documentation and code.
+2. **Interview in rounds.** Map the material decisions the user must make as a tree: an answer may unlock further decisions. Ask only about choices that affect the goal, requirements, or scope and cannot be settled from repository evidence; leave implementation details for planning. In each round, number and ask all decisions whose prerequisites are settled, then wait for answers before expanding the tree. For each question, briefly show what the repo does now with file and line citations, why the choice matters, the realistic options and consequences, and your recommended answer with its reasoning. Phrase the question as a concrete choice the user can make or correct. If evidence is thin, label the recommendation as provisional and name its assumption. Investigate new leads from each answer before asking follow-ups. Continue until no material decisions remain, rather than asking about every possible edge case.
+3. **Confirm shared understanding.** Summarize the goal, agreed requirements, constraints, non-goals, and any implementation details left for planning; ask the user to confirm or correct them. Reopen affected decisions if corrected. Write the handoff only after the user confirms.
+4. **Write the handoff.** Produce Markdown with the goal, relevant repository facts and references, requirements and decisions supplied by the user, constraints or non-goals, and any deferred implementation questions. Distinguish repository evidence from user decisions. Preserve agreed answers precisely, including exclusions, defaults, and measurable requirements. Give the next planning session enough context to investigate and decide on an implementation without prescribing a step-by-step plan.
+5. **Save and present it.** Derive a short lowercase kebab-case slug from the topic and save the complete report at `<repo>/.scratch/preplanning/<slug>.md`. Preserve any existing report at that path by choosing a distinct slug or asking the user. Print the exact saved Markdown and its absolute path, then copy that path to the user's clipboard using the available platform tool (for example, `Set-Clipboard` on Windows or `wl-copy`/`xclip` on Linux). If the report is not ignored by Git, warn that it may be committed accidentally. If saving or copying fails, report the failure explicitly; never claim the handoff is available when it is not.
