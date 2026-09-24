@@ -138,7 +138,7 @@ Link ".agents\AGENTS.md" "$UserHome\.copilot\copilot-instructions.md"
 Link ".agents\AGENTS.md" "$UserHome\.agents\AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
-$AgentSkills = @("pepi-unslop", "pepi-setup-project-templates", "pepi-preplanning", "pepi-agent-writing")
+$AgentSkills = @("pepi-unslop", "pepi-project-setup", "pepi-preplanning", "pepi-agent-writing")
 foreach ($skill in $AgentSkills) {
 	$skillDir = ".agents\skills\$skill"
 	LinkJunction $skillDir "$UserHome\.gemini\antigravity-cli\skills\$skill"

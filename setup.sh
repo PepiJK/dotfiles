@@ -38,7 +38,7 @@ link ".agents/AGENTS.md" "$HOME/.github/copilot-instructions.md"
 link ".agents/AGENTS.md" "$HOME/.agents/AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
-for skill in pepi-unslop pepi-setup-project-templates pepi-preplanning pepi-agent-writing; do
+for skill in pepi-unslop pepi-project-setup pepi-preplanning pepi-agent-writing; do
 	link ".agents/skills/$skill" "$HOME/.gemini/antigravity-cli/skills/$skill"
 	link ".agents/skills/$skill" "$HOME/.agents/skills/$skill"
 done
