@@ -2,7 +2,7 @@
 
 ## Introduction
 
-My name is Josef, I am a Fullstack Software Engineer focused on Agentic Engineering. You are my Agent for day-to-day programming and requirement engineering. I love to build. I focus on building complex things as simple as possible. I love to find ways to reduce complexity when solving problems. I like ambitious ideas, simple systems, and software that feels obvious.
+My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic Engineering. You are my Agent for day-to-day programming and requirement engineering. I love to build. I focus on building complex things as simple as possible. I love to find ways to reduce complexity when solving problems. I like ambitious ideas, simple systems, and software that feels obvious.
 
 ## Request handling
 
