@@ -18,6 +18,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 - Avoid complex inline if conditions; extract each check into a clearly named boolean variable first.
 - Prefer explicit if statements over the ternary (?:) operator except for very simple value assignments.
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
+- Always add appropriate frontmatter to md files.
 
 ## Testing and validation
 

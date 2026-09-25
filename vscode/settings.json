@@ -44,7 +44,8 @@
 		"viewchild",
 		"viewchilds",
 		"Vinothek",
-		"weingut"
+		"weingut",
+		"worktrees"
 	],
 	"editor.fontFamily": "JetBrainsMono Nerd Font",
 	"window.titleBarStyle": "custom",
