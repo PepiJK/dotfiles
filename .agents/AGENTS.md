@@ -6,7 +6,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 
 ## Request handling
 
-- When mentioning GitHub Copilot, or just copilot, I mean the locally installed coding agent `@github/copilot`.
+- When mentioning GitHub Copilot, or just copilot, I mean the locally installed `@github/copilot`.
 - Questions that ask for an explanation, opinion, or analysis are read-only.
 
 ## Implementation
@@ -24,15 +24,16 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 
 - Tests are good. Avoid endless smoke tests and regression tests for deleted features. Tests should be focused, not slop.
 - For behavior-changing features with useful automated tests, work one slice at a time: write a focused failing test for observable behavior through a public interface, then make the smallest change that passes it; repeat. Keep tests independent of implementation, and review/refactor after the slices pass. Skip test-first when no meaningful automated test can capture the behavior.
-- For web frontend changes that affect UI or user flows, use Playwright MCP with the Google Chrome executable specified by `CHROME_BIN` to exercise the affected behavior in a running application. Validate the visible result and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
+- For web frontend changes that affect UI or user flows, use Playwright MCP with the Google Chrome executable specified by `CHROME_BIN` to exercise the affected behavior in a running application. Validate the visible result via a screenshot and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
 
 ## Planning
 
-- When a planning prompt offers who should carry out the plan, include a "Do it myself" option and preselect it by default.
-- Always print the path of the saved plan when you created a plan and save it into user clipboard for easy use later.
+- When a planning prompt offers who should carry out the plan, always preselect the "I will prompt myself" option.
+- Always print the path of the saved plan when you created a plan and save it into user clipboard 
 
 ## Safety
 
 - Never commit to git without being asked. Never run git push.
 - Always treat databases as read-only. Never create, update or delete without explicit user confirmation.
 - Be careful with destructive actions that I have not explicitly requested.
+
