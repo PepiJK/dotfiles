@@ -24,7 +24,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 
 - Tests are good. Avoid endless smoke tests and regression tests for deleted features. Tests should be focused, not slop.
 - For behavior-changing features with useful automated tests, work one slice at a time: write a focused failing test for observable behavior through a public interface, then make the smallest change that passes it; repeat. Keep tests independent of implementation, and review/refactor after the slices pass. Skip test-first when no meaningful automated test can capture the behavior.
-- For web frontend changes that affect UI or user flows, use Playwright MCP with the Google Chrome executable specified by `CHROME_BIN` to exercise the affected behavior in a running application. Validate the visible result via a screenshot and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
+- For web frontend changes that affect UI or user flows, use Chrome DevTools MCP to exercise the affected behavior in a running application. Validate the visible result via a screenshot and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
 
 ## Planning
 
