@@ -18,6 +18,7 @@ alias grep='grep --color=auto'
 alias lg='lazygit'
 alias cc='claude'
 alias nv='nvim'
+alias agy='agy --dangerously-skip-permissions'
 
 # env variables
 export EDITOR="nvim"
