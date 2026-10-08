@@ -20,7 +20,7 @@ Apply these rules:
   - `feature` for new user-facing capabilities or enhancements
   - `task` for engineering work, refactoring, or maintenance with concrete criteria
   - `bug` (or `fix`) for reproducible defects
-- Use the actual issue number (GitHub `#123`) or work item ID (Azure DevOps `12345`).
+- Use the actual issue number (GitHub `#123`) or work item ID (Azure DevOps `AB#12345` / `12345`).
 - Keep the title short, specific, and kebab-cased.
 - Do not invent an issue number or work item ID when none exists.
 

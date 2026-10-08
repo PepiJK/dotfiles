@@ -57,7 +57,7 @@ chore(scope): summarize the change
 - Explain the meaningful change and why it is needed.
 - Mention important compatibility, security, data, or rollout impact.
 
-Co-authored-by: Copilot <copilot@users.noreply.github.com>
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
 '@
 
 $commitMessage | git commit --file -

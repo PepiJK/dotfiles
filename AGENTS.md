@@ -15,12 +15,15 @@ The setup scripts are the source of truth for link targets and platform-specific
 Read `.agents/AGENTS.md` before editing; it defines the global coding, scope, testing, and Git rules for work in this repository.
 Whenever a configuration entry is added or edited, update the `Structure` table with its source and link targets.
 
-## Workflow templates
+## Documented workflows
 
 - Before creating a branch, read `docs/agents/branch-template.md`.
 - Before creating a commit, read `docs/agents/commit-template.md`.
 - Before creating an issue or work item, read `docs/agents/issue-template-guidance.md`.
 - Before creating or updating a pull request, read `docs/agents/pull-request-template.md`.
+- To find documentation, read `docs/index.md`; update it in the same change whenever a Markdown file under `docs/` is added, removed, renamed, or repurposed.
+- Before locating code or doing structural or cross-component work, read `ARCHITECTURE.md`; update it in the same change when structure, components, data stores, integrations, or invariants change, and add each settled domain term to its Domain language section as `**Term**:` with a one- or two-sentence definition followed by `_Avoid_:` synonyms.
+- Before working in an area, read the ADRs in `docs/adr/` that touch it and flag any conflict explicitly; record a decision without asking when it is hard to reverse, surprising without context, and the result of a real trade-off, using `docs/adr/NNNN-kebab-slug.md` with a short title and 1-3 sentences on context, decision, and why, and supersede rather than rewrite a changed decision.
 
 ## Structure
 
@@ -34,7 +37,7 @@ Whenever a configuration entry is added or edited, update the `Structure` table 
 | `nvim/`             | `init.lua`                             | `~/.config/nvim/init.lua` (Linux) / `$XDG_CONFIG_HOME\nvim\init.lua` (Windows)                                                                                                                                                                                                                            |
 | `oh-my-posh/`       | `*.omp.json`                           | `~/.config/oh-my-posh/` (Linux) / `$XDG_CONFIG_HOME\oh-my-posh\` (Windows)                                                                                                                                                                                                                                |
 | `.agents/`          | `AGENTS.md` (global instructions)      | `~/.gemini/antigravity-cli/rules/AGENTS.md`, `~/.github/copilot-instructions.md`, `~/.agents/AGENTS.md` (Linux) / `$UserHome\.gemini\antigravity-cli\rules\AGENTS.md`, `$UserHome\.github\copilot-instructions.md`, `$UserHome\.copilot\copilot-instructions.md`, `$UserHome\.agents\AGENTS.md` (Windows) |
-| `.agents/skills/`   | `SKILL.md` (repository-managed skills) | `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md`, `~/.agents/skills/<skill>/SKILL.md`                                                                                                                                                                                                                  |
+| `.agents/skills/`   | Per-skill folders (`SKILL.md` + files) | `~/.gemini/antigravity-cli/skills/<skill>/`, `~/.agents/skills/<skill>/` (Linux) / `$UserHome\.gemini\antigravity-cli\skills\<skill>\`, `$UserHome\.agents\skills\<skill>\` (Windows junctions)                                                                                                           |
 | `powershell/`       | `Microsoft.PowerShell_profile.ps1`     | `~\Documents\PowerShell\` (Windows only)                                                                                                                                                                                                                                                                  |
 | `tmux/`             | `.tmux.conf`                           | `~/.tmux.conf`                                                                                                                                                                                                                                                                                            |
 | `vscode/`           | `settings.json`, `keybindings.json`    | `~/.config/Code/User/` (Linux) / `$SCOOP\persist\vscode\data\user-data\User\` (Windows, Scoop install)                                                                                                                                                                                                    |
@@ -57,7 +60,7 @@ Whenever a configuration entry is added or edited, update the `Structure` table 
 - Keep cross-platform link definitions in sync between `setup.sh` and `setup.ps1`; platform-specific configs belong only in the applicable script.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories, including GitHub Copilot CLI on Windows.
-- **`.agents/skills/`** contains one `SKILL.md` per repository-managed skill (e.g. `pepi-verify`, `pepi-unslop`, `pepi-worktree`, `pepi-hunk`, listed explicitly in `setup.sh`/`setup.ps1`). Each is linked into `~/.gemini/antigravity-cli/skills/<skill>/SKILL.md` and `~/.agents/skills/<skill>/SKILL.md` (used by GitHub Copilot).
+- **`.agents/skills/`** contains one folder per repository-managed skill (e.g. `pepi-unslop`, `pepi-project-setup`, `pepi-preplanning`, `pepi-agent-writing`, listed explicitly in `setup.sh`/`setup.ps1`). Each folder contains `SKILL.md` and any supporting files, and is linked as a whole into `~/.gemini/antigravity-cli/skills/<skill>/` and `~/.agents/skills/<skill>/` (used by GitHub Copilot).
 
 ## Validation
 
