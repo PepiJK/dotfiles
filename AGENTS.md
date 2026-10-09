@@ -21,7 +21,6 @@ Whenever a configuration entry is added or edited, update the `Structure` table 
 - Before creating a commit, read `docs/agents/commit-template.md`.
 - Before creating an issue or work item, read `docs/agents/issue-template-guidance.md`.
 - Before creating or updating a pull request, read `docs/agents/pull-request-template.md`.
-- To find documentation, read `docs/index.md`; update it in the same change whenever a Markdown file under `docs/` is added, removed, renamed, or repurposed.
 - Before locating code or doing structural or cross-component work, read `ARCHITECTURE.md`; update it in the same change when structure, components, data stores, integrations, or invariants change, and add each settled domain term to its Domain language section as `**Term**:` with a one- or two-sentence definition followed by `_Avoid_:` synonyms.
 - Before working in an area, read the ADRs in `docs/adr/` that touch it and flag any conflict explicitly; record a decision without asking when it is hard to reverse, surprising without context, and the result of a real trade-off, using `docs/adr/NNNN-kebab-slug.md` with a short title and 1-3 sentences on context, decision, and why, and supersede rather than rewrite a changed decision.
 

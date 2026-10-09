@@ -5,7 +5,7 @@
 - `.agents/` — Agent instructions and repository-managed skills for Google Antigravity and GitHub Copilot.
 - `.github/` — GitHub issue and pull-request templates.
 - `bash/` — Bash startup configuration.
-- `docs/` — Workflow guidance, architecture decisions, and documentation index.
+- `docs/` — Workflow guidance and architecture decisions.
 - `ghostty/` — Ghostty terminal configuration.
 - `herdr/` — Shared and Windows-specific Herdr configurations.
 - `hunk/` — Hunk configuration.
