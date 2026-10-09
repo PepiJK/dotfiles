@@ -24,16 +24,58 @@ if (-not $UserDocuments) {
 	$UserDocuments = "$UserHome\Documents"
 }
 
-if (-not $env:SCOOP) {
-	throw "SCOOP environment variable is not set. Please install Scoop first: https://scoop.sh"
+# Variable name -> expected path (relative to $env:SCOOP) used in the example fix script
+$RequiredEnv = [ordered]@{
+	SCOOP             = ""
+	XDG_CONFIG_HOME   = ".config"
+	XDG_DATA_HOME     = ".local\share"
+	XDG_CACHE_HOME    = ".cache"
+	XDG_STATE_HOME    = ".local\state"
+	XDG_BIN_HOME      = ".local\bin"
+	NUGET_PACKAGES    = "persist\nuget\packages"
+	GH_CONFIG_DIR     = ".config\gh"
+	AZURE_CONFIG_DIR  = ".config\azure"
+	COPILOT_HOME      = ".copilot"
+	TEMP              = "temp"
+	TMP               = "temp"
+	NPM_CONFIG_CACHE  = "npm-cache"
+	NPM_CONFIG_PREFIX = "npm-global"
 }
 
-foreach ($xdgVar in @("XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_CACHE_HOME")) {
-	if (-not (Get-Item "Env:$xdgVar" -ErrorAction SilentlyContinue)) {
-		throw "$xdgVar environment variable is not set. Please set it (e.g. C:\DeveloperArea\.config) before running setup."
+$MissingEnv = @()
+$UserEnvKey = "Registry::HKEY_USERS\$UserSID\Environment"
+foreach ($name in $RequiredEnv.Keys) {
+	# The elevated session may not see variables of the target user, so fall back to their persisted ones
+	$value = (Get-Item "Env:$name" -ErrorAction SilentlyContinue).Value
+	if (-not $value) {
+		$value = (Get-ItemProperty $UserEnvKey -Name $name -ErrorAction SilentlyContinue).$name
+	}
+	if ($value) {
+		Set-Item "Env:$name" $value
+	}
+	$isUnset = -not $value
+	$isMissingPath = $value -and -not (Test-Path $value)
+	if ($isUnset -or $isMissingPath) {
+		$MissingEnv += $name
 	}
 }
 
+if ($MissingEnv.Count -gt 0) {
+	Write-Host "Missing or invalid environment variables (unset or path does not exist):" -ForegroundColor Red
+	$MissingEnv | ForEach-Object { Write-Host "  - $_" -ForegroundColor Red }
+	Write-Host "`nExample script to fix them (adjust the root, run in PowerShell, then open a new terminal):`n"
+	Write-Host '$Root = "C:\Program Files\EigeneProgramme"'
+	foreach ($name in $MissingEnv) {
+		$rel = $RequiredEnv[$name]
+		if ($rel) {
+			Write-Host "[Environment]::SetEnvironmentVariable('$name', `"`$Root\$rel`", 'User')"
+		} else {
+			Write-Host "[Environment]::SetEnvironmentVariable('$name', `$Root, 'User')"
+		}
+	}
+	Write-Host "`nMake sure the directories exist (create them or install the tools via Scoop)."
+	exit 1
+}
 $UserProfilePath = "$UserDocuments\PowerShell\Microsoft.PowerShell_profile.ps1"
 $UserProfilePath51 = "$UserDocuments\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
@@ -84,8 +126,6 @@ function LinkJunction {
 
 function EnsureScoopAppDataJunctions {
 	$mappings = @(
-		@{ Src = "$UserLocalAppData\Zed"; Dst = "$env:SCOOP\AppData\Local\Zed" },
-		@{ Src = "$UserAppData\Zed"; Dst = "$env:SCOOP\AppData\Roaming\Zed" },
 		@{ Src = "$UserLocalAppData\oh-my-posh"; Dst = "$env:SCOOP\AppData\Local\oh-my-posh" }
 	)
 
@@ -133,8 +173,7 @@ Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.Wind
 
 # AI Agents (Google Antigravity & GitHub Copilot)
 Link ".agents\AGENTS.md" "$UserHome\.gemini\antigravity-cli\rules\AGENTS.md"
-Link ".agents\AGENTS.md" "$UserHome\.github\copilot-instructions.md"
-Link ".agents\AGENTS.md" "$UserHome\.copilot\copilot-instructions.md"
+Link ".agents\AGENTS.md" "$env:COPILOT_HOME\copilot-instructions.md"
 Link ".agents\AGENTS.md" "$UserHome\.agents\AGENTS.md"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
@@ -143,6 +182,7 @@ foreach ($skill in $AgentSkills) {
 	$skillDir = ".agents\skills\$skill"
 	LinkJunction $skillDir "$UserHome\.gemini\antigravity-cli\skills\$skill"
 	LinkJunction $skillDir "$UserHome\.agents\skills\$skill"
+	LinkJunction $skillDir "$env:COPILOT_HOME\skills\$skill"
 }
 
 $HunkSkillPath = (& hunk skill path).Trim()
@@ -169,12 +209,8 @@ $VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
 Link "vscode\settings.json" "$VscodeDir\settings.json"
 Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
 
-# Zed and oh-my-posh AppData junctions
+# oh-my-posh AppData junctions
 EnsureScoopAppDataJunctions
-
-# Zed settings + keymap (symlinks through the Zed AppData junction created above)
-Link "zed\settings.json" "$UserAppData\Zed\settings.json"
-Link "zed\keymap.json" "$UserAppData\Zed\keymap.json"
 
 # Psmux
 $PsmuxTarget = "$env:XDG_CONFIG_HOME\psmux"
