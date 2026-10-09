@@ -4,6 +4,11 @@ Keep `ARCHITECTURE.md` a short, stable bird's-eye view and code map. Describe th
 boundaries and relationships; name important modules and types without linking to source files,
 because those links become stale.
 
+## Frontmatter and title
+
+Start with YAML frontmatter containing `title: Architecture` and a one-line `description` naming
+the project's components, data stores, integrations, and invariants. Follow it with `# Architecture`.
+
 ## Sections
 
 Use these headings in this order for a new document. Omit sections that do not apply instead of
@@ -32,6 +37,22 @@ adding empty placeholders:
 For a new or empty repository, create `# Architecture` followed by all ten headings with empty
 bodies. Do not add placeholder text. Omit inapplicable sections once the repository has meaningful
 architecture content.
+
+## Entry style
+
+- Project Structure, Data Stores, External Integrations, Deployment & Infrastructure, and Security
+  Considerations are bullet lists. Name each folder, store, or integration in backticks or bold,
+  followed by a colon and one sentence on its role or owner.
+- Core Components are bullets of the form `**Name (`project-or-folder`)**: responsibility and
+  boundary.` Mention notable endpoints, hosts, or hosted jobs inline.
+- The diagram is a single `flowchart LR` Mermaid block showing users, hosts, shared libraries,
+  stores, and external systems.
+- Architectural invariants are bullets that state the rule and cite the governing ADR in
+  parentheses when one exists, such as `(ADR 0001)`.
+- Domain language entries are separate paragraphs, not a list, with the term in the product's own
+  language followed by the translation in parentheses when they differ.
+- Local-only ignored folders (tool, editor, scratch, or build output) are summarized in one
+  Project Structure bullet instead of one bullet each.
 
 ## Content rules
 

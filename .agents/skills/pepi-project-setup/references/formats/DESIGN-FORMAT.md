@@ -4,9 +4,33 @@ Write one `DESIGN.md` for each frontend. Describe the visual system agents shoul
 working on UI. Extract tokens from the frontend's existing theme and describe usage supported by
 the implementation; do not invent values or design rationale.
 
-## File structure
+## Preferred shape
 
-The document has optional YAML frontmatter followed by Markdown sections. Frontmatter fields
+Write the document as Markdown with frontmatter containing only a one-line `description`, then
+`# <Project> frontend design`. Use this layout, omitting what the frontend does not have:
+
+1. An opening paragraph naming the UI library and theme source, and stating that tokens are used for
+   their intended purpose and never hard-coded or duplicated in a parallel palette.
+2. A `Sources` paragraph listing the theme files to read before adding tokens, and how variables are
+   loaded globally.
+3. `## Colors`: a `Purpose | Variable` table (text, page background, surfaces, brand, neutrals,
+   info, success, warning, error). State that status colors express state only. List local token
+   additions with their one allowed purpose.
+4. `## Typography`: font family, the size token scale with the base and small sizes, how headings
+   are styled, and weights.
+5. `## Spacing, radius, borders`: bullets with the token pattern and the key values.
+6. `## Breakpoints`: how media queries consume them, since CSS variables are not usable there.
+7. `## <UI library> theming`: palettes, where custom component themes live, and elevation.
+8. `## Rules`: short bullets such as nesting, forbidden constructs, override placement,
+   component-before-custom precedence, and accessibility.
+
+Name tokens as the source defines them and show values only when the source defines them. The
+token-map frontmatter below is optional and applies only when the frontend defines a token file
+in that format.
+
+## Optional token frontmatter
+
+The frontmatter may also carry token maps. Frontmatter fields
 supported by the pinned specification are:
 
 | Field | Shape |
@@ -32,7 +56,8 @@ Reference another token with its object path in braces, such as `{colors.primary
 Use `omitted` for a token group or section with no source in the frontend. A reason is useful when
 it explains an intentional absence; do not add empty token maps or fabricate defaults.
 
-Use these `##` section headings in this order, omitting those that do not apply:
+Use the section headings from Preferred shape above. A repository whose token files follow the
+specification may instead use these `##` headings in this order, omitting those that do not apply:
 
 1. `## Overview` (also known as `Brand & Style`)
 2. `## Colors`

@@ -25,6 +25,44 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 - Let some informality in when the intended tone allows it. Do not make technical writing vague or sloppy.
 - Be specific. Not "this is concerning" but "the agent can keep running after the terminal closes."
 
+## Language and tone
+
+- Write in German (Austrian) unless the user asks for English.
+- Always address the reader with "du".
+- Forgetting a comma now and then is intended. It makes the text more human. Do not overdo it and do not touch commas in code or quotes.
+
+## Examples
+
+### Messenger
+
+Short greeting with first name.
+
+```text
+Servus Patric,
+Die Analyse prüft den Kartenstatus bei einem Start über die Person gegen unseren lokalen Stand der ILAAM-Personen. Dieser wird täglich um 05:00 aus der AMDB aktualisiert. Falls die Änderung dort noch nicht angekommen ist, zeigt die Analyse den alten Stand mit Karte aktiv.
+
+Eine Frage: Hast du die Karte im Prod-Shop oder im Test-Shop deaktiviert? Weil wir hier auf Test natürlich nur die Testdaten der AMDB importieren.
+```
+
+What makes it work: no filler opener, no closing phrase, real system names, a schedule with a time, and a direct question.
+
+### Email
+
+Casual and direct. Says what was done, where, who has access, and what might still block them. Plain sign-off, no filler.
+
+```text
+Servus Clemens,
+
+Wie besprochen hab ich die gps_data von Jänner 2026 von Prod auf Test kopiert. Testserver ist der VRZ1914T, ich hab dir und Thomas Read zugriff auf die DB gegeben, ihr solltet euch also verbinden können. Vielleicht braucht ihr noch eine Firewall Freischaltung.
+
+Im Anhang hab ich noch ein md file was die gps_data tabelle etwas näher erklärt. Bei fragen kommt einfach auf mich zu.
+
+LG und schönes Wochenende
+Josef
+```
+
+What makes it work: contractions like "hab", Austrian wording ("Jänner"), a short hedge where it is real ("Vielleicht"), and a plain sign-off. Lowercase slips and missing commas are fine here.
+
 ## Patterns to detect and fix
 
 ### Content

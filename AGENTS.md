@@ -60,7 +60,7 @@ Whenever a configuration entry is added or edited, update the `Structure` table 
 - Keep cross-platform link definitions in sync between `setup.sh` and `setup.ps1`; platform-specific configs belong only in the applicable script.
 - All files use LF line endings, tabs for indentation (spaces for YAML), UTF-8, and a final newline — enforced via `.editorconfig` (present in the repo root).
 - **`.agents/`** contains the `AGENTS.md` file loaded as global context by AI coding assistants like Google Antigravity and GitHub Copilot. It is linked into their respective global rule directories, including GitHub Copilot CLI on Windows.
-- **`.agents/skills/`** contains one folder per repository-managed skill (e.g. `pepi-unslop`, `pepi-project-setup`, `pepi-preplanning`, `pepi-agent-writing`, listed explicitly in `setup.sh`/`setup.ps1`). Each folder contains `SKILL.md` and any supporting files, and is linked as a whole into `~/.gemini/antigravity-cli/skills/<skill>/` and `~/.agents/skills/<skill>/` (used by GitHub Copilot).
+- **`.agents/skills/`** contains one folder per repository-managed skill (e.g. `pepi-unslop`, `pepi-project-setup`, `pepi-interview`, listed explicitly in `setup.sh`/`setup.ps1`). Each folder contains `SKILL.md` and any supporting files, and is linked as a whole into `~/.gemini/antigravity-cli/skills/<skill>/` and `~/.agents/skills/<skill>/` (used by GitHub Copilot).
 
 ## Validation
 
