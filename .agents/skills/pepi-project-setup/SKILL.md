@@ -197,6 +197,10 @@ Confirm that:
 
 - Every expected path exists with the resolved `<docs>` casing, including one `DESIGN.md` for each
   kept frontend.
+- Every applicable platform template exists at its target path and the files have been copied/updated.
+- Root `AGENTS.md`, `ARCHITECTURE.md`, and each `DESIGN.md` were checked against the current
+  repository and updated additively where content was missing or outdated, even when the file
+  already existed.
 - Every workflow pointer resolves from the `AGENTS.md` containing it.
 - Every part has an `AGENTS.md` when the repository has two or more parts; a single-part
   repository has only the root file. The root links to each part file.
