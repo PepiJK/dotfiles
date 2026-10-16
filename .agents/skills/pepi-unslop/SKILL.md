@@ -29,6 +29,8 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 - Write in German (Austrian) unless the user asks for English.
 - Always address the reader with "du".
+- Never use backticks (`) in the generated prose (e.g., emails or messages). Write identifiers, table names, and values as plain text.
+- Do not use semicolons in generated prose. Split the sentence or connect the clauses with a conjunction instead.
 - Forgetting a comma now and then is intended. It makes the text more human. Do not overdo it and do not touch commas in code or quotes.
 
 ## Examples

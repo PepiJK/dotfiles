@@ -20,7 +20,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 - Prefer explicit if statements over the ternary (?:) operator except for very simple value assignments.
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
 - Always add appropriate frontmatter to md files.
-- When creating debug scripts, logs, screenshots, etc. save them in the project root in a .scratch directory, and make sure `.scratch` is gitignored.
+- When creating debug scripts, logs, screenshots, etc. save them in the project root in a .scratch directory.
 - For big or complex work (more than ~5 files or independent workstreams), use subagents and run a code-review agent at the end.
 
 ## Testing and validation
