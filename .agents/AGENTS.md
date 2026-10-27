@@ -9,7 +9,6 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 - When mentioning GitHub Copilot, or just copilot, I mean the locally installed `@github/copilot`.
 - Questions that ask for an explanation, opinion, or analysis are read-only: do not edit files.
 - Answer the language of the request, either English or German, default is English.
-- Prefer `rg` and `fd` for text and file discovery.
 
 ## Implementation
 
@@ -21,6 +20,8 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 - Prefer explicit if statements over the ternary (?:) operator except for very simple value assignments.
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
 - Always add appropriate frontmatter to md files.
+- Document what exists, not what was removed or is absent. Keep incident and summary docs in prose without code.
+- To fix vulnerable or warning-producing transitive dependencies, update the upstream package that brings them in; add direct pins only when no upstream fix exists.
 - When creating debug scripts, logs, screenshots, etc. save them in the project root in a .scratch directory.
 - For big or complex work (more than ~5 files or independent workstreams), use subagents and run a code-review agent at the end.
 
