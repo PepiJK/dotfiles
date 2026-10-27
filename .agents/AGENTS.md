@@ -9,6 +9,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 - When mentioning GitHub Copilot, or just copilot, I mean the locally installed `@github/copilot`.
 - Questions that ask for an explanation, opinion, or analysis are read-only: do not edit files.
 - Answer the language of the request, either English or German, default is English.
+- Prefer `rg` and `fd` for text and file discovery.
 
 ## Implementation
 
@@ -27,7 +28,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 
 - Write focused tests; skip smoke tests and regression tests for deleted features.
 - For behavior-changing features with useful automated tests, work one slice at a time: write a focused failing test for observable behavior through a public interface, then make the smallest change that passes it; repeat. Keep tests independent of implementation, and review/refactor after the slices pass. Skip test-first when no meaningful automated test can capture the behavior.
-- For web frontend changes that affect UI or user flows, use Chrome DevTools MCP to exercise the affected behavior in a running application. Validate the visible result via a screenshot and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing.
+- For web frontend changes that affect UI or user flows, use Chrome DevTools MCP to exercise the affected behavior in a running application. Validate the visible result via a screenshot and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing or review.
 - Verify code-review findings against the issue/feature description and docs, and push back on those that don't fit.
 
 ## Safety
