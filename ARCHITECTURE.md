@@ -1,3 +1,7 @@
+---
+title: Architecture
+---
+
 # Architecture
 
 ## Project Structure
@@ -56,7 +60,7 @@ flowchart LR
 - **Agent hosts:** Setup deploys repository instructions and skills for Google Antigravity CLI and GitHub Copilot CLI.
 - **Terminal and multiplexer tooling:** The settings target Ghostty, Windows Terminal, Herdr, tmux, and psmux. Windows Terminal integrates profiles from WSL, Azure Cloud Shell, and Visual Studio. Linux tmux uses TPM with tmux-sensible, tmux-resurrect, tmux-continuum, and tmux-onedark-theme; Windows psmux uses PPM with psmux-sensible, psmux-resurrect, psmux-continuum, and psmux-theme-onedark.
 - **Lazygit:** Editor actions invoke VS Code with `code --wait` and `code --goto`.
-- **Neovim:** `lazy.nvim` bootstraps vscode.nvim, Comment.nvim, nvim-treesitter, nvim-lspconfig, nvim-cmp (cmp-nvim-lsp, cmp-buffer, cmp-path, cmp-cmdline, and LuaSnip), Telescope (with plenary), which-key, gitsigns, and lualine (with nvim-web-devicons). It also uses tree-sitter-cli and enables the Angular (`angularls`) and TypeScript (`ts_ls`) language servers.
+- **Neovim:** `lazy.nvim` bootstraps vscode.nvim, Comment.nvim, nvim-treesitter, nvim-lspconfig, nvim-cmp (cmp-nvim-lsp, cmp-buffer, cmp-path, cmp-cmdline, LuaSnip, cmp_luasnip, and friendly-snippets), Telescope (with plenary), which-key, gitsigns, and lualine (with nvim-web-devicons). Missing Tree-sitter parsers are installed on demand using tree-sitter-cli and a C compiler. It enables the Angular (`angularls`) and TypeScript (`ts_ls`) language servers, which must be installed separately.
 - **Other editors and schemas:** VS Code settings integrate Prettier, the C# formatter, VSCodeVim, Material Icon Theme, and GitHub Copilot; Zed configures `vtsls` and the `github-copilot-cli` agent server. VS Code trusts schema sources at `aka.ms`, `developer.microsoft.com`, `json-schema.org`, `json.schemastore.org`, `raw.githubusercontent.com`, `schemastore.azurewebsites.net`, and `www.schemastore.org`; Oh My Posh themes also use the raw GitHub schema.
 
 ## Deployment & Infrastructure

@@ -36,18 +36,23 @@ require("lazy").setup({
   },
 
   -- Treesitter (syntax highlighting & code understanding)
-  -- Requires tree-sitter-cli for additional parsers: sudo pacman -S tree-sitter-cli
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      -- Install parsers (no-op if already installed)
-      -- require("nvim-treesitter").install({
-      --   "lua", "vim", "vimdoc", "markdown", "markdown_inline",
-      --   "python", "javascript", "typescript", "bash",
-      --   "html", "css", "scss", "json",  -- Web dev support
-      -- })
+      local is_windows = vim.fn.has("win32") == 1
+      local needs_compiler = not vim.env.CC and vim.fn.executable("cl") == 0
+      local has_gcc = vim.fn.executable("gcc") == 1
+      if is_windows and needs_compiler and has_gcc then
+        vim.env.CC = "gcc"
+      end
+
+      local function start_treesitter(buf)
+        vim.treesitter.start(buf)
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+
       -- Set Angular component HTML files to use html filetype
       vim.filetype.add({
         pattern = {
@@ -62,9 +67,29 @@ require("lazy").setup({
           "javascript", "typescript", "bash",
           "html", "css", "scss", "json",
         },
-        callback = function()
-          vim.treesitter.start()
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        callback = function(event)
+          local filetype = vim.bo[event.buf].filetype
+          local language = vim.treesitter.language.get_lang(filetype)
+          if vim.treesitter.language.add(language) then
+            start_treesitter(event.buf)
+            return
+          end
+
+          require("nvim-treesitter").install({ language }):await(function(err, success)
+            vim.schedule(function()
+              if err or not success then
+                vim.notify("Failed to install Tree-sitter parser for " .. language .. ": " .. (err or "see :TSLog"), vim.log.levels.ERROR)
+                return
+              end
+              if not vim.treesitter.language.add(language) then
+                vim.notify("Tree-sitter parser for " .. language .. " is unavailable after installation", vim.log.levels.ERROR)
+                return
+              end
+              if vim.api.nvim_buf_is_loaded(event.buf) and vim.bo[event.buf].filetype == filetype then
+                start_treesitter(event.buf)
+              end
+            end)
+          end)
         end,
       })
     end,
@@ -73,9 +98,13 @@ require("lazy").setup({
   -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
+      vim.lsp.config("*", {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+      })
       vim.lsp.enable("angularls")
-      vim.lsp.enable('ts_ls')
+      vim.lsp.enable("ts_ls")
 
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(event)
@@ -98,13 +127,31 @@ require("lazy").setup({
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
     },
     config = function()
       local cmp = require("cmp")
+      local luasnip = require("luasnip")
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      vim.keymap.set({ "i", "s" }, "<C-l>", function()
+        if luasnip.jumpable(1) then
+          return "<Plug>luasnip-jump-next"
+        end
+        return "<C-l>"
+      end, { expr = true, desc = "Next snippet field" })
+      vim.keymap.set({ "i", "s" }, "<C-j>", function()
+        if luasnip.jumpable(-1) then
+          return "<Plug>luasnip-jump-prev"
+        end
+        return "<C-j>"
+      end, { expr = true, desc = "Previous snippet field" })
+
       cmp.setup({
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -199,3 +246,4 @@ vim.keymap.set("n", "<leader>wq", ":wq<CR>", { desc = "Save and quit" })
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
