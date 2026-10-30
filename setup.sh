@@ -62,6 +62,7 @@ link "herdr/config.toml" "$HOME/.config/herdr/config.toml"
 
 # Lazygit
 link "lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+link "lazygit/extdiff.sh" "$HOME/.config/lazygit/extdiff.sh"
 
 # Neovim
 link "nvim/init.lua" "$HOME/.config/nvim/init.lua"

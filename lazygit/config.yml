@@ -3,3 +3,10 @@ os:
     editAtLine: "code --wait --goto {{filename}}:{{line}}"
     editAtLineAndWait: "code --wait --goto {{filename}}:{{line}}"
     open: "code {{filename}}"
+git:
+    # GNU diff via git's external diff: git no longer mmaps worktree files for the diff view,
+    # which otherwise blocks edits with Windows error 1224 while a large diff is shown.
+    diffRenderers:
+        - type: extDiff
+          name: gnu-diff
+          command: 'sh "${XDG_CONFIG_HOME:-$HOME/.config}/lazygit/extdiff.sh" {{diffContext}}'
