@@ -21,19 +21,16 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 - Use comments concisely for public APIs and non-obvious behavior or reasoning. Do not comment every line. Keep comments synchronized with the code.
 - Always add appropriate frontmatter to md files.
 - Document what exists, not what was removed or is absent. Keep incident and summary docs in prose without code.
-- To fix vulnerable or warning-producing transitive dependencies, update the upstream package that brings them in; add direct pins only when no upstream fix exists.
 - When creating debug scripts, logs, screenshots, etc. save them in the project root in a .scratch directory.
-- For big or complex work (more than ~5 files or independent workstreams), use subagents and run a code-review agent at the end.
 
 ## Testing and validation
 
 - Write focused tests; skip smoke tests and regression tests for deleted features.
 - For behavior-changing features with useful automated tests, work one slice at a time: write a focused failing test for observable behavior through a public interface, then make the smallest change that passes it; repeat. Keep tests independent of implementation, and review/refactor after the slices pass. Skip test-first when no meaningful automated test can capture the behavior.
 - For web frontend changes that affect UI or user flows, use Chrome DevTools MCP to exercise the affected behavior in a running application. Validate the visible result via a screenshot and relevant interactions, not just that the page loads. Also use it to debug any issues raised by me or while testing or review.
-- Verify code-review findings against the issue/feature description and docs, and push back on those that don't fit.
+- Verify code-review findings against the issue/feature description and docs, and don't be afraid to push back on those that don't fit.
 
 ## Safety
 
-- Never commit to git without being asked. Never run git push, force-push, or rewrite history.
 - Always treat databases as read-only. Never create, update or delete without explicit user confirmation.
-- Ask before any destructive action I haven't requested (deleting files, `git reset --hard`, `git clean`, dropping data).
+- Ask for permission before any destructive action I haven't requested (deleting files, `git reset --hard`, `git clean`, dropping data).
