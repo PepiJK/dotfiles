@@ -139,6 +139,6 @@
     "theme": "dark",
     "themes": [],
     "useAcrylicInTabRow": true,
-    "warning.confirmCloseAllTabs": true,
+    "warning.confirmOnClose": "automatic",
     "warning.multiLinePaste": "never"
 }
