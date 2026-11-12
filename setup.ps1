@@ -206,9 +206,14 @@ Link "lazygit\extdiff.sh" "$env:XDG_CONFIG_HOME\lazygit\extdiff.sh"
 Link "nvim\init.lua" "$env:XDG_CONFIG_HOME\nvim\init.lua"
 
 # VS Code
-$VscodeDir = "$env:SCOOP\persist\vscode\data\user-data\User"
-Link "vscode\settings.json" "$VscodeDir\settings.json"
-Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
+$VscodeDirs = @(
+	"$UserAppData\Code\User"
+	"$env:SCOOP\persist\vscode\data\user-data\User"
+)
+foreach ($VscodeDir in $VscodeDirs) {
+	Link "vscode\settings.json" "$VscodeDir\settings.json"
+	Link "vscode\keybindings.json" "$VscodeDir\keybindings.json"
+}
 
 # oh-my-posh AppData junctions
 EnsureScoopAppDataJunctions
