@@ -25,9 +25,6 @@ link "bash/.bashrc" "$HOME/.bashrc"
 # Ghostty
 link "ghostty/config" "$HOME/.config/ghostty/config"
 
-# Hunk
-link "hunk/config.toml" "$HOME/.config/hunk/config.toml"
-
 # Oh My Posh
 link "oh-my-posh/star-ghostty.omp.json" "$HOME/.config/oh-my-posh/star-ghostty.omp.json"
 link "oh-my-posh/star-win-term.omp.json" "$HOME/.config/oh-my-posh/star-win-term.omp.json"
@@ -42,17 +39,6 @@ for skill in pepi-unslop pepi-project-setup pepi-interview pepi-visualize pepi-s
 	link ".agents/skills/$skill" "$HOME/.gemini/antigravity-cli/skills/$skill"
 	link ".agents/skills/$skill" "$HOME/.agents/skills/$skill"
 done
-
-if ! HUNK_SKILL_PATH="$(hunk skill path)"; then
-	echo "Unable to resolve the Hunk skill with 'hunk skill path'." >&2
-	exit 1
-fi
-if [[ ! -f "$HUNK_SKILL_PATH" ]]; then
-	echo "Hunk skill path does not point to a file: $HUNK_SKILL_PATH" >&2
-	exit 1
-fi
-link "$HUNK_SKILL_PATH" "$HOME/.gemini/antigravity-cli/skills/hunk-review/SKILL.md"
-link "$HUNK_SKILL_PATH" "$HOME/.agents/skills/hunk-review/SKILL.md"
 
 # Tmux
 link "tmux/.tmux.conf" "$HOME/.tmux.conf"

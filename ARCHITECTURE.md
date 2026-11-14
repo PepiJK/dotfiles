@@ -12,7 +12,6 @@ title: Architecture
 - `docs/` — Workflow guidance and architecture decisions.
 - `ghostty/` — Ghostty terminal configuration.
 - `herdr/` — Shared and Windows-specific Herdr configurations.
-- `hunk/` — Hunk configuration.
 - `lazygit/` — Lazygit configuration.
 - `nvim/` — Neovim setup and plugin configuration.
 - `oh-my-posh/` — Prompt themes for Ghostty and Windows Terminal.
@@ -55,7 +54,7 @@ flowchart LR
 
 ## External Integrations
 
-- **Setup runtime:** Windows setup depends on Scoop, `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, and the Windows registry's Shell Folders lookup. Both setup scripts call `hunk skill path` to locate the installed Hunk review skill.
+- **Setup runtime:** Windows setup depends on Scoop, `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, and the Windows registry's Shell Folders lookup.
 - **Shell tooling:** The Bash and PowerShell profiles initialize `fnm` and Oh My Posh; Bash also loads Angular CLI (`ng`) completions. Shortcuts invoke Lazygit, Neovim, Claude (`claude`), and GitHub Copilot CLI (`copilot`).
 - **Agent hosts:** Setup deploys repository instructions and skills for Google Antigravity CLI and GitHub Copilot CLI.
 - **Terminal and multiplexer tooling:** The settings target Ghostty, Windows Terminal, Herdr, tmux, and psmux. Windows Terminal integrates profiles from WSL, Azure Cloud Shell, and Visual Studio. Linux tmux uses TPM with tmux-sensible, tmux-resurrect, tmux-continuum, and tmux-onedark-theme; Windows psmux uses PPM with psmux-sensible, psmux-resurrect, psmux-continuum, and psmux-theme-onedark.

@@ -158,9 +158,6 @@ Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath
 # PowerShell profile (PS 5.1)
 Link "powershell\Microsoft.PowerShell_profile.ps1" $UserProfilePath51
 
-# Hunk
-Link "hunk\config.toml" "$env:XDG_CONFIG_HOME\hunk\config.toml"
-
 # Oh My Posh
 Link "oh-my-posh\star-ghostty.omp.json" "$env:XDG_CONFIG_HOME\oh-my-posh\star-ghostty.omp.json"
 Link "oh-my-posh\star-win-term.omp.json" "$env:XDG_CONFIG_HOME\oh-my-posh\star-win-term.omp.json"
@@ -184,13 +181,6 @@ foreach ($skill in $AgentSkills) {
 	LinkJunction $skillDir "$UserHome\.agents\skills\$skill"
 	LinkJunction $skillDir "$env:COPILOT_HOME\skills\$skill"
 }
-
-$HunkSkillPath = (& hunk skill path).Trim()
-if (-not $HunkSkillPath -or -not (Test-Path -LiteralPath $HunkSkillPath -PathType Leaf)) {
-	throw "Unable to resolve the Hunk skill with 'hunk skill path'."
-}
-Link $HunkSkillPath "$UserHome\.gemini\antigravity-cli\skills\hunk-review\SKILL.md"
-Link $HunkSkillPath "$UserHome\.agents\skills\hunk-review\SKILL.md"
 
 # Tmux
 Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"
