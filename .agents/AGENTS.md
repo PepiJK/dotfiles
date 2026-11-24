@@ -8,7 +8,7 @@ My name is Josef aka pepi, I am a Fullstack Software Engineer focused on Agentic
 
 - When mentioning GitHub Copilot, or just copilot, I mean the locally installed `@github/copilot`.
 - Questions that ask for an explanation, opinion, or analysis are read-only: do not edit files.
-- Answer the language of the request, either English or German, default is English.
+- Answer in the language of the request, either English or German, default is English.
 
 ## Implementation
 

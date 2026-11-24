@@ -172,6 +172,7 @@ Link "windows-terminal\settings.json" "$UserLocalAppData\Packages\Microsoft.Wind
 Link ".agents\AGENTS.md" "$UserHome\.gemini\antigravity-cli\rules\AGENTS.md"
 Link ".agents\AGENTS.md" "$env:COPILOT_HOME\copilot-instructions.md"
 Link ".agents\AGENTS.md" "$UserHome\.agents\AGENTS.md"
+Link "copilot\settings.json" "$env:COPILOT_HOME\settings.json"
 
 # AI Agent Skills (Google Antigravity & GitHub Copilot)
 $AgentSkills = @("pepi-unslop", "pepi-project-setup", "pepi-interview", "pepi-visualize", "pepi-show-me", "pepi-retro")

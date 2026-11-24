@@ -9,6 +9,7 @@ title: Architecture
 - `.agents/` — Agent instructions and repository-managed skills for Google Antigravity and GitHub Copilot.
 - `.github/` — GitHub issue and pull-request templates.
 - `bash/` — Bash startup configuration.
+- `copilot/` — GitHub Copilot CLI settings.
 - `docs/` — Workflow guidance and architecture decisions.
 - `ghostty/` — Ghostty terminal configuration.
 - `herdr/` — Shared and Windows-specific Herdr configurations.

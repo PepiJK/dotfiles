@@ -1,0 +1,75 @@
+{
+	"theme": "high-contrast",
+	"footer": {
+		"showModelEffort": true,
+		"showDirectory": true,
+		"showBranch": true,
+		"showContextWindow": true,
+		"showQuota": true,
+		"showAiUsed": true,
+		"showAgent": true,
+		"showCodeChanges": true,
+		"showUsername": false,
+		"showSandbox": true,
+		"showYolo": false,
+		"showCiStatus": false,
+		"showSchedules": true,
+		"showPullRequest": true,
+		"showCustom": true
+	},
+	"subagents": {
+		"agents": {
+			"explore": {
+				"model": "gpt-6-luna",
+				"providerId": "copilot",
+				"effortLevel": "xhigh",
+				"contextTier": "default"
+			},
+			"task": {
+				"model": "gpt-6-luna",
+				"providerId": "copilot",
+				"effortLevel": "xhigh",
+				"contextTier": "default"
+			},
+			"general-purpose": {
+				"model": "claude-sonnet-5.5",
+				"providerId": "copilot",
+				"effortLevel": "high",
+				"contextTier": "default"
+			},
+			"rubber-duck": {
+				"model": "gpt-6.1-terra",
+				"providerId": "copilot",
+				"effortLevel": "high",
+				"contextTier": "default"
+			},
+			"code-review": {
+				"model": "gpt-6.1-sol",
+				"providerId": "copilot",
+				"effortLevel": "xhigh",
+				"contextTier": "default"
+			},
+			"research": {
+				"model": "gpt-6.1-terra",
+				"providerId": "copilot",
+				"effortLevel": "xhigh",
+				"contextTier": "default"
+			},
+			"security-review": {
+				"model": "gpt-6.1-sol",
+				"providerId": "copilot",
+				"effortLevel": "xhigh",
+				"contextTier": "default"
+			}
+		}
+	},
+	"model": "claude-opus-5.5",
+	"modelProviderId": "copilot",
+	"effortLevel": "high",
+	"enabledPlugins": {
+		"browser-use": false
+	},
+	"mergeStrategy": "merge",
+	"showReasoning": false,
+	"powershellFlags": ["-NoLogo"]
+}
