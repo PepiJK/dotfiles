@@ -44,9 +44,6 @@ done
 # Tmux
 link "tmux/.tmux.conf" "$HOME/.tmux.conf"
 
-# Herdr
-link "herdr/config.toml" "$HOME/.config/herdr/config.toml"
-
 # Lazygit
 link "lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 link "lazygit/extdiff.sh" "$HOME/.config/lazygit/extdiff.sh"

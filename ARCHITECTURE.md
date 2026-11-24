@@ -12,7 +12,6 @@ title: Architecture
 - `copilot/` — GitHub Copilot CLI settings.
 - `docs/` — Workflow guidance and architecture decisions.
 - `ghostty/` — Ghostty terminal configuration.
-- `herdr/` — Shared and Windows-specific Herdr configurations.
 - `lazygit/` — Lazygit configuration.
 - `nvim/` — Neovim setup and plugin configuration.
 - `oh-my-posh/` — Prompt themes for Ghostty and Windows Terminal.
@@ -46,7 +45,7 @@ flowchart LR
 - `setup.sh` and `setup.ps1` remain the source of truth for configuration-to-target mappings; shared configuration targets stay aligned across platforms.
 - Repository configuration is the live source: setup scripts create links or junctions rather than independent copies.
 - Platform-specific behavior stays behind guards in shared configuration or in a platform-specific configuration file.
-- The Windows Scoop AppData junctions for Zed are created before Zed settings and keymap links; the PowerShell profile launches Herdr's real Scoop binary for WMI-based daemon auto-start.
+- The Windows Scoop AppData junctions for Zed are created before Zed settings and keymap links.
 - The shared tmux configuration gates Windows-only behavior so it can serve tmux on Linux and psmux on Windows.
 
 ## Data Stores
@@ -58,7 +57,7 @@ flowchart LR
 - **Setup runtime:** Windows setup depends on Scoop, `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, and the Windows registry's Shell Folders lookup.
 - **Shell tooling:** The Bash and PowerShell profiles initialize `fnm` and Oh My Posh; Bash also loads Angular CLI (`ng`) completions. Shortcuts invoke Lazygit, Neovim, Claude (`claude`), and GitHub Copilot CLI (`copilot`).
 - **Agent hosts:** Setup deploys repository instructions and skills for Google Antigravity CLI and GitHub Copilot CLI.
-- **Terminal and multiplexer tooling:** The settings target Ghostty, Windows Terminal, Herdr, tmux, and psmux. Windows Terminal integrates profiles from WSL, Azure Cloud Shell, and Visual Studio. Linux tmux uses TPM with tmux-sensible, tmux-resurrect, tmux-continuum, and tmux-onedark-theme; Windows psmux uses PPM with psmux-sensible, psmux-resurrect, psmux-continuum, and psmux-theme-onedark.
+- **Terminal and multiplexer tooling:** The settings target Ghostty, Windows Terminal, tmux, and psmux. Windows Terminal integrates profiles from WSL, Azure Cloud Shell, and Visual Studio. Linux tmux uses TPM with tmux-sensible, tmux-resurrect, tmux-continuum, and tmux-onedark-theme; Windows psmux uses PPM with psmux-sensible, psmux-resurrect, psmux-continuum, and psmux-theme-onedark.
 - **Lazygit:** Editor actions invoke VS Code with `code --wait` and `code --goto`. Diffs render through `extdiff.sh`, a git external diff that runs GNU `diff` from `$XDG_CONFIG_HOME/lazygit` (default `~/.config/lazygit`), so git does not keep worktree files memory-mapped while lazygit shows a partially read diff; on Windows such mappings block editor writes with error 1224.
 - **Neovim:** `lazy.nvim` bootstraps vscode.nvim, Comment.nvim, nvim-treesitter, nvim-lspconfig, nvim-cmp (cmp-nvim-lsp, cmp-buffer, cmp-path, cmp-cmdline, LuaSnip, cmp_luasnip, and friendly-snippets), Telescope (with plenary), which-key, gitsigns, and lualine (with nvim-web-devicons). Missing Tree-sitter parsers are installed on demand using tree-sitter-cli and a C compiler. It enables the Angular (`angularls`) and TypeScript (`ts_ls`) language servers, which must be installed separately.
 - **Other editors and schemas:** VS Code settings integrate Prettier, the C# formatter, VSCodeVim, Material Icon Theme, and GitHub Copilot; Zed configures `vtsls` and the `github-copilot-cli` agent server. VS Code trusts schema sources at `aka.ms`, `developer.microsoft.com`, `json-schema.org`, `json.schemastore.org`, `raw.githubusercontent.com`, `schemastore.azurewebsites.net`, and `www.schemastore.org`; Oh My Posh themes also use the raw GitHub schema.

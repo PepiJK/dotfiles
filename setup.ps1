@@ -186,9 +186,6 @@ foreach ($skill in $AgentSkills) {
 # Tmux
 Link "tmux\.tmux.conf" "$UserHome\.tmux.conf"
 
-# Herdr
-Link "herdr\config.windows.toml" "$env:XDG_CONFIG_HOME\herdr\config.toml"
-
 # Lazygit
 Link "lazygit\config.yml" "$env:XDG_CONFIG_HOME\lazygit\config.yml"
 Link "lazygit\extdiff.sh" "$env:XDG_CONFIG_HOME\lazygit\extdiff.sh"
