@@ -1,3 +1,7 @@
+---
+description: Format for ARCHITECTURE.md files created by pepi-project-setup.
+---
+
 # ARCHITECTURE.md format
 
 Keep `ARCHITECTURE.md` a short, stable bird's-eye view and code map. Describe the system's

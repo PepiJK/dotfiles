@@ -19,7 +19,6 @@ title: Architecture
 - `tmux/` — Shared tmux/psmux configuration.
 - `vscode/` — Visual Studio Code settings and keybindings.
 - `windows-terminal/` — Windows Terminal settings.
-- `zed/` — Zed settings and keymap.
 
 ## High-Level System Diagram
 
@@ -45,7 +44,6 @@ flowchart LR
 - `setup.sh` and `setup.ps1` remain the source of truth for configuration-to-target mappings; shared configuration targets stay aligned across platforms.
 - Repository configuration is the live source: setup scripts create links or junctions rather than independent copies.
 - Platform-specific behavior stays behind guards in shared configuration or in a platform-specific configuration file.
-- The Windows Scoop AppData junctions for Zed are created before Zed settings and keymap links.
 - The shared tmux configuration gates Windows-only behavior so it can serve tmux on Linux and psmux on Windows.
 
 ## Data Stores
@@ -54,13 +52,13 @@ flowchart LR
 
 ## External Integrations
 
-- **Setup runtime:** Windows setup depends on Scoop, `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, and the Windows registry's Shell Folders lookup.
+- **Setup runtime:** Windows setup depends on Scoop, the Windows registry's Shell Folders lookup, and validated environment variables for XDG paths (`XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, `XDG_STATE_HOME`, `XDG_BIN_HOME`, `XDG_RUNTIME_DIR`), tooling storage (`NUGET_PACKAGES`, `GH_CONFIG_DIR`, `AZURE_CONFIG_DIR`, `COPILOT_HOME`, `NPM_CONFIG_CACHE`, `NPM_CONFIG_PREFIX`, `NPM_CONFIG_USERCONFIG`, `NPM_CONFIG_GLOBALCONFIG`, `VSCODE_EXTENSIONS`, `VSCODE_AGENT_FOLDER`, `VSCODE_CLI_DATA_DIR`), and temp directories (`TEMP`, `TMP`).
 - **Shell tooling:** The Bash and PowerShell profiles initialize `fnm` and Oh My Posh; Bash also loads Angular CLI (`ng`) completions. Shortcuts invoke Lazygit, Neovim, Claude (`claude`), and GitHub Copilot CLI (`copilot`).
 - **Agent hosts:** Setup deploys repository instructions and skills for Google Antigravity CLI and GitHub Copilot CLI.
 - **Terminal and multiplexer tooling:** The settings target Ghostty, Windows Terminal, tmux, and psmux. Windows Terminal integrates profiles from WSL, Azure Cloud Shell, and Visual Studio. Linux tmux uses TPM with tmux-sensible, tmux-resurrect, tmux-continuum, and tmux-onedark-theme; Windows psmux uses PPM with psmux-sensible, psmux-resurrect, psmux-continuum, and psmux-theme-onedark.
 - **Lazygit:** Editor actions invoke VS Code with `code --wait` and `code --goto`. Diffs render through `extdiff.sh`, a git external diff that runs GNU `diff` from `$XDG_CONFIG_HOME/lazygit` (default `~/.config/lazygit`), so git does not keep worktree files memory-mapped while lazygit shows a partially read diff; on Windows such mappings block editor writes with error 1224.
 - **Neovim:** `lazy.nvim` bootstraps vscode.nvim, Comment.nvim, nvim-treesitter, nvim-lspconfig, nvim-cmp (cmp-nvim-lsp, cmp-buffer, cmp-path, cmp-cmdline, LuaSnip, cmp_luasnip, and friendly-snippets), Telescope (with plenary), which-key, gitsigns, and lualine (with nvim-web-devicons). Missing Tree-sitter parsers are installed on demand using tree-sitter-cli and a C compiler. It enables the Angular (`angularls`) and TypeScript (`ts_ls`) language servers, which must be installed separately.
-- **Other editors and schemas:** VS Code settings integrate Prettier, the C# formatter, VSCodeVim, Material Icon Theme, and GitHub Copilot; Zed configures `vtsls` and the `github-copilot-cli` agent server. VS Code trusts schema sources at `aka.ms`, `developer.microsoft.com`, `json-schema.org`, `json.schemastore.org`, `raw.githubusercontent.com`, `schemastore.azurewebsites.net`, and `www.schemastore.org`; Oh My Posh themes also use the raw GitHub schema.
+- **Other editors and schemas:** VS Code settings integrate Prettier, the C# formatter, VSCodeVim, Material Icon Theme, and GitHub Copilot. VS Code trusts schema sources at `aka.ms`, `developer.microsoft.com`, `json-schema.org`, `json.schemastore.org`, `raw.githubusercontent.com`, `schemastore.azurewebsites.net`, and `www.schemastore.org`; Oh My Posh themes also use the raw GitHub schema.
 
 ## Deployment & Infrastructure
 

@@ -1,3 +1,8 @@
+---
+title: Global Prompt
+description: Global coding, workflow, testing, and safety rules for AI coding agents.
+---
+
 # Global Prompt
 
 ## Introduction

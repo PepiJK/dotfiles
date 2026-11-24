@@ -1,3 +1,7 @@
+---
+description: Format and criteria for Architecture Decision Records created by pepi-project-setup.
+---
+
 # ADR format
 
 Use an ADR to preserve the reasoning behind a durable decision. Read the ADRs that touch the area

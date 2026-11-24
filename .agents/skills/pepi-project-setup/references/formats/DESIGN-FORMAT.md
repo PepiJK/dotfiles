@@ -1,3 +1,7 @@
+---
+description: Format for frontend DESIGN.md files created by pepi-project-setup.
+---
+
 # DESIGN.md format
 
 Write one `DESIGN.md` for each frontend. Describe the visual system agents should preserve when

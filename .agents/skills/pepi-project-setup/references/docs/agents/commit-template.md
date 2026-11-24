@@ -68,7 +68,7 @@ Link the commit to the backing tracker when applicable:
 - **GitHub**: use `#<number>` or `Closes #<number>` / `Fixes #<number>`.
 - **Azure DevOps**: use `AB#<id>` or `Fixes AB#<id>` to link directly to Azure Boards work items.
 
-Keep unrelated changes in separate commits when practical. Preserve required trailers when the commit is created by an agent workflow.
+Keep unrelated changes in separate commits when practical. Preserve required agent trailers.
 
 ## Completion criteria
 
